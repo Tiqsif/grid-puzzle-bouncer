@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7120494322230071002}
   - component: {fileID: 1453753856842941396}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Unit
-  m_TagString: Enemy
-  m_Icon: {fileID: 0}
+  m_TagString: Untagged
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -46,3 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellPosition: {x: 0, y: 0}
   color: {r: 0, g: 0, b: 0, a: 0}
+  type: 3
+  moveSpeed: 0
+  isMoving: 0

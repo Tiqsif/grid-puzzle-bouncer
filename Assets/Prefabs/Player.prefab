@@ -46,3 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellPosition: {x: 0, y: 0}
   color: {r: 0, g: 1, b: 0, a: 0}
+  type: 1
+  moveSpeed: 2
+  isMoving: 0

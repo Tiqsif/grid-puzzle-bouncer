@@ -22,11 +22,16 @@ public class Grid
 
 
     // --- Get World Position ---
-    public Vector3 GetWorldPosition(int x, int y)
+    public Vector3 GetWorldPosition(int x, int y) // NOT SECURED (no check if x and y are in the grid)
     {
         return new Vector3(x, 0, y) * cellSize;
     }
 
+    /// <summary>
+    /// Get the world position of a cell. NOT SECURED (no check if x and y are in the grid)
+    /// </summary>
+    /// <param name="xy"></param>
+    /// <returns></returns>
     public Vector3 GetWorldPosition(Vector2Int xy)
     {
         return GetWorldPosition(xy.x, xy.y);
@@ -43,7 +48,7 @@ public class Grid
     //--------------------------------
 
     // ------ Set Value ------
-    public void SetValue(int x, int y, int value)
+    public void SetValue(int x, int y, int value) // platform.celltype as value
     {
         if (x >= 0 && y >= 0 && x < width && y < height)
         {
@@ -106,8 +111,23 @@ public class Grid
         {
             for (int z = 0; z < height; z++)
             {
-                Color color = (GetValue(x, z) == 0) ? Color.white : Color.black;
-                Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x , z) + Vector3.up, color, 100f);
+                Color color;
+                switch (GetValue(x, z))
+                {
+                    case (int)Platform.CellType.PlayerCell:
+                        color = Color.green;
+                        break;
+                    case (int)Platform.CellType.EnemyCell:
+                        color = Color.red;
+                        break;
+                    case (int)Platform.CellType.RockCell:
+                        color = Color.black;
+                        break;
+                    default:
+                        color = Color.white;
+                        break;
+                }
+                Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x , z) + Vector3.up, color);
             }
         }
     }
@@ -129,4 +149,8 @@ public class Grid
         return closest;
     }
 
+    public void Clear()
+    {
+        gridArray = new int[width, height];
+    }
 }
