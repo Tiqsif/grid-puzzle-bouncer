@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [ExecuteAlways]
@@ -13,6 +14,11 @@ public class Platform : MonoBehaviour
     public Transform unitsHolder;
     public Player player;
     private List<Unit> units;
+    private int enemyCount;
+    private bool isEnding;
+    private bool isPlayerDead;
+    public delegate void OnPlayerDeath();
+    public static event OnPlayerDeath onPlayerDeath;
     public enum CellType
     {
         EmptyCell,
@@ -44,6 +50,10 @@ public class Platform : MonoBehaviour
                 {
                     this.player = player;
                 }
+            }
+            foreach (Unit unit in units)
+            {
+                CheckAndSnap(unit);
             }
         }
         SetGridElements();
@@ -100,7 +110,13 @@ public class Platform : MonoBehaviour
                 MoveUnit(player, Vector2Int.right);
             }
         }
+
+        if (enemyCount == 0 && !player.isMoving) // if all enemies are cleared and player is not moving game is won
+        {
+            Win();
+        }
         grid.DrawGrid();
+
     }
 
     // --------------------------------------------------------------- MOVE UNIT -----------------------------------------------------------------------------------------------------
@@ -117,8 +133,12 @@ public class Platform : MonoBehaviour
         {
             return;
         }
-
-        StartCoroutine(MoveUnitRoutine(unitToMove, direction));
+        // make the unit look at the direction it is moving
+        unitToMove.transform.right = new Vector3(direction.x, 0, direction.y);
+        if (unitToMove != null)
+        {
+            StartCoroutine(MoveUnitRoutine(unitToMove, direction));
+        }
         //SetGridElements(); // if this is called, grid will be updated before the movement to empty cell is completed. only works for empty cells!
     }
 
@@ -129,10 +149,25 @@ public class Platform : MonoBehaviour
 
         while (true)
         {
+            bool isPlayer = false;
+            FrogAnimationHandler frogAnimationHandler = null;
+            if (unitToMove.TryGetComponent(out Player player))
+            {
+                isPlayer = true;
+                frogAnimationHandler = unitToMove.GetComponentInChildren<FrogAnimationHandler>();
+                
+
+            }
+
             int targetCellValue = grid.GetValue(targetPosition);
 
             if (targetCellValue == (int)CellType.EmptyCell) // if empty, go
             {
+                if (frogAnimationHandler != null)
+                {
+                    frogAnimationHandler.Jump();
+                }
+
                 unitToMove.cellPosition = targetPosition;
                 Vector3 targetWorldPosition = grid.GetWorldPosition(targetPosition);
                 yield return unitToMove.MoveTo(targetWorldPosition);
@@ -140,7 +175,14 @@ public class Platform : MonoBehaviour
             }
             else if (targetCellValue == -1) // out of bounds INVALID
             {
-                Debug.LogWarning("Out of bounds");
+                if (frogAnimationHandler != null)
+                {
+                    frogAnimationHandler.Fall();
+                }
+                Vector3 targetWorldPosition = grid.GetWorldPosition(targetPosition);
+                Debug.Log(targetWorldPosition);
+                yield return unitToMove.FallTo(targetWorldPosition);
+                Die();
                 break; // break the loop finish the movement
             }
             else if (targetCellValue == (int)CellType.EnemyCell) // if enemy, attack and jump to next cell
@@ -150,7 +192,11 @@ public class Platform : MonoBehaviour
                 {
                     if (enemy.type == Type.Enemy && enemy.cellPosition == targetPosition)
                     {
-                        enemy.gameObject.SetActive(false);
+                        if (frogAnimationHandler != null)
+                        {
+                            frogAnimationHandler.AttackJump();
+                        }
+                        enemy.GetComponent<Enemy>().Die(0.5f);
                         grid.SetValue(targetPosition, (int)CellType.EmptyCell);
                         break; // breaks the foreach loop !!! not the while loop !!! 
                     }
@@ -158,6 +204,10 @@ public class Platform : MonoBehaviour
             }
             else if (targetCellValue == (int)CellType.RockCell) // if rock, jump over it to next cell
             {
+                if (frogAnimationHandler != null)
+                {
+                    frogAnimationHandler.HalfJump();
+                }
                 Debug.Log($"Jumping over rock at: {targetPosition.x}, {targetPosition.y}");
             }
             else
@@ -184,6 +234,19 @@ public class Platform : MonoBehaviour
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    void Die()
+    {
+        if (isPlayerDead)
+        {
+            return;
+        }
+        Debug.Log("Player died");
+        isPlayerDead = true;
+        onPlayerDeath?.Invoke();
+    }
     public Vector2Int CheckAndSnap(Unit u)
     {
         Vector3 closestCell = grid.GetClosestCellWorldPosition(u.transform.position);
@@ -199,6 +262,7 @@ public class Platform : MonoBehaviour
 
     public void SetGridElements()
     {
+        enemyCount = 0;
         grid.Clear();
         foreach (Unit unit in units)
         {
@@ -206,9 +270,27 @@ public class Platform : MonoBehaviour
             {
                 continue;
             }
+            if (unit.type == Type.Enemy)
+            {
+                enemyCount++;
+            }
+            
             grid.SetValue(unit.cellPosition, (int)unit.type);
-            Debug.Log(unit.type + "to: " + unit.cellPosition);
+            //Debug.Log(unit.type + "to: " + unit.cellPosition);
         }
+        Debug.Log("Enemy count: " + enemyCount);
         Debug.Log("---");
+        
+    }
+
+    void Win()
+    {
+        if (isEnding || isPlayerDead)
+        {
+            return;
+        }
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.winClip);
+        LevelManager.Instance.LoadNextLevel(2f);
+        isEnding = true;
     }
 }

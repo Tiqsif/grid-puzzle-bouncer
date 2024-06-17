@@ -50,6 +50,13 @@ MonoBehaviour:
   type: 1
   moveSpeed: 2
   isMoving: 0
+  jumpClip: {fileID: 8300000, guid: c131014db7621844d946c0991152f970, type: 3}
+  landClip: {fileID: 8300000, guid: 4f6757ea9c2b18b4badda2fea886ffb6, type: 3}
+  hitClip:
+  - {fileID: 8300000, guid: 9b04f7500024f4d468e2fa57a9016158, type: 3}
+  - {fileID: 8300000, guid: e1c9246d1c0660d418b2fa20b392e743, type: 3}
+  - {fileID: 8300000, guid: eefa767f06c262742ba04df8b5dab64e, type: 3}
+  deathClip: {fileID: 8300000, guid: 72ce24766c5cc0a48b715138fe8bd264, type: 3}
 --- !u!1 &8442329044268368746
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,6 +66,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 887421672644075319}
+  - component: {fileID: 3276198336485241520}
+  - component: {fileID: 305349569744536783}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -82,6 +91,40 @@ Transform:
   - {fileID: 3328002795859794195}
   m_Father: {fileID: 6658813238719638555}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!95 &3276198336485241520
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8442329044268368746}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0e19ecdb49a44da44b1010bfe999ab9b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &305349569744536783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8442329044268368746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce3f8f3db53baf6489fa09ecd9b893b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!1001 &3001026366151311096
 PrefabInstance:
   m_ObjectHideFlags: 0

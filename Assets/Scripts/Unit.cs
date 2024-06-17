@@ -20,6 +20,21 @@ public class Unit : MonoBehaviour
         }
     }
 
+    public IEnumerator FallTo(Vector3 targetPosition)
+    {
+        // called when the player falls down to the water out of bounds
+        moveQueue.Enqueue(targetPosition);
+        if (!isMoving)
+        {
+            yield return StartCoroutine(ProcessMoveQueue());
+        }
+        targetPosition.y = transform.position.y - 5f;
+        moveQueue.Enqueue(targetPosition);
+        
+            yield return StartCoroutine(ProcessMoveQueue());
+        
+    }
+
     private IEnumerator ProcessMoveQueue()
     {
         isMoving = true;
