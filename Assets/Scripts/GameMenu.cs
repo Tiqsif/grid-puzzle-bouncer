@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,9 +10,12 @@ public class GameMenu : MonoBehaviour
 
     public RectTransform deathMenu;
     public RectTransform pauseMenu;
+
+    public TextMeshProUGUI levelNum;
     private void Awake()
     {
         Platform.onPlayerDeath += OnPlayerDeath;
+        levelNum.text = (SceneManager.GetActiveScene().buildIndex ).ToString();
     }
 
     private void OnDestroy()
