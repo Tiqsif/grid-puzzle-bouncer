@@ -107,29 +107,6 @@ public class Grid
             Debug.DrawLine(start, end, Color.black);
         }
 
-        for (int x = 0; x < width; x++)
-        {
-            for (int z = 0; z < height; z++)
-            {
-                Color color;
-                switch (GetValue(x, z))
-                {
-                    case (int)Platform.CellType.PlayerCell:
-                        color = Color.green;
-                        break;
-                    case (int)Platform.CellType.EnemyCell:
-                        color = Color.red;
-                        break;
-                    case (int)Platform.CellType.RockCell:
-                        color = Color.black;
-                        break;
-                    default:
-                        color = Color.white;
-                        break;
-                }
-                Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x , z) + Vector3.up, color);
-            }
-        }
     }
 
     public Vector3 GetClosestCellWorldPosition(Vector3 worldPosition)

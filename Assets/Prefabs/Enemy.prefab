@@ -46,14 +46,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellPosition: {x: 0, y: 0}
-  color: {r: 1, g: 0, b: 0, a: 0}
+  color: {r: 1, g: 0, b: 0, a: 1}
   type: 2
-  moveSpeed: 1
-  isMoving: 0
-  deathClips:
+  onJumpedClip:
   - {fileID: 8300000, guid: eefa767f06c262742ba04df8b5dab64e, type: 3}
   - {fileID: 8300000, guid: 9b04f7500024f4d468e2fa57a9016158, type: 3}
   - {fileID: 8300000, guid: e1c9246d1c0660d418b2fa20b392e743, type: 3}
+  moveSpeed: 1
+  jumpAmount: 1
+  isJumpable: 1
+  isMoving: 0
 --- !u!1 &6455269532172952208
 GameObject:
   m_ObjectHideFlags: 0

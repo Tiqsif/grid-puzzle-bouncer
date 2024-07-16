@@ -13,19 +13,17 @@ public class Platform : MonoBehaviour
 
     public Transform unitsHolder;
     public Player player;
+    private float playerSpeed;
     private List<Unit> units;
     private int enemyCount;
     private bool isEnding;
     private bool isPlayerDead;
+    private float inputDelay = 0.7f;
+    private float lastInputTime;
+
     public delegate void OnPlayerDeath();
     public static event OnPlayerDeath onPlayerDeath;
-    public enum CellType
-    {
-        EmptyCell,
-        PlayerCell,
-        EnemyCell,
-        RockCell
-    }
+
 
     private void OnDrawGizmos()
     {
@@ -33,6 +31,14 @@ public class Platform : MonoBehaviour
         {
             grid.DrawGrid();
         }
+
+        foreach (Unit unit in units)
+        {
+            Color color = unit.color;
+            Debug.DrawLine(GetWorldPosition(unit.cellPosition.x,unit.cellPosition.y), GetWorldPosition(unit.cellPosition.x, unit.cellPosition.y ) + Vector3.up, color);
+            
+        }
+           
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -49,6 +55,7 @@ public class Platform : MonoBehaviour
                 if (child.TryGetComponent(out Player player))
                 {
                     this.player = player;
+                    playerSpeed = player.moveSpeed;
                 }
             }
             foreach (Unit unit in units)
@@ -129,10 +136,15 @@ public class Platform : MonoBehaviour
             Debug.LogWarning("unitToMove not found");
             return;
         }
-        if (unitToMove.isMoving)
+        if (unitToMove.isMoving || isEnding || isPlayerDead)
         {
             return;
         }
+        if (Time.time - lastInputTime < inputDelay)
+        {
+            return;
+        }
+        lastInputTime = Time.time;
         // make the unit look at the direction it is moving
         unitToMove.transform.right = new Vector3(direction.x, 0, direction.y);
         if (unitToMove != null)
@@ -146,34 +158,41 @@ public class Platform : MonoBehaviour
     {
         Vector2Int currentPosition = unitToMove.cellPosition;
         Vector2Int targetPosition = currentPosition + direction;
+        player.moveSpeed = playerSpeed;
 
+        //Vector2Int previousDirection = direction;
+        //bool movingBackwards = false;
+        Debug.Log("routine");
         while (true)
         {
+            Debug.Log("while");
             bool isPlayer = false;
             FrogAnimationHandler frogAnimationHandler = null;
             if (unitToMove.TryGetComponent(out Player player))
             {
                 isPlayer = true;
                 frogAnimationHandler = unitToMove.GetComponentInChildren<FrogAnimationHandler>();
-                
 
+                while (frogAnimationHandler.isPlaying)
+                {
+                    yield return null;
+                }
             }
-
+            Unit unitJumpedOn = null;
             int targetCellValue = grid.GetValue(targetPosition);
-
-            if (targetCellValue == (int)CellType.EmptyCell) // if empty, go
+            int jumpAmount;
+            if (targetCellValue == (int)Type.Empty) // if empty, go ----------------------------------- EMPTY -----------------------------------
             {
                 if (frogAnimationHandler != null)
                 {
                     frogAnimationHandler.Jump();
                 }
-
                 unitToMove.cellPosition = targetPosition;
                 Vector3 targetWorldPosition = grid.GetWorldPosition(targetPosition);
                 yield return unitToMove.MoveTo(targetWorldPosition);
                 break; // break the loop finish the movement
             }
-            else if (targetCellValue == -1) // out of bounds INVALID
+            else if (targetCellValue == -1) // out of bounds  ----------------------------------- OUT OF GRID -----------------------------------
             {
                 if (frogAnimationHandler != null)
                 {
@@ -185,43 +204,127 @@ public class Platform : MonoBehaviour
                 Die();
                 break; // break the loop finish the movement
             }
-            else if (targetCellValue == (int)CellType.EnemyCell) // if enemy, attack and jump to next cell
+            else // ------------------------------------------------------- IF UNIT ------------------------------------------------------
             {
-                Debug.Log("Attacking enemy");
-                foreach (Unit enemy in units)
+                // ------------------------------------------------------- ALL UNITs ------------------------------------------------------
+                
+                foreach (Unit unit in units)
                 {
-                    if (enemy.type == Type.Enemy && enemy.cellPosition == targetPosition)
+                    if (unit.cellPosition == targetPosition)
                     {
-                        if (frogAnimationHandler != null)
-                        {
-                            frogAnimationHandler.AttackJump();
-                        }
-                        enemy.GetComponent<Enemy>().Die(0.5f);
-                        grid.SetValue(targetPosition, (int)CellType.EmptyCell);
-                        break; // breaks the foreach loop !!! not the while loop !!! 
+                        unitJumpedOn = unit;
+                        break; // not while but foreach
                     }
                 }
-            }
-            else if (targetCellValue == (int)CellType.RockCell) // if rock, jump over it to next cell
-            {
-                if (frogAnimationHandler != null)
+                jumpAmount = unitJumpedOn.jumpAmount;
+                if (frogAnimationHandler != null) // ----------------------------------- PLAYER ANIMATION -----------------------------------
                 {
-                    frogAnimationHandler.HalfJump();
+                    while (frogAnimationHandler.isPlaying)
+                    {
+                        yield return null;
+                    }
+                    if (unitJumpedOn.isJumpable)
+                    {
+                        frogAnimationHandler.HalfJump();
+                    }
+                    else
+                    {
+                        frogAnimationHandler.Bump();
+                    }
                 }
-                Debug.Log($"Jumping over rock at: {targetPosition.x}, {targetPosition.y}");
+                unitJumpedOn.JumpedOn();
+
+                // ------------------------------------------------------- /ALL UNITs ------------------------------------------------------
+
+                if (targetCellValue == (int)Type.Enemy) // if enemy jumps to next cell ----------------------------------- ENEMY -----------------------------------
+                {
+                    Debug.Log("Attacking enemy");
+                    grid.SetValue(targetPosition, (int)Type.Empty);
+                }
+                else if (targetCellValue == (int)Type.Mushroom) // if mushroom jumps to next cell ----------------------------------- MUSHROOM -----------------------------------
+                {
+                    Debug.Log($"Jumping over mush at: {targetPosition.x}, {targetPosition.y}");
+                }
+                else if (targetCellValue == (int)Type.Flower) // ----------------------------------- FLOWER -----------------------------------
+                {
+                    Debug.Log("Jumping over flower");
+                }
+                else if (targetCellValue == (int)Type.Rock) // ----------------------------------- ROCK -----------------------------------
+                {
+                    Debug.Log("Headbumping the rock");
+                    Unit unitJumpedFrom = null;
+                    Debug.Log("current" + currentPosition);
+                    Debug.Log("target" + targetPosition);
+                    foreach (Unit unit in units)
+                    {
+                        if (unit.cellPosition == currentPosition)
+                        {
+                            unitJumpedFrom = unit;
+                            break; // not while but foreach
+                        }
+                    }
+                    if (unitJumpedFrom == null || unitJumpedFrom.jumpAmount <= 0) // from empty cell
+                    {
+                        Debug.Log("from empty break!");
+                        unitToMove.cellPosition = currentPosition;
+
+                        break; // break the loop finish the movement
+                    }
+                    else
+                    {
+                        Debug.Log("else change dir");
+                        // Move back to the original position
+                        direction = -direction;
+                        // normalize direction
+                        unitToMove.transform.right = new Vector3(direction.x, 0, direction.y);
+                        currentPosition = targetPosition;
+                        targetPosition = currentPosition + direction;
+
+                        Vector3 next = grid.GetWorldPosition(targetPosition);
+                        Debug.Log("TARGET:" + targetPosition);
+                        //yield return unitToMove.MoveTo(next); // start MoveTo coroutine and wait for it to finish
+
+                        Debug.Log("current" + currentPosition);
+                    }
+                    
+
+                    //break;
+                }
+                else if (targetCellValue == (int)Type.Water) // ----------------------------------- WATER -----------------------------------
+                {
+                    Vector3 targetWorldPosition = grid.GetWorldPosition(targetPosition);
+                    Debug.Log(targetWorldPosition);
+                    yield return unitToMove.FallTo(targetWorldPosition);
+                    Die();
+                    break; // break the loop finish the movement
+                }
+                else if (targetCellValue == (int)Type.LilyPad) // ----------------------------------- LILY PAD -----------------------------------
+                {
+                    Debug.Log("Jumping on lily pad");
+
+                }
+                else if (targetCellValue == (int)Type.Player) // ----------------------------------- PLAYER -----------------------------------
+                {
+                    unitToMove.cellPosition = targetPosition;
+                    Vector3 targetWorldPosition = grid.GetWorldPosition(targetPosition);
+                    yield return unitToMove.MoveTo(targetWorldPosition);
+                    Debug.LogWarning("Jumping on player");
+                    break; // break the loop finish the movement
+                }
+                else // ----------------------------------- UNIDENTIFIED CELL -----------------------------------
+                {
+                    Debug.LogWarning("Unexpected cell type");
+                    break; // break the loop finish the movement
+                }
+                
             }
-            else
-            {
-                Debug.LogWarning("Unexpected cell type");
-                break; // break the loop finish the movement
-            }
+            // --------------------------------------------------------- /UNIT ------------------------------------------------------
 
             // update current position
-            currentPosition = targetPosition;
-            targetPosition = currentPosition + direction;
 
             // move to the next cell
-            Vector3 nextWorldPosition = grid.GetWorldPosition(currentPosition);
+            Vector3 nextWorldPosition = grid.GetWorldPosition(targetPosition);
+            Debug.Log("TARGET:" + targetPosition);
             yield return unitToMove.MoveTo(nextWorldPosition); // start MoveTo coroutine and wait for it to finish
 
             // delay to make sure MoveTo has completed before continuing
@@ -229,7 +332,16 @@ public class Platform : MonoBehaviour
             {
                 yield return null;
             }
-        }
+            if (unitJumpedOn != null)
+            {
+                unitJumpedOn.JumpedOff();
+            }
+            player.moveSpeed = playerSpeed * jumpAmount;
+            
+            currentPosition = targetPosition;
+            targetPosition = currentPosition + (direction * jumpAmount);
+
+        } // /while
         SetGridElements();
     }
 
@@ -250,7 +362,7 @@ public class Platform : MonoBehaviour
     public Vector2Int CheckAndSnap(Unit u)
     {
         Vector3 closestCell = grid.GetClosestCellWorldPosition(u.transform.position);
-        u.transform.position = new Vector3(closestCell.x, u.transform.position.y, closestCell.z);
+        u.transform.position = new Vector3(closestCell.x, closestCell.y, closestCell.z);
         u.cellPosition = grid.GetXY(closestCell);
 
         grid.SetValue(u.cellPosition, (int)u.type);
@@ -262,6 +374,12 @@ public class Platform : MonoBehaviour
 
     public void SetGridElements()
     {
+        units = new List<Unit>();
+        
+        foreach (Transform child in unitsHolder) // get all children of the object
+        {
+            units.Add(child.GetComponent<Unit>());
+        }
         enemyCount = 0;
         grid.Clear();
         foreach (Unit unit in units)
@@ -278,11 +396,14 @@ public class Platform : MonoBehaviour
             grid.SetValue(unit.cellPosition, (int)unit.type);
             //Debug.Log(unit.type + "to: " + unit.cellPosition);
         }
-        Debug.Log("Enemy count: " + enemyCount);
-        Debug.Log("---");
+        //Debug.Log("Enemy count: " + enemyCount);
+        //Debug.Log("---");
         
     }
-
+    public Vector3 GetWorldPosition(int x, int y) // NOT SECURED (no check if x and y are in the grid)
+    {
+        return new Vector3(x, 0, y) * cellSize;
+    }
     void Win()
     {
         if (isEnding || isPlayerDead)

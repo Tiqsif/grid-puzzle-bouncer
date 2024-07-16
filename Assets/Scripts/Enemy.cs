@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
-    public AudioClip[] deathClips;
-    public void Die(float time)
+    private void Die(float time)
     {
-        foreach (var clip in deathClips)
-        {
-            AudioManager.Instance.PlaySFX(clip);
-        }
         Destroy(gameObject, time);
+    }
+
+    public override void JumpedOn()
+    {
+        base.JumpedOn();
+        Die(0.5f);
     }
 }

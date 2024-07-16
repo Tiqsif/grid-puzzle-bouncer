@@ -37,7 +37,7 @@ public class BugAnimationHandler : MonoBehaviour
         if (!isRotating)
         {
             float angleToRotate = UnityEngine.Random.Range(-3, 4) * 45;
-            Debug.Log($"Rotating by {angleToRotate} degrees");
+            //Debug.Log($"Rotating by {angleToRotate} degrees");
             animator.SetTrigger("Shake");
             StartCoroutine(RotateRoutine(angleToRotate));
 
@@ -53,7 +53,7 @@ public class BugAnimationHandler : MonoBehaviour
         Vector3 startRotation = parent.eulerAngles;
         Vector3 endRotation = startRotation + new Vector3(0, angle, 0);
         float rotationDuration = Mathf.Abs(angle) / rotateSpeed; // time to complete the rotation
-        Debug.Log($"Rotation Duration: {rotationDuration} seconds");
+        //Debug.Log($"Rotation Duration: {rotationDuration} seconds");
         float elapsedTime = 0f;
         isRotating = true;
         while (elapsedTime < rotationDuration)

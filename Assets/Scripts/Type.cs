@@ -7,5 +7,9 @@ public enum Type
     Empty,
     Player,
     Enemy,
-    Rock
+    Rock,
+    Mushroom,
+    Water,
+    LilyPad,
+    Flower
 }
