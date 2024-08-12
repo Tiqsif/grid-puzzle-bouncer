@@ -1,10 +1,11 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
     // Singleton instance
-    public float volume = 0.1f;
+    public float volume = 0.5f;
     public float musicVolume = 0.05f;
     public AudioClip musicClip;
     public AudioClip winClip;
@@ -64,10 +65,11 @@ public class AudioManager : MonoBehaviour
         // Play the music clip when a new scene is loaded
         PlayMusic(musicClip, true);
     }
+    
 
     private void Start()
     {
-        PlayMusic(musicClip, true);
+        //PlayMusic(musicClip, true);
     }
 
     
@@ -80,10 +82,11 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("AudioClip is null. Cannot play sound.");
             return;
         }
-        //Debug.Log("Playing SFX"+ clip.name);
+        Debug.Log("Playing SFX "+ clip.name);
         // Create a temporary GameObject
-        GameObject tempAudioObject = new GameObject("TempAudio");
+        GameObject tempAudioObject = new GameObject("TempSFX");
         tempAudioObject.transform.position = AudioManager.Instance.transform.position;
+        tempAudioObject.transform.parent = AudioManager.Instance.transform;
         // Add an AudioSource component to the GameObject
         AudioSource audioSource = tempAudioObject.AddComponent<AudioSource>();
         audioSource.volume = volume;
@@ -106,6 +109,24 @@ public class AudioManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         PlaySFX(clip);
+    }
+
+    /// <summary>
+    /// kills any instance of the clip already playing
+    /// </summary>
+    /// <param name="clip"></param>
+    public void KillSFX(AudioClip clip)
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.TryGetComponent(out AudioSource audioSource))
+            {
+                if (audioSource.clip == clip)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+        }
     }
     public void PlayMusic(AudioClip musicClip, bool isLooping = false)
     {

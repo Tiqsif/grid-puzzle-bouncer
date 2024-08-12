@@ -50,8 +50,8 @@ MonoBehaviour:
   type: 1
   onJumpedClip: []
   moveSpeed: 2
-  jumpAmount: 0
-  isJumpable: 1
+  bounceAmount: {x: 0, y: 0}
+  isJumpable: 0
   isMoving: 0
   jumpClip: {fileID: 8300000, guid: c131014db7621844d946c0991152f970, type: 3}
   landClip: {fileID: 8300000, guid: 4f6757ea9c2b18b4badda2fea886ffb6, type: 3}
@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  isPlaying: 0
 --- !u!1001 &3001026366151311096
 PrefabInstance:
   m_ObjectHideFlags: 0

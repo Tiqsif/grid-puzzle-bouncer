@@ -14,13 +14,13 @@ public class GameMenu : MonoBehaviour
     public TextMeshProUGUI levelNum;
     private void Awake()
     {
-        Platform.onPlayerDeath += OnPlayerDeath;
+        Player.onPlayerDeath += OnPlayerDeath;
         levelNum.text = (SceneManager.GetActiveScene().buildIndex ).ToString();
     }
 
     private void OnDestroy()
     {
-        Platform.onPlayerDeath -= OnPlayerDeath;
+        Player.onPlayerDeath -= OnPlayerDeath;
     }
     void Update()
     {
