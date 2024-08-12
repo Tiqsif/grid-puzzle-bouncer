@@ -48,7 +48,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7120494322230071002}
-  - component: {fileID: 1453753856842941396}
+  - component: {fileID: 2049926994070957205}
   m_Layer: 0
   m_Name: Water
   m_TagString: Untagged
@@ -72,7 +72,7 @@ Transform:
   - {fileID: 1881667612523381086}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1453753856842941396
+--- !u!114 &2049926994070957205
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -81,18 +81,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 8514086045341286328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 580efd1078274f3498e7bc48d056767b, type: 3}
+  m_Script: {fileID: 11500000, guid: 140a2373a55d0024c83b641a73733410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cellPosition: {x: 0, y: 0}
-  color: {r: 0, g: 0.3750186, b: 1, a: 1}
+  color: {r: 0, g: 0.3764706, b: 1, a: 1}
   type: 5
   onJumpedClip:
   - {fileID: 8300000, guid: 907ba866149c5104890b2a2a94a5a3b1, type: 3}
   moveSpeed: 0
-  jumpAmount: 0
   isJumpable: 1
   isMoving: 0
+  isDead: 0
 --- !u!1001 &509039232374596173
 PrefabInstance:
   m_ObjectHideFlags: 0
