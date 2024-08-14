@@ -11,5 +11,7 @@ public enum Type
     Mushroom,
     Water,
     LilyPad,
-    Flower
+    Flower,
+    TiltedMushroom,
+    TiltedFlower
 }

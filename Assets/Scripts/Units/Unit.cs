@@ -8,7 +8,7 @@ public class Unit : MonoBehaviour
     public Color color;
     public Type type;
     public AudioClip[] onJumpedClip;
-    public float moveSpeed = 5f;
+    public float moveSpeed = 0f;
     private float currentSpeed;
     public Queue<Vector3> moveQueue = new Queue<Vector3>();
     public bool isJumpable = true;
