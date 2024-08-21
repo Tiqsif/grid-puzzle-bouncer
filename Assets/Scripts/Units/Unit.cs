@@ -22,17 +22,14 @@ public class Unit : MonoBehaviour
     
     public void Move(Vector2Int targetPosition)
     {
-        StartCoroutine(MoveRoutine(targetPosition));
+        StartCoroutine(MoveRoutine(targetPosition, 0f));
     }
-    public IEnumerator MoveRoutine(Vector2Int targetPosition)
+    public void Move(Vector2Int targetPosition, float delay)
     {
-        /*
-        if (Time.time - lastInputTime < inputDelay)
-        {
-            return;
-        }
-        lastInputTime = Time.time;
-        */
+        StartCoroutine(MoveRoutine(targetPosition, delay));
+    }
+    public IEnumerator MoveRoutine(Vector2Int targetPosition, float delay)
+    {
         if (isDead)
         {
             yield break;
@@ -41,15 +38,19 @@ public class Unit : MonoBehaviour
         {
             yield return null;
         }
-        Debug.Log("Move");
+        yield return new WaitForSeconds(delay);
+        Debug.Log("Moving " + name);
         Vector2Int direction = targetPosition - cellPosition;
         Vector2 directionF = targetPosition - cellPosition;
         float mag = directionF.magnitude;
         currentSpeed = moveSpeed * mag;
-        transform.right = new Vector3(direction.x, 0, direction.y);
+        if (type == Type.Player)
+        {
+            transform.right = new Vector3(direction.x, 0, direction.y);
+        }
 
-        Unit targetUnit = GetNonPlayerUnitAtPosition(targetPosition);
-        Unit fromUnit = GetNonPlayerUnitAtPosition(cellPosition);
+        Unit targetUnit = GetNonSelfUnitAtPosition(targetPosition);
+        Unit fromUnit = GetNonSelfUnitAtPosition(cellPosition);
 
         if (fromUnit != null) // non player unit jumped from
         {
@@ -154,7 +155,27 @@ public class Unit : MonoBehaviour
         }
         return null;
     }
-    protected Unit GetNonPlayerUnitAtPosition(Vector2Int position)
+    protected Unit GetUnitAtPosition(Vector2Int position, Unit excluded)
+    {
+
+        if (platform == null || platform.units == null)
+        {
+            Debug.Log(platform.units == null);
+            Debug.LogWarning("Platform not found");
+            return null;
+        }
+
+        foreach (Unit unit in platform.units)
+        {
+            if (unit.cellPosition == position && unit != excluded)
+            {
+                return unit;
+            }
+        }
+        return null;
+    }
+
+    protected Unit GetNonSelfUnitAtPosition(Vector2Int position)
     {
         if (platform == null || platform.units == null)
         {
@@ -163,7 +184,7 @@ public class Unit : MonoBehaviour
         }
         foreach (Unit unit in platform.units)
         {
-            if (unit.cellPosition == position && unit.type != Type.Player)
+            if (unit.cellPosition == position && unit != this)
             {
                 return unit;
             }
@@ -210,6 +231,8 @@ public class Unit : MonoBehaviour
         {
             playerScript.Die();
         }
+        Destroy(gameObject);
+        platform.SetGridElements();
     }
 
     public virtual void JumpOnAnimation()
@@ -234,32 +257,5 @@ public class Unit : MonoBehaviour
     {
         // animation for falling down
     }
-    /*
-    public Vector2Int GetBounce(Vector2Int direction)
-    {
-
-        // Normalize the direction vector
-        direction = new Vector2Int(Mathf.Clamp(direction.x, -1, 1), Mathf.Clamp(direction.y, -1, 1));
-
-        if (direction == Vector2Int.up)
-        {
-            return bounceAmount;
-        }
-        else if (direction == Vector2Int.down)
-        {
-            return new Vector2Int(-bounceAmount.x, -bounceAmount.y);
-        }
-        else if (direction == Vector2Int.left)
-        {
-            return new Vector2Int(-bounceAmount.y, bounceAmount.x);
-        }
-        else if (direction == Vector2Int.right)
-        {
-            return new Vector2Int(bounceAmount.y, -bounceAmount.x);
-        }
-
-        // Default case (no rotation)
-        return bounceAmount;
-    }
-    */
+    
 }

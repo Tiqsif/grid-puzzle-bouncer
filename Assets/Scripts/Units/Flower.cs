@@ -18,7 +18,6 @@ public class Flower : Unit
         direction *= 2; // double the distance
         Vector2Int playerTarget = cellPosition + direction;
         player.cellPosition = cellPosition;
-        // moveto animation may be added here
         player.Move(playerTarget);
     }
 

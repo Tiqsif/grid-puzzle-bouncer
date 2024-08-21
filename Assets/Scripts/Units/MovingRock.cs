@@ -1,18 +1,18 @@
-
 using System.Collections;
 using UnityEngine;
 
-public class Rock : Unit
+public class MovingRock : Unit
 {
     
     public override IEnumerator JumpingOn(Unit player)
     {
         yield return base.JumpingOn(player);
+        player.BumpAnimation();
         Vector2Int direction = cellPosition - player.cellPosition;
         direction = new Vector2Int(Mathf.Clamp(direction.x, -1, 1), Mathf.Clamp(direction.y, -1, 1));
         player.BumpAnimation();
         yield return StartCoroutine(player.MoveTo(
-           ( platform.grid.GetWorldPosition(cellPosition - direction) + platform.grid.GetWorldPosition(cellPosition) ) / 2
+           (platform.grid.GetWorldPosition(cellPosition - direction) + platform.grid.GetWorldPosition(cellPosition)) / 2
             ));
         StartCoroutine(player.MoveTo(
             platform.grid.GetWorldPosition(cellPosition - direction)
@@ -35,6 +35,15 @@ public class Rock : Unit
             player.cellPosition = cellPosition;
             player.Move(target);
 
+        }
+
+
+        if (GetUnitAtPosition(cellPosition + direction) == null) // going to empty
+        {
+            Move(cellPosition + direction);
+        }
+        else // going to another unit
+        {
         }
     }
 

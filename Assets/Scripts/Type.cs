@@ -13,5 +13,8 @@ public enum Type
     LilyPad,
     Flower,
     TiltedMushroom,
-    TiltedFlower
+    TiltedFlower,
+    MovingRock,
+    MushroomFrog,
+    FlowerFrog
 }

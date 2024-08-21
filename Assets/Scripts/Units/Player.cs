@@ -8,14 +8,14 @@ public class Player : Unit
     public AudioClip landClip;
     public AudioClip deathClip;
 
-    private FrogAnimationHandler animationHandler;
+    private PlayerAnimationHandler animationHandler;
 
     public delegate void OnPlayerDeath();
     public static event OnPlayerDeath onPlayerDeath;
 
     private void Start()
     {
-        animationHandler = GetComponentInChildren<FrogAnimationHandler>();
+        animationHandler = GetComponentInChildren<PlayerAnimationHandler>();
     }
     private void Update()
     {
@@ -52,7 +52,26 @@ public class Player : Unit
         onPlayerDeath?.Invoke();
     }
 
+    public override IEnumerator JumpingOn(Unit jumper)
+    {
+        yield return base.JumpingOn(jumper);
+        jumper.JumpOnAnimation();
+        yield return StartCoroutine(jumper.MoveTo(platform.grid.GetWorldPosition(cellPosition)));
+    }
+    public override void JumpedOn(Unit jumper)
+    {
+        base.JumpedOn(jumper);
+        Vector2Int direction = cellPosition - jumper.cellPosition;
+        Vector2Int playerTarget = cellPosition + direction;
+        jumper.cellPosition = cellPosition;
+        jumper.Move(playerTarget);
+    }
 
+    public override void JumpedOff(Unit jumper)
+    {
+        base.JumpedOff(jumper);
+       
+    }
     public override void JumpAnimation()
     {
         base.JumpAnimation();

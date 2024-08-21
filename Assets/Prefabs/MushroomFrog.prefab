@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6658813238719638555}
-  - component: {fileID: 1987427000580778320}
-  m_Layer: 6
-  m_Name: Player
-  m_TagString: Player
-  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  - component: {fileID: 8814549219297168818}
+  m_Layer: 0
+  m_Name: MushroomFrog
+  m_TagString: Untagged
+  m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 887421672644075319}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1987427000580778320
+--- !u!114 &8814549219297168818
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,19 +42,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1538878435225087719}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e6311478387e334aa75dac171a96eb0, type: 3}
+  m_Script: {fileID: 11500000, guid: c7c6281f3ab91e44e861dece03588a3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cellPosition: {x: 0, y: 0}
-  color: {r: 0, g: 1, b: 0, a: 1}
-  type: 1
-  onJumpedClip: []
+  color: {r: 0.764151, g: 0.37696362, b: 0, a: 1}
+  type: 11
+  onJumpedClip:
+  - {fileID: 8300000, guid: 36bf9a266bf3999488f7eef9f8e9fce5, type: 3}
   moveSpeed: 2
-  isJumpable: 0
+  isJumpable: 1
   isMoving: 0
   isDead: 0
-  jumpClip: {fileID: 8300000, guid: c131014db7621844d946c0991152f970, type: 3}
-  landClip: {fileID: 8300000, guid: 4f6757ea9c2b18b4badda2fea886ffb6, type: 3}
+  jumpClip: {fileID: 8300000, guid: 7b0b18300d43060448d15077d3bc2eed, type: 3}
+  landClip: {fileID: 8300000, guid: d67cc996cd289694fb545310eb6f0291, type: 3}
   deathClip: {fileID: 8300000, guid: 72ce24766c5cc0a48b715138fe8bd264, type: 3}
 --- !u!1 &8442329044268368746
 GameObject:
@@ -66,7 +67,7 @@ GameObject:
   m_Component:
   - component: {fileID: 887421672644075319}
   - component: {fileID: 3276198336485241520}
-  - component: {fileID: 305349569744536783}
+  - component: {fileID: 4922452001422704938}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -111,7 +112,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &305349569744536783
+--- !u!114 &4922452001422704938
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,7 +121,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8442329044268368746}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce3f8f3db53baf6489fa09ecd9b893b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 22cc70ff26900024bbba6b449f6caf34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3276198336485241520}
@@ -183,11 +184,61 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4098665037384540348, guid: d8d846d780f6df548a9ebe88d01af017,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f1194c80ea1de247a105fe249093bbe, type: 2}
+    - target: {fileID: -3672258001083845164, guid: d8d846d780f6df548a9ebe88d01af017,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f1194c80ea1de247a105fe249093bbe, type: 2}
+    - target: {fileID: -3313444793107818544, guid: d8d846d780f6df548a9ebe88d01af017,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f1194c80ea1de247a105fe249093bbe, type: 2}
     - target: {fileID: 919132149155446097, guid: d8d846d780f6df548a9ebe88d01af017,
         type: 3}
       propertyPath: m_Name
       value: frog
       objectReference: {fileID: 0}
+    - target: {fileID: 3497578466476514236, guid: d8d846d780f6df548a9ebe88d01af017,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f1194c80ea1de247a105fe249093bbe, type: 2}
+    - target: {fileID: 3884337165172881453, guid: d8d846d780f6df548a9ebe88d01af017,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f1194c80ea1de247a105fe249093bbe, type: 2}
+    - target: {fileID: 5525312046179820818, guid: d8d846d780f6df548a9ebe88d01af017,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f1194c80ea1de247a105fe249093bbe, type: 2}
+    - target: {fileID: 5640339935597558111, guid: d8d846d780f6df548a9ebe88d01af017,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f1194c80ea1de247a105fe249093bbe, type: 2}
+    - target: {fileID: 5915593925688298907, guid: d8d846d780f6df548a9ebe88d01af017,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f1194c80ea1de247a105fe249093bbe, type: 2}
+    - target: {fileID: 7081739344606798600, guid: d8d846d780f6df548a9ebe88d01af017,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f1194c80ea1de247a105fe249093bbe, type: 2}
+    - target: {fileID: 9012878366420606382, guid: d8d846d780f6df548a9ebe88d01af017,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f1194c80ea1de247a105fe249093bbe, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

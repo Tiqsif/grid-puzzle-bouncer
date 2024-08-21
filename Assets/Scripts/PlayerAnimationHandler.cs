@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FrogAnimationHandler : MonoBehaviour
+public class PlayerAnimationHandler : MonoBehaviour
 {
     public Animator animator;
-    private MushroomFrog frog;
+    private Player player;
     public bool isPlaying;
     private void Start()
     {
         animator = GetComponent<Animator>();
-        frog = GetComponentInParent<MushroomFrog>();
+        player = GetComponentInParent<Player>();
     }
     public void Jump()
     {
@@ -18,8 +18,8 @@ public class FrogAnimationHandler : MonoBehaviour
         animator.SetTrigger("Jump");
         StartCoroutine(UpdateFlagRoutine("FrogJump"));
 
-        AudioManager.Instance.KillSFX(frog.jumpClip);
-        AudioManager.Instance.PlaySFX(frog.jumpClip);
+        AudioManager.Instance.KillSFX(player.jumpClip);
+        AudioManager.Instance.PlaySFX(player.jumpClip);
     }
 
     public void Fall()
@@ -27,17 +27,17 @@ public class FrogAnimationHandler : MonoBehaviour
         if (!animator) return;
         animator.SetTrigger("AttackJump");
         StartCoroutine(UpdateFlagRoutine("FrogAttackJump"));
-        AudioManager.Instance.KillSFX(frog.jumpClip);
-        AudioManager.Instance.PlaySFX(frog.jumpClip);
-        AudioManager.Instance.PlaySFX(frog.deathClip, 0.5f);
+        AudioManager.Instance.KillSFX(player.jumpClip);
+        AudioManager.Instance.PlaySFX(player.jumpClip);
+        AudioManager.Instance.PlaySFX(player.deathClip, 0.5f);
     }
     public void AttackJump()
     {
         if (!animator) return;
         animator.SetTrigger("AttackJump");
         StartCoroutine(UpdateFlagRoutine("FrogAttackJump"));
-        AudioManager.Instance.KillSFX(frog.jumpClip);
-        AudioManager.Instance.PlaySFX(frog.jumpClip);
+        AudioManager.Instance.KillSFX(player.jumpClip);
+        AudioManager.Instance.PlaySFX(player.jumpClip);
     }
 
     public void HalfJump()
@@ -45,8 +45,8 @@ public class FrogAnimationHandler : MonoBehaviour
         if (!animator) return;
         animator.SetTrigger("HalfJump");
         StartCoroutine(UpdateFlagRoutine("FrogHalfJump"));
-        AudioManager.Instance.KillSFX(frog.jumpClip);
-        AudioManager.Instance.PlaySFX(frog.jumpClip);
+        AudioManager.Instance.KillSFX(player.jumpClip);
+        AudioManager.Instance.PlaySFX(player.jumpClip);
     }
    
 

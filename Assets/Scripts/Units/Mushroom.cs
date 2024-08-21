@@ -17,7 +17,6 @@ public class Mushroom : Unit
         Vector2Int direction = cellPosition - player.cellPosition;
         Vector2Int playerTarget = cellPosition + direction;
         player.cellPosition = cellPosition;
-        // moveto animation may be added here
         player.Move(playerTarget);
     }
 

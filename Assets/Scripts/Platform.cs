@@ -114,7 +114,7 @@ public class Platform : MonoBehaviour
 
     public void SetGridElements()
     {
-        Debug.Log("Setting grid elements");
+        //Debug.Log("Setting grid elements");
         units = new List<Unit>();
 
         foreach (Transform child in unitsHolder) // get all children of the object

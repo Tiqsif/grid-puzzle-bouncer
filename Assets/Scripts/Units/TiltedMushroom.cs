@@ -17,7 +17,6 @@ public class TiltedMushroom : Unit
         Vector2Int direction = new Vector2Int(Mathf.RoundToInt(facingDir.x), Mathf.RoundToInt(facingDir.z));
         Vector2Int playerTarget = cellPosition + direction;
         player.cellPosition = cellPosition;
-        // moveto animation may be added here
         player.Move(playerTarget);
     }
 
