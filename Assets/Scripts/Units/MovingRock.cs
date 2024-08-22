@@ -11,12 +11,16 @@ public class MovingRock : Unit
         Vector2Int direction = cellPosition - player.cellPosition;
         direction = new Vector2Int(Mathf.Clamp(direction.x, -1, 1), Mathf.Clamp(direction.y, -1, 1));
         player.BumpAnimation();
+
+        // moveto the middle of cellposition and the cell next to it
         yield return StartCoroutine(player.MoveTo(
            (platform.grid.GetWorldPosition(cellPosition - direction) + platform.grid.GetWorldPosition(cellPosition)) / 2
             ));
+        // moveto the cell next to it
         StartCoroutine(player.MoveTo(
             platform.grid.GetWorldPosition(cellPosition - direction)
             ));
+        player.cellPosition = cellPosition - direction;
         //yield return new WaitForSeconds(.1f);
     }
     public override void JumpedOn(Unit player)

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// out of date class, frog animation handler is used instead
+/// </summary>
 public class PlayerAnimationHandler : MonoBehaviour
 {
     public Animator animator;

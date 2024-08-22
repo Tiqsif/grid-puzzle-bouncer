@@ -2,20 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Unit
+public class Player : FrogBase
 {
-    public AudioClip jumpClip;
-    public AudioClip landClip;
-    public AudioClip deathClip;
-
-    private PlayerAnimationHandler animationHandler;
 
     public delegate void OnPlayerDeath();
     public static event OnPlayerDeath onPlayerDeath;
 
     private void Start()
     {
-        animationHandler = GetComponentInChildren<PlayerAnimationHandler>();
+        animationHandler = GetComponentInChildren<FrogAnimationHandler>();
     }
     private void Update()
     {

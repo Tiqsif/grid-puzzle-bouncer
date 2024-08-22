@@ -5,12 +5,12 @@ using UnityEngine;
 public class FrogAnimationHandler : MonoBehaviour
 {
     public Animator animator;
-    private MushroomFrog frog;
+    private FrogBase frog;
     public bool isPlaying;
     private void Start()
     {
         animator = GetComponent<Animator>();
-        frog = GetComponentInParent<MushroomFrog>();
+        frog = GetComponentInParent<FrogBase>();
     }
     public void Jump()
     {

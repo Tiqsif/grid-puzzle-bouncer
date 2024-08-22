@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MushroomFrog : FrogBase
+public class FlowerFrog : FrogBase
 {
 
     private void Start()
@@ -21,6 +21,7 @@ public class MushroomFrog : FrogBase
     {
         base.JumpedOn(player);
         Vector2Int direction = cellPosition - player.cellPosition;
+        direction *= 2;
         Vector2Int playerTarget = cellPosition + direction;
         player.cellPosition = cellPosition;
         player.Move(playerTarget);
