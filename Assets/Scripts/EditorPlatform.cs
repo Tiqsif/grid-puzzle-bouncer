@@ -1,25 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
+// scrapped for now, can be used in the future
 [ExecuteAlways]
-public class Platform : MonoBehaviour
+public class EditorPlatform : Platform
 {
-    [HideInInspector] public Grid grid;
-    public int width = 4;
-    public int height = 4;
-    public float cellSize = 1f;
-
-    public Transform unitsHolder;
-    public Player player;
-    public List<Unit> units;
-    protected int enemyCount;
-    protected bool isEnding;
     
-
-    
-
+    bool isPlaying = false;
     private void OnDrawGizmos()
     {
         if (grid != null)
@@ -36,11 +24,11 @@ public class Platform : MonoBehaviour
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    void Start()
+    void StartPlaying()
     {
         grid = new Grid(width, height, cellSize);
         units = new List<Unit>();
-        if (Application.IsPlaying(this)) // if the game is running
+        if (Application.IsPlaying(this) || isPlaying) // if the game is running
         {
             foreach (Transform child in unitsHolder) // get all children of the object
             {
@@ -63,7 +51,7 @@ public class Platform : MonoBehaviour
     void Update()
     {
         // if the game is NOT running (meaning its in the editor) -----------------------------------------------
-        if (!Application.IsPlaying(this)) // EDITOR
+        if (!Application.IsPlaying(this) || !isPlaying) // EDITOR
         {
             if (grid == null)
             {
@@ -90,70 +78,20 @@ public class Platform : MonoBehaviour
         // -------------------------------------------------------------------------------------------------------------
 
 
-        if (enemyCount == 0 && !player.isMoving) // if all enemies are cleared and player is not moving game is won
+        if (enemyCount == 0 && !player.isMoving && isPlaying) // if all enemies are cleared and player is not moving game is won
         {
-            Win();
+            //Win();
         }
+
+
         grid.DrawGrid();
     }
 
    
-    
-    public Vector2Int CheckAndSnap(Unit u)
-    {
-        Vector3 closestCell = grid.GetClosestCellWorldPosition(u.transform.position);
-        u.transform.position = new Vector3(closestCell.x, closestCell.y, closestCell.z);
-        u.cellPosition = grid.GetXY(closestCell);
 
-        grid.SetValue(u.cellPosition, (int)u.type);
-
-        return u.cellPosition;
-    }
-
-    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-    public void SetGridElements()
-    {
-        //Debug.Log("Setting grid elements");
-        units = new List<Unit>();
-
-        foreach (Transform child in unitsHolder) // get all children of the object
-        {
-            units.Add(child.GetComponent<Unit>());
-        }
-        enemyCount = 0;
-        grid.Clear();
-        foreach (Unit unit in units)
-        {
-            if (unit == null || !unit.gameObject.activeInHierarchy)
-            {
-                continue;
-            }
-            if (unit.type == Type.Enemy)
-            {
-                enemyCount++;
-            }
-
-            grid.SetValue(unit.cellPosition, (int)unit.type);
-        }
-    }
-
-    public Vector3 GetWorldPosition(int x, int y) // NOT SECURED (no check if x and y are in the grid)
-    {
-        return new Vector3(x, 0, y) * cellSize;
-    }
-
-    public bool IsInsideGrid(int x, int y)
-    {
-        return x >= 0 && x < width && y >= 0 && y < height;
-    }
-    public bool IsInsideGrid(Vector2Int vec)
-    {
-        return IsInsideGrid(vec.x, vec.y);
-    }
     void Win()
     {
-        if (isEnding || player.isDead)
+        if (isEnding || player.isDead || !isPlaying)
         {
             return;
         }

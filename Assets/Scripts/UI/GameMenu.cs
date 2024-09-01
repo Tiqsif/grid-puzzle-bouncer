@@ -12,10 +12,11 @@ public class GameMenu : MonoBehaviour
     public RectTransform pauseMenu;
 
     public TextMeshProUGUI levelNum;
+    public int firsLevelIndex = 2;
     private void Awake()
     {
         Player.onPlayerDeath += OnPlayerDeath;
-        levelNum.text = (SceneManager.GetActiveScene().buildIndex ).ToString();
+        levelNum.text = (SceneManager.GetActiveScene().buildIndex - firsLevelIndex + 1).ToString(); // +1 because in build settings scenes start from zero
     }
 
     private void OnDestroy()

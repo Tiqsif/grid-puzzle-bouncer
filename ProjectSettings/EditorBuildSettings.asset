@@ -8,6 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MenuScene.unity
     guid: 0a3c88316bcee4d41a1661e9a266d0f8
+  - enabled: 0
+    path: Assets/Scenes/scrapped/EditorLevelSelect.unity
+    guid: 5034750f27dad1846b3b8b5a1eec7b49
+  - enabled: 0
+    path: Assets/Scenes/scrapped/LevelEditor.unity
+    guid: 801be91d4af75e74fa4b2c64aa06654f
+  - enabled: 1
+    path: Assets/Scenes/LevelSelect.unity
+    guid: 6a35f6c89e553aa479dd7391fe97ecd6
   - enabled: 1
     path: Assets/Scenes/Level 1.unity
     guid: 99c9720ab356a0642a771bea13969a05

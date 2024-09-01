@@ -345,6 +345,7 @@ MonoBehaviour:
   deathMenu: {fileID: 1466355488654742654}
   pauseMenu: {fileID: 3300115763341073266}
   levelNum: {fileID: 3411969848624708753}
+  firsLevelIndex: 2
 --- !u!1 &4472486031867401513
 GameObject:
   m_ObjectHideFlags: 0
