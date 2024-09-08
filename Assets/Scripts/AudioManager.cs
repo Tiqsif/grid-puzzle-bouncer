@@ -82,7 +82,7 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("AudioClip is null. Cannot play sound.");
             return;
         }
-        Debug.Log("Playing SFX "+ clip.name);
+        //Debug.Log("Playing SFX "+ clip.name);
         // Create a temporary GameObject
         GameObject tempAudioObject = new GameObject("TempSFX");
         tempAudioObject.transform.position = AudioManager.Instance.transform.position;

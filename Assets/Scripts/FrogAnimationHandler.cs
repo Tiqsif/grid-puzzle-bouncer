@@ -62,7 +62,7 @@ public class FrogAnimationHandler : MonoBehaviour
     private IEnumerator UpdateFlagRoutine(string animationName)
     {
         isPlaying = true;
-        Debug.Log("Animation start: " + animationName);
+        //Debug.Log("Animation start: " + animationName);
         while (true)
         {
             if (animator.GetCurrentAnimatorStateInfo(0).IsName(animationName))
@@ -79,6 +79,6 @@ public class FrogAnimationHandler : MonoBehaviour
             yield return null;
         }
         isPlaying = false;
-        Debug.Log("Animation finished: " + animationName);
+        //Debug.Log("Animation finished: " + animationName);
     }
 }

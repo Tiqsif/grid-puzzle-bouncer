@@ -32,6 +32,8 @@ public class Rock : Unit
         if (GetUnitAtPosition(player.cellPosition, player) == null) // coming from empty
         {
             //Debug.Log("to rock from Empty");
+            player.cellPosition = cellPosition;
+            player.Move(target);
         }
         else // coming from another unit
         {

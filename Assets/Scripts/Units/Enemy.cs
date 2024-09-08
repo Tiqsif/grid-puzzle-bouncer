@@ -22,7 +22,10 @@ public class Enemy : Unit
         player.cellPosition = cellPosition;
 
         player.Move(playerTarget);
-        Die(0.0f);
+        if (player.type == Type.Player)
+        {
+            Die(0.0f);
+        }
     }
 
     public override void JumpedOff(Unit player)

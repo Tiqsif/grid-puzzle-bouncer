@@ -15,7 +15,7 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 0.9618149, g: 1, b: 0, a: 1}
+  m_FogColor: {r: 1, g: 0.5137255, b: 0, a: 1}
   m_FogMode: 2
   m_FogDensity: 0.01
   m_LinearFogStart: 6
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 410087040}
   m_IndirectSpecularColor: {r: 0.18351148, g: 0.2290662, b: 0.3057099, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -98,7 +98,8 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 504097d3f7744c3408be7c27f36adba4,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1023,7 +1024,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1093593688}
-  m_Mesh: {fileID: 2052304192}
+  m_Mesh: {fileID: 2056126429}
 --- !u!23 &1093593691
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2204,13 +2205,13 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1949630458}
   m_PrefabAsset: {fileID: 0}
---- !u!43 &2052304192
+--- !u!43 &2056126429
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WaterVolume-32814
+  m_Name: WaterVolume-54226
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2

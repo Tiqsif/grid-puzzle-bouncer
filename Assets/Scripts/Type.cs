@@ -12,5 +12,7 @@ public enum Type
     TiltedFlower,
     MovingRock,
     MushroomFrog,
-    FlowerFrog
+    FlowerFrog,
+    Sunflower,
+    Turtoise
 }

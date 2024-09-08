@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
@@ -15,31 +16,35 @@ public class Unit : MonoBehaviour
     public bool isMoving = false;
     public bool isDead = false;
     protected Platform platform;
+
+    public delegate void OnUnitMove(Unit mover, Vector2Int direction, Unit unitMovedTo);
+    public static event OnUnitMove onUnitMove;
+
     private void Awake()
     {
         platform = FindObjectOfType<Platform>();
     }
     
-    public void Move(Vector2Int targetPosition)
+    public virtual void Move(Vector2Int targetPosition)
     {
-        StartCoroutine(MoveRoutine(targetPosition, 0f));
+        Move(targetPosition, 0);
     }
-    public void Move(Vector2Int targetPosition, float delay)
+    public virtual void Move(Vector2Int targetPosition, float delay)
     {
+        if (isDead || moveSpeed <= 0)
+        {
+            return;
+        }
         StartCoroutine(MoveRoutine(targetPosition, delay));
     }
-    public IEnumerator MoveRoutine(Vector2Int targetPosition, float delay)
+    public virtual IEnumerator MoveRoutine(Vector2Int targetPosition, float delay)
     {
-        if (isDead)
-        {
-            yield break;
-        }
         while (isMoving)
         {
             yield return null;
         }
         yield return new WaitForSeconds(delay);
-        Debug.Log("Moving " + name);
+        //Debug.Log("Moving " + name);
         Vector2Int direction = targetPosition - cellPosition;
         Vector2 directionF = targetPosition - cellPosition;
         float mag = directionF.magnitude;
@@ -51,8 +56,8 @@ public class Unit : MonoBehaviour
 
         Unit targetUnit = GetNonSelfUnitAtPosition(targetPosition);
         Unit fromUnit = GetNonSelfUnitAtPosition(cellPosition);
-
-        if (fromUnit != null) // non player unit jumped from
+        onUnitMove?.Invoke(this, direction, targetUnit);
+        if (fromUnit != null) // non self unit jumped from
         {
             //JumpOffAnimation();
             fromUnit.JumpedOff(this);
@@ -126,7 +131,7 @@ public class Unit : MonoBehaviour
         while (moveQueue.Count > 0)
         {
             Vector3 targetPosition = moveQueue.Dequeue();
-            Debug.Log("Moving from" + transform.position + " to " + targetPosition);
+            Debug.Log(type + transform.position.ToString() + " to " + targetPosition.ToString());
             while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, currentSpeed * Time.deltaTime);

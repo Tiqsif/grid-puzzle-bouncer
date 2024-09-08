@@ -46,5 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   volume: 0.5
   musicVolume: 0.05
-  musicClip: {fileID: 8300000, guid: 075ed3ad1a352a141a97a3dc396ff67b, type: 3}
+  musicClip: {fileID: 8300000, guid: 5532f5c78912fb04d9b1f67709e8ca6f, type: 3}
   winClip: {fileID: 8300000, guid: 8e4d5f5c1e9852c4893655e6eb047cee, type: 3}
