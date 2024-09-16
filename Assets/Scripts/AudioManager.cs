@@ -69,7 +69,9 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        //PlayMusic(musicClip, true);
+#if UNITY_EDITOR
+        PlayMusic(musicClip, true);
+#endif
     }
 
     

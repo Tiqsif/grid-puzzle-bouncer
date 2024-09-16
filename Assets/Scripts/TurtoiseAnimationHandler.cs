@@ -8,21 +8,39 @@ public class TurtoiseAnimationHandler : MonoBehaviour
     private Turtoise turtoise;
     public bool isPlaying;
     private bool shouldRotate = false;
+
+    public Vector2 stepTimeMinMax;
+    float stepTime;
+    float stepTimer = 0;
     Transform parent;
     private void Start()
     {
+        stepTime = UnityEngine.Random.Range(stepTimeMinMax.x, stepTimeMinMax.y);
+        stepTimer = stepTime;
         animator = GetComponent<Animator>();
         turtoise = GetComponentInParent<Turtoise>();
         parent = transform.parent;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (shouldRotate)
         {
             // rotate the parent 
             parent.Rotate(Vector3.up, 360f * Time.deltaTime);
 
+        }
+        else
+        {
+            if (stepTimer > 0)
+            {
+                stepTimer -= Time.deltaTime;
+            }
+            else
+            {
+                Step();
+
+            }
         }
     }
 
@@ -46,6 +64,15 @@ public class TurtoiseAnimationHandler : MonoBehaviour
         animator.SetFloat("Multiplier", -1f);
         animator.SetTrigger("Hide");
         StartCoroutine(UpdateFlagRoutine("TurtoiseHide"));
+    }
+    public void Step()
+    {
+        if (!animator) return;
+        // reverse the hide animation
+        animator.SetTrigger("Step");
+        StartCoroutine(UpdateFlagRoutine("TurtoiseStep"));
+        stepTime = UnityEngine.Random.Range(stepTimeMinMax.x, stepTimeMinMax.y);
+        stepTimer = stepTime;
     }
     public void Jump()
     {

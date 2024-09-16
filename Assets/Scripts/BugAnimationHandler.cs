@@ -19,7 +19,7 @@ public class BugAnimationHandler : MonoBehaviour
         parent = transform.parent;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (rotateTimer > 0)
         {
@@ -40,6 +40,7 @@ public class BugAnimationHandler : MonoBehaviour
             //Debug.Log($"Rotating by {angleToRotate} degrees");
             animator.SetTrigger("Shake");
             StartCoroutine(RotateRoutine(angleToRotate));
+            
 
         }
     }
@@ -66,6 +67,7 @@ public class BugAnimationHandler : MonoBehaviour
 
         // ensure final rotation is exactly the end rotation
         parent.eulerAngles = endRotation;
+        rotateTime = UnityEngine.Random.Range(rotateTimeMinMax.x, rotateTimeMinMax.y);
         rotateTimer = rotateTime;
         isRotating = false;
     }

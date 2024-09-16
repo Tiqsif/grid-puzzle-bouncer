@@ -92,4 +92,13 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         LoadNextLevel();
     }
+
+    public void LoadLevelSelect()
+    {
+        LoadLevel(1);
+    }
+    public void LoadMainMenu()
+    {
+        LoadLevel(0);
+    }
 }

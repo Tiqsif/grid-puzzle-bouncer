@@ -69,6 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   isPlaying: 0
+  stepTimeMinMax: {x: 5, y: 10}
 --- !u!1 &8514086045341286328
 GameObject:
   m_ObjectHideFlags: 0

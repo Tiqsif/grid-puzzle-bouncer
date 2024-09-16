@@ -13,6 +13,8 @@ public class GameMenu : MonoBehaviour
 
     public TextMeshProUGUI levelNum;
     public int firsLevelIndex = 2;
+
+    private bool isDead = false;
     private void Awake()
     {
         Player.onPlayerDeath += OnPlayerDeath;
@@ -25,7 +27,7 @@ public class GameMenu : MonoBehaviour
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) && !isDead)
         {
             if (pauseMenu.gameObject.activeSelf) // if the pause menu is active
             {
@@ -52,11 +54,22 @@ public class GameMenu : MonoBehaviour
     void SetDeathMenu(bool activate)
     {
         deathMenu.gameObject.SetActive(activate);
+        isDead = activate;
     }
 
     void SetPauseMenu(bool activate)
     {
         pauseMenu.gameObject.SetActive(activate);
         Debug.Log("Pause Menu: " + activate);
+    }
+
+    public void ResumeGame()
+    {
+        SetPauseMenu(false);
+    }
+
+    public void MainMenu()
+    {
+        LevelManager.Instance.LoadMainMenu();
     }
 }

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [ExecuteAlways]
@@ -12,8 +11,8 @@ public class Platform : MonoBehaviour
     public float cellSize = 1f;
 
     public Transform unitsHolder;
-    public Player player;
-    public List<Unit> units;
+    [HideInInspector] public Player player;
+    [HideInInspector] public List<Unit> units;
     protected int enemyCount;
     protected bool isEnding;
     
@@ -38,6 +37,11 @@ public class Platform : MonoBehaviour
 
     void Start()
     {
+        if (TryGetComponent(out LevelSpawner levelSpawner))
+        {
+            width = levelSpawner.levelData.currentLevel.gridSize.x;
+            height = levelSpawner.levelData.currentLevel.gridSize.y;
+        }
         grid = new Grid(width, height, cellSize);
         units = new List<Unit>();
         if (Application.IsPlaying(this)) // if the game is running
@@ -90,9 +94,12 @@ public class Platform : MonoBehaviour
         // -------------------------------------------------------------------------------------------------------------
 
 
-        if (enemyCount == 0 && !player.isMoving) // if all enemies are cleared and player is not moving game is won
+        if (player != null && enemyCount == 0 && !player.isMoving) // if all enemies are cleared and player is not moving game is won
         {
-            Win();
+            if (Application.isPlaying)
+            {
+                Win();
+            }
         }
         grid.DrawGrid();
     }
