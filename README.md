@@ -25,3 +25,10 @@ Use WASD keys to navigate Hopper across the grid.
 ![image](https://github.com/user-attachments/assets/9d877cc9-7c0d-4a43-9849-2db317800fb5)
 
 ![GIF 20 06 2024 00-25-21](https://github.com/Tiqsif/grid-puzzle-bouncer/assets/75688355/fc72fd42-bc29-455b-8ea9-6bfb10129819)
+
+##
+Music composed and recorded by Oak Studios.
+Link:   [Beth (Piano version)](https://www.youtube.com/watch?v=C5gPy48pQc4&t=0s) | Creative Commons - Attribution ND 4.0
+
+Frog model: ["Frog Jumping"](https://skfb.ly/opyUO) by sMarthz is licensed under Creative Commons Attribution 
+
