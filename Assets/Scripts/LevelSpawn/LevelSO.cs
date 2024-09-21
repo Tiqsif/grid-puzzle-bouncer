@@ -8,6 +8,7 @@ public class SpawnData // hold data for every unit
 {
     public Type type;
     public Vector2Int cellPosition;
+    public bool randomRotation;
     [Tooltip("0: right, 90: down, 180: left, 270: up")]
     public float rotation;
 
@@ -18,6 +19,6 @@ public class SpawnData // hold data for every unit
 public class LevelSO : ScriptableObject // hold data for level
 {
     public float cellSize = 1f;
-    public Vector2Int gridSize = new Vector2Int(4,4); // TODO
+    public Vector2Int gridSize = new Vector2Int(4,4);
     public List<SpawnData> spawnDataList;
 }

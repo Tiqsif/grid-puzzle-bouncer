@@ -57,9 +57,9 @@ public class Player : FrogBase
     {
         base.JumpedOn(jumper);
         Vector2Int direction = cellPosition - jumper.cellPosition;
-        Vector2Int playerTarget = cellPosition + direction;
+        Vector2Int jumperTarget = cellPosition + direction;
         jumper.cellPosition = cellPosition;
-        jumper.Move(playerTarget);
+        jumper.Move(jumperTarget);
     }
 
     public override void JumpedOff(Unit jumper)

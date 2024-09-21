@@ -8,20 +8,23 @@ public class LevelSelectMenu : MonoBehaviour
 {
     public RectTransform frame;
     public GameObject levelButtonPrefab;
-    public int firstLevelIndex = 4;
+    public LevelData levelData;
+    public int gameSceneIndex = 2;
     private void Start()
     {
         foreach (Transform child in frame)
         {
             Destroy(child.gameObject);
         }
-        int sceneCount = SceneManager.sceneCountInBuildSettings-1;
+        int sceneCount = levelData.allLevels.Count;
         Debug.Log("sceneCount: " + sceneCount);
-        for (int i = firstLevelIndex; i < sceneCount; i++)
+        for (int i = 0; i < sceneCount; i++)
         {
+            Debug.Log("i: " + i);
             GameObject button = Instantiate(levelButtonPrefab, frame);
-            button.GetComponent<LevelButton>().SetLevelIndex(i);
-            button.GetComponentInChildren<TMP_Text>().text ="" + (i - firstLevelIndex + 1);
+            button.TryGetComponent(out LevelButton buttonComponent);
+            buttonComponent.SetButton(i, levelData, gameSceneIndex);
+            button.GetComponentInChildren<TMP_Text>().text ="" + (i + 1);
         }
     }
    

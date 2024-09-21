@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,16 +29,14 @@ public class LevelSpawner : MonoBehaviour
         }
     }
 
-    private void Start()
+
+    public void SpawnLevel()
     {
-        Debug.Log(levelData.currentLevel.gridSize);
-        propSpawner.CreatePlatform(levelData.currentLevel.gridSize, levelData.currentLevel.cellSize);
+        propSpawner.CreatePlatform(levelData.currentLevel);
         SetupLevel();
     }
-
     private void SetupLevel()
     {
-        ClearUnits();
         if (levelData.currentLevel == null)
         {
             Debug.LogError("No current level found");
@@ -48,21 +44,29 @@ public class LevelSpawner : MonoBehaviour
             return;
         }
         Platform platform = FindAnyObjectByType<Platform>();
-        foreach (var spawnData in levelData.currentLevel.spawnDataList)
+        platform.ClearUnits();
+        foreach (SpawnData spawnData in levelData.currentLevel.spawnDataList)
         {
+            if(spawnData.type == Type.Empty || !unitDictionary.ContainsKey(spawnData.type))
+            {
+                continue;
+            }
             Vector3 pos = platform.GetWorldPosition(spawnData.cellPosition.x, spawnData.cellPosition.y);
-            GameObject unit = Instantiate(unitDictionary[spawnData.type], pos, Quaternion.Euler(0, spawnData.rotation, 0), unitsHolder);
+            float rot;
+            if (spawnData.randomRotation)
+            {
+                rot = Random.Range(0, 4) * 90;
+            }
+            else
+            {
+                rot = spawnData.rotation;
+            }
+            GameObject unit = Instantiate(unitDictionary[spawnData.type], pos, Quaternion.Euler(0, rot, 0), unitsHolder);
             unit.TryGetComponent(out Unit unitComponent);
             unitComponent.cellPosition = spawnData.cellPosition;
         }
         platform.SetGridElements();
     }
 
-    private void ClearUnits()
-    {
-        foreach (Transform child in unitsHolder)
-        {
-            Destroy(child.gameObject);
-        }
-    }
+    
 }

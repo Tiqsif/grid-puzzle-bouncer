@@ -12,18 +12,23 @@ public class GameMenu : MonoBehaviour
     public RectTransform pauseMenu;
 
     public TextMeshProUGUI levelNum;
-    public int firsLevelIndex = 2;
-
     private bool isDead = false;
     private void Awake()
     {
         Player.onPlayerDeath += OnPlayerDeath;
-        levelNum.text = (SceneManager.GetActiveScene().buildIndex - firsLevelIndex + 1).ToString(); // +1 because in build settings scenes start from zero
+        LevelManager.onLevelChange += OnLevelChange;
+       
     }
 
     private void OnDestroy()
     {
         Player.onPlayerDeath -= OnPlayerDeath;
+        LevelManager.onLevelChange -= OnLevelChange;
+    }
+
+    private void Start()
+    {
+        levelNum.text = (LevelManager.Instance.currentLevelIndex + 1).ToString();
     }
     void Update()
     {
@@ -40,6 +45,12 @@ public class GameMenu : MonoBehaviour
         }
     }
 
+    void OnLevelChange()
+    {
+        levelNum.text = (LevelManager.Instance.currentLevelIndex + 1).ToString();
+        SetDeathMenu(false);
+        SetPauseMenu(false);
+    }
     void OnPlayerDeath()
     {
         SetDeathMenu(true);
@@ -60,7 +71,6 @@ public class GameMenu : MonoBehaviour
     void SetPauseMenu(bool activate)
     {
         pauseMenu.gameObject.SetActive(activate);
-        Debug.Log("Pause Menu: " + activate);
     }
 
     public void ResumeGame()

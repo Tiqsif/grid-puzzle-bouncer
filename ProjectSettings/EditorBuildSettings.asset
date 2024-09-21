@@ -8,52 +8,55 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MenuScene.unity
     guid: 0a3c88316bcee4d41a1661e9a266d0f8
+  - enabled: 1
+    path: Assets/Scenes/LevelSelect.unity
+    guid: 6a35f6c89e553aa479dd7391fe97ecd6
+  - enabled: 1
+    path: Assets/Scenes/GameScene.unity
+    guid: 09897d8b35d28b9449920f115f1ba997
   - enabled: 0
     path: Assets/Scenes/scrapped/EditorLevelSelect.unity
     guid: 5034750f27dad1846b3b8b5a1eec7b49
   - enabled: 0
     path: Assets/Scenes/scrapped/LevelEditor.unity
     guid: 801be91d4af75e74fa4b2c64aa06654f
-  - enabled: 1
-    path: Assets/Scenes/LevelSelect.unity
-    guid: 6a35f6c89e553aa479dd7391fe97ecd6
-  - enabled: 1
-    path: Assets/Scenes/Level 1.unity
+  - enabled: 0
+    path: Assets/Scenes/scrapped/Level 1.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
-    path: Assets/Scenes/Level 2.unity
+  - enabled: 0
+    path: Assets/Scenes/scrapped/Level 2.unity
     guid: 60fa9af0db4632a4eae26447456cd72d
-  - enabled: 1
-    path: Assets/Scenes/Level 3.unity
+  - enabled: 0
+    path: Assets/Scenes/scrapped/Level 3.unity
     guid: 82d0db0ee40458d478d6501e86b16377
-  - enabled: 1
-    path: Assets/Scenes/Level 4.unity
+  - enabled: 0
+    path: Assets/Scenes/scrapped/Level 4.unity
     guid: 6550e2ac2790eea4aaaed342edf90bf1
-  - enabled: 1
-    path: Assets/Scenes/Level 5.unity
+  - enabled: 0
+    path: Assets/Scenes/scrapped/Level 5.unity
     guid: 5433ab33c342b6143a1856266ed3d735
-  - enabled: 1
-    path: Assets/Scenes/Level 6.unity
+  - enabled: 0
+    path: Assets/Scenes/scrapped/Level 6.unity
     guid: c093871233d94f54b8b6443d774b290d
-  - enabled: 1
-    path: Assets/Scenes/Level 7.unity
+  - enabled: 0
+    path: Assets/Scenes/scrapped/Level 7.unity
     guid: 92e50be6e062a71409ddcf3ab4f4ea7a
-  - enabled: 1
-    path: Assets/Scenes/Level 8.unity
+  - enabled: 0
+    path: Assets/Scenes/scrapped/Level 8.unity
     guid: 8c265a7e1adffb74a9229681bf4bceef
-  - enabled: 1
-    path: Assets/Scenes/Level 9.unity
+  - enabled: 0
+    path: Assets/Scenes/scrapped/Level 9.unity
     guid: bfd6b07e512081d459ec62812ae9fdf5
-  - enabled: 1
-    path: Assets/Scenes/Level 10.unity
+  - enabled: 0
+    path: Assets/Scenes/scrapped/Level 10.unity
     guid: 44f30680182afc0469381ef4be6ff1db
-  - enabled: 1
-    path: Assets/Scenes/Level 11.unity
+  - enabled: 0
+    path: Assets/Scenes/scrapped/Level 11.unity
     guid: e1597034561c54546a2de2cd073e8cd0
-  - enabled: 1
-    path: Assets/Scenes/Level 12.unity
+  - enabled: 0
+    path: Assets/Scenes/scrapped/Level 12.unity
     guid: 6dd73da89ff55e8428c428e1e05135f1
-  - enabled: 1
-    path: Assets/Scenes/Level 13.unity
+  - enabled: 0
+    path: Assets/Scenes/scrapped/Level 13.unity
     guid: 69ea7f5aa12d14547bf5eb116c1287dc
   m_configObjects: {}

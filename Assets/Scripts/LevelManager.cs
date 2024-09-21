@@ -5,7 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+    public int gameSceneIndex = 2;
+    public LevelData levelData;
+    public LevelSpawner levelSpawner;
+    [HideInInspector] public int currentLevelIndex = 0;
     static LevelManager _instance;
+
+    public delegate void OnLevelChange();
+    public static event OnLevelChange onLevelChange;
     public static LevelManager Instance
     {
         get
@@ -33,8 +40,14 @@ public class LevelManager : MonoBehaviour
         {
             _instance = this;
         }
+        levelSpawner = GetComponent<LevelSpawner>();
     }
 
+    private void Start()
+    {
+        LoadLevel(levelData.allLevels.IndexOf(levelData.currentLevel));
+        
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
@@ -54,32 +67,37 @@ public class LevelManager : MonoBehaviour
 
     }
 
+    // same (game) scene level change methods ------------------------------------------------
     public void LoadLevel(int level)
     {
+        Debug.Log("Loading level: " + level);
         if (level < 0)
         {
             level = 0;
         }
-        if (level >= SceneManager.sceneCountInBuildSettings -1)
+        if (level > levelData.allLevels.Count - 1)
         {
-            level = SceneManager.sceneCountInBuildSettings-1;
+            level = levelData.allLevels.Count - 1;
         }
-        SceneManager.LoadScene(level);
+        currentLevelIndex = level;
+        levelData.currentLevel = levelData.allLevels[currentLevelIndex];
+        levelSpawner.SpawnLevel();
+        onLevelChange?.Invoke();
     }
 
     public void LoadNextLevel()
     {
-        LoadLevel(SceneManager.GetActiveScene().buildIndex + 1);
+        LoadLevel(currentLevelIndex + 1);
     }
 
     public void LoadPreviousLevel()
     {
-        LoadLevel(SceneManager.GetActiveScene().buildIndex - 1);
+        LoadLevel(currentLevelIndex - 1);
     }
 
     public void ReloadLevel()
     {
-        LoadLevel(SceneManager.GetActiveScene().buildIndex);
+        LoadLevel(currentLevelIndex);
     }
     
     public void LoadNextLevel(float delay)
@@ -93,12 +111,18 @@ public class LevelManager : MonoBehaviour
         LoadNextLevel();
     }
 
+    // build scene change methods ------------------------------------------------
     public void LoadLevelSelect()
     {
-        LoadLevel(1);
+        SceneManager.LoadScene(1);
     }
     public void LoadMainMenu()
     {
-        LoadLevel(0);
+        SceneManager.LoadScene(0);
+    }
+
+    public void LoadGameScene()
+    {
+        SceneManager.LoadScene(gameSceneIndex);
     }
 }

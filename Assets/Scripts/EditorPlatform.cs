@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // scrapped for now, can be used in the future
-[ExecuteAlways]
+
+//[ExecuteAlways]
 public class EditorPlatform : Platform
 {
     
+    /*
     bool isPlaying = false;
     private void OnDrawGizmos()
     {
@@ -99,4 +101,6 @@ public class EditorPlatform : Platform
         LevelManager.Instance.LoadNextLevel(2f);
         isEnding = true;
     }
+
+    */
 }

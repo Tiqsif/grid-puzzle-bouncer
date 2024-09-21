@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Turtoise : Unit
 {
-    Vector2Int direction;
+    [HideInInspector] public Vector2Int direction;
     TurtoiseAnimationHandler animationHandler;
     public AudioClip jumpClip;
     public AudioClip deathClip;
@@ -95,7 +95,6 @@ public class Turtoise : Unit
     {
         Vector2Int previousDir = direction;
         direction = targetPosition - cellPosition;
-            Debug.Log("dreicti " + direction);
         if (direction == Vector2Int.zero)
         {
             direction = -previousDir;
@@ -120,7 +119,7 @@ public class Turtoise : Unit
     public override void JumpAnimation()
     {
         base.JumpAnimation();
-        //animationHandler.Jump();
+        animationHandler.Jump();
     }
 
     public override void JumpOnAnimation()
