@@ -14,7 +14,7 @@ public class Player : FrogBase
     }
     private void Update()
     {
-        if (!isDead && !isMoving)
+        if (!isDead && !isMoving && Time.timeScale > 0)
         {
             if (Input.GetKeyDown(KeyCode.W))
             {

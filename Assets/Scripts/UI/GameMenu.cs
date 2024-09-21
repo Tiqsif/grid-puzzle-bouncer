@@ -71,6 +71,14 @@ public class GameMenu : MonoBehaviour
     void SetPauseMenu(bool activate)
     {
         pauseMenu.gameObject.SetActive(activate);
+        if (activate)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
     }
 
     public void ResumeGame()
