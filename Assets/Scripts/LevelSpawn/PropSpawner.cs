@@ -179,6 +179,11 @@ public class PropSpawner : MonoBehaviour
         }
 
         mainCamera.transform.position = new Vector3((gridSize.x - 1) / 2f, (gridSize.y + 9f) / 2f, mainCamera.transform.position.z);
+        mainCamera.TryGetComponent(out CameraSpin cameraSpin);
+        // sping the camera with the middle of the platform as pivot point
+        Vector3 pivot = new Vector3((gridSize.x - 1) / 2f, 0, (gridSize.y - 1) / 2f);
+        //Debug.Log(pivot);
+        cameraSpin.Spin(pivot);
     }
 
     public void ClearProps()

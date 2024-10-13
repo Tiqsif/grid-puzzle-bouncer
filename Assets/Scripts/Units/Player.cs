@@ -8,10 +8,12 @@ public class Player : FrogBase
     public delegate void OnPlayerDeath();
     public static event OnPlayerDeath onPlayerDeath;
 
-    private void Start()
+    private void Awake()
     {
         animationHandler = GetComponentInChildren<FrogAnimationHandler>();
+        
     }
+    
     private void Update()
     {
         if (!isDead && !isMoving && Time.timeScale > 0)

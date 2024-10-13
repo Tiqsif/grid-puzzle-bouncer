@@ -105,7 +105,12 @@ public class LevelDataTranslator : MonoBehaviour
         ". F W .\n" +
         ". L F .\n" +
         "R P . ."
-
+        ,
+        // Level 14 - all units delete later
+        "R M W L\n" +
+        "F TM TF MR\n" +
+        "MF FF SF T\n" +
+        ". P E ."
         };
 
         foreach (string room in rooms)

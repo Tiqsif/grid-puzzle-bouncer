@@ -20,9 +20,11 @@ public class Unit : MonoBehaviour
     public delegate void OnUnitMove(Unit mover, Vector2Int direction, Unit unitMovedTo);
     public static event OnUnitMove onUnitMove;
 
-    private void Awake()
+    
+    private void Start()
     {
         platform = FindObjectOfType<Platform>();
+        
     }
     
     public virtual void Move(Vector2Int targetPosition)
@@ -182,9 +184,14 @@ public class Unit : MonoBehaviour
 
     protected Unit GetNonSelfUnitAtPosition(Vector2Int position)
     {
-        if (platform == null || platform.units == null)
+        if (platform == null)
         {
             Debug.LogWarning("Platform not found");
+            platform = FindObjectOfType<Platform>();
+        }
+        if (platform.units == null)
+        {
+            Debug.LogWarning("Platform units not found");
             return null;
         }
         foreach (Unit unit in platform.units)
@@ -236,8 +243,9 @@ public class Unit : MonoBehaviour
         {
             playerScript.Die();
         }
-        Destroy(gameObject);
+        cellPosition = new Vector2Int(-10, -10); // graveyard position for dead units
         platform.SetGridElements();
+        Destroy(gameObject);
     }
 
     public virtual void JumpOnAnimation()

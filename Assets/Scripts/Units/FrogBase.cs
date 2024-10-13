@@ -11,7 +11,7 @@ public class FrogBase : Unit
     protected FrogAnimationHandler animationHandler;
 
 
-    private void Start()
+    private void Awake()
     {
         animationHandler = GetComponentInChildren<FrogAnimationHandler>();
     }
