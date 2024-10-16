@@ -48,14 +48,19 @@ MonoBehaviour:
   cellPosition: {x: 0, y: 0}
   color: {r: 0, g: 1, b: 0, a: 1}
   type: 1
-  onJumpedClip: []
   moveSpeed: 2
   isJumpable: 0
   isMoving: 0
   isDead: 0
-  jumpClip: {fileID: 8300000, guid: c131014db7621844d946c0991152f970, type: 3}
-  landClip: {fileID: 8300000, guid: 4f6757ea9c2b18b4badda2fea886ffb6, type: 3}
-  deathClip: {fileID: 8300000, guid: 72ce24766c5cc0a48b715138fe8bd264, type: 3}
+  onJumpedAudioPacks:
+  - {fileID: 11400000, guid: 2929b561566ac844ba256593158670f1, type: 2}
+  jumpAudioPacks:
+  - {fileID: 11400000, guid: 06697d1d27b0c644a8a2ea7dfbf2485d, type: 2}
+  landAudioPacks:
+  - {fileID: 11400000, guid: f125cf7d3a2c0674b8ed521627c73abf, type: 2}
+  - {fileID: 11400000, guid: 98770fbb4e9c97c4288ab023d4d78617, type: 2}
+  deathAudioPacks:
+  - {fileID: 11400000, guid: 94059464382252241a382b657aeadfbf, type: 2}
 --- !u!1 &8442329044268368746
 GameObject:
   m_ObjectHideFlags: 0

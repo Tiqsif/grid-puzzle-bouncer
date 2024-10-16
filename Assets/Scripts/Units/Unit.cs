@@ -8,13 +8,13 @@ public class Unit : MonoBehaviour
     public Vector2Int cellPosition;
     public Color color;
     public Type type;
-    public AudioClip[] onJumpedClip;
     public float moveSpeed = 0f;
     private float currentSpeed;
     public Queue<Vector3> moveQueue = new Queue<Vector3>();
     public bool isJumpable = true;
     public bool isMoving = false;
     public bool isDead = false;
+    public AudioPackSO[] onJumpedAudioPacks;
     protected Platform platform;
 
     public delegate void OnUnitMove(Unit mover, Vector2Int direction, Unit unitMovedTo);
@@ -89,6 +89,7 @@ public class Unit : MonoBehaviour
             {
                 JumpAnimation();
                 yield return StartCoroutine(MoveTo(platform.grid.GetWorldPosition(cellPosition)));
+                Land();
 
             }
             else // if out of the grid
@@ -212,9 +213,8 @@ public class Unit : MonoBehaviour
     public virtual void JumpedOn(Unit player)
     {
         Debug.Log("Jumped on " + type);
-        foreach (var clip in onJumpedClip)
+        foreach (AudioClip clip in AudioPackManager.GetRandomClipFromEachPack(onJumpedAudioPacks))
         {
-            //Debug.Log("Playing Audio: " + clip.name);
             AudioManager.Instance.KillSFX(clip);
             AudioManager.Instance.PlaySFX(clip);
         }
@@ -269,6 +269,12 @@ public class Unit : MonoBehaviour
     public virtual void FallAnimation()
     {
         // animation for falling down
+    }
+
+    public virtual void Land()
+    {
+        // called when landed on empty cell
+        // can play sound effect for landing
     }
     
 }

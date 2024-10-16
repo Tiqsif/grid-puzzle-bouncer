@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e32e4110ad8f744a8de7ccde1dd6f02, type: 3}
+  m_Name: BushesPack
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 057b74e6025e0304c91be7289738bfab, type: 3}
+  - {fileID: 8300000, guid: 09d0fe553acc577448e60fd0d61a72a5, type: 3}
+  - {fileID: 8300000, guid: 513996c5c6c8a3a49b44d2dfee4d55f3, type: 3}
+  - {fileID: 8300000, guid: 95e1710375a8beb4a9f894971fcd228e, type: 3}
+  - {fileID: 8300000, guid: d959a523cd204c548a58e566f4d29a39, type: 3}

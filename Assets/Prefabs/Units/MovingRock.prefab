@@ -80,12 +80,12 @@ MonoBehaviour:
   cellPosition: {x: 0, y: 0}
   color: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 1}
   type: 10
-  onJumpedClip:
-  - {fileID: 8300000, guid: 36bf9a266bf3999488f7eef9f8e9fce5, type: 3}
   moveSpeed: 3
   isJumpable: 0
   isMoving: 0
   isDead: 0
+  onJumpedAudioPacks:
+  - {fileID: 11400000, guid: 2929b561566ac844ba256593158670f1, type: 2}
 --- !u!1001 &113955087507648092
 PrefabInstance:
   m_ObjectHideFlags: 0

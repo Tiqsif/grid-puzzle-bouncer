@@ -18,8 +18,11 @@ public class FrogAnimationHandler : MonoBehaviour
         animator.SetTrigger("Jump");
         StartCoroutine(UpdateFlagRoutine("FrogJump"));
 
-        AudioManager.Instance.KillSFX(frog.jumpClip);
-        AudioManager.Instance.PlaySFX(frog.jumpClip);
+        foreach (AudioClip clip in AudioPackManager.GetRandomClipFromEachPack(frog.jumpAudioPacks))
+        {
+            AudioManager.Instance.KillSFX(clip);
+            AudioManager.Instance.PlaySFX(clip);
+        }
     }
 
     public void Fall()
@@ -27,17 +30,28 @@ public class FrogAnimationHandler : MonoBehaviour
         if (!animator) return;
         animator.SetTrigger("AttackJump");
         StartCoroutine(UpdateFlagRoutine("FrogAttackJump"));
-        AudioManager.Instance.KillSFX(frog.jumpClip);
-        AudioManager.Instance.PlaySFX(frog.jumpClip);
-        AudioManager.Instance.PlaySFX(frog.deathClip, 0.5f);
+        foreach (AudioClip clip in AudioPackManager.GetRandomClipFromEachPack(frog.jumpAudioPacks))
+        {
+            AudioManager.Instance.KillSFX(clip);
+            AudioManager.Instance.PlaySFX(clip);
+        }
+
+        foreach (AudioClip clip in AudioPackManager.GetRandomClipFromEachPack(frog.deathAudioPacks))
+        {
+            AudioManager.Instance.PlaySFX(clip, 0.5f);
+        }
     }
     public void AttackJump()
     {
         if (!animator) return;
         animator.SetTrigger("AttackJump");
         StartCoroutine(UpdateFlagRoutine("FrogAttackJump"));
-        AudioManager.Instance.KillSFX(frog.jumpClip);
-        AudioManager.Instance.PlaySFX(frog.jumpClip);
+
+        foreach (AudioClip clip in AudioPackManager.GetRandomClipFromEachPack(frog.jumpAudioPacks))
+        {
+            AudioManager.Instance.KillSFX(clip);
+            AudioManager.Instance.PlaySFX(clip);
+        }
     }
 
     public void HalfJump()
@@ -45,8 +59,11 @@ public class FrogAnimationHandler : MonoBehaviour
         if (!animator) return;
         animator.SetTrigger("HalfJump");
         StartCoroutine(UpdateFlagRoutine("FrogHalfJump"));
-        AudioManager.Instance.KillSFX(frog.jumpClip);
-        AudioManager.Instance.PlaySFX(frog.jumpClip);
+        foreach (AudioClip clip in AudioPackManager.GetRandomClipFromEachPack(frog.jumpAudioPacks))
+        {
+            AudioManager.Instance.KillSFX(clip);
+            AudioManager.Instance.PlaySFX(clip);
+        }
     }
    
 

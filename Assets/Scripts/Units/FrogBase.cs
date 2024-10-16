@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class FrogBase : Unit
 {
-    public AudioClip jumpClip;
-    public AudioClip landClip;
-    public AudioClip deathClip;
+    public AudioPackSO[] jumpAudioPacks;
+    public AudioPackSO[] landAudioPacks;
+    public AudioPackSO[] deathAudioPacks;
 
     protected FrogAnimationHandler animationHandler;
 
@@ -15,8 +15,16 @@ public class FrogBase : Unit
     {
         animationHandler = GetComponentInChildren<FrogAnimationHandler>();
     }
-   
 
+    public override void Land()
+    {
+        base.Land();
+        foreach (AudioClip clip in AudioPackManager.GetRandomClipFromEachPack(landAudioPacks))
+        {
+            AudioManager.Instance.KillSFX(clip);
+            AudioManager.Instance.PlaySFX(clip);
+        }
+    }
 
     public override void JumpAnimation()
     {

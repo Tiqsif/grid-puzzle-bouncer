@@ -88,12 +88,12 @@ MonoBehaviour:
   cellPosition: {x: 0, y: 0}
   color: {r: 0, g: 1, b: 0.56078434, a: 1}
   type: 6
-  onJumpedClip:
-  - {fileID: 8300000, guid: 67f80868d7824224eb598cbdd090b308, type: 3}
   moveSpeed: 0
-  jumpAmount: 1
   isJumpable: 1
   isMoving: 0
+  isDead: 0
+  onJumpedAudioPacks:
+  - {fileID: 11400000, guid: 396defd93dcc3e2468c6f3d2a0b451fb, type: 2}
   waterPrefab: {fileID: 8514086045341286328, guid: 969e5ffa8c987484fbcfa595efa17977,
     type: 3}
 --- !u!1001 &509039232374596173

@@ -21,8 +21,11 @@ public class PlayerAnimationHandler : MonoBehaviour
         animator.SetTrigger("Jump");
         StartCoroutine(UpdateFlagRoutine("FrogJump"));
 
-        AudioManager.Instance.KillSFX(player.jumpClip);
-        AudioManager.Instance.PlaySFX(player.jumpClip);
+        foreach (AudioClip clip in AudioPackManager.GetRandomClipFromEachPack(player.jumpAudioPacks))
+        {
+            AudioManager.Instance.KillSFX(clip);
+            AudioManager.Instance.PlaySFX(clip);
+        }
     }
 
     public void Fall()
@@ -30,17 +33,27 @@ public class PlayerAnimationHandler : MonoBehaviour
         if (!animator) return;
         animator.SetTrigger("AttackJump");
         StartCoroutine(UpdateFlagRoutine("FrogAttackJump"));
-        AudioManager.Instance.KillSFX(player.jumpClip);
-        AudioManager.Instance.PlaySFX(player.jumpClip);
-        AudioManager.Instance.PlaySFX(player.deathClip, 0.5f);
+        foreach (AudioClip clip in AudioPackManager.GetRandomClipFromEachPack(player.jumpAudioPacks))
+        {
+            AudioManager.Instance.KillSFX(clip);
+            AudioManager.Instance.PlaySFX(clip);
+        }
+
+        foreach (AudioClip clip in AudioPackManager.GetRandomClipFromEachPack(player.deathAudioPacks))
+        {
+            AudioManager.Instance.PlaySFX(clip, 0.5f);
+        }
     }
     public void AttackJump()
     {
         if (!animator) return;
         animator.SetTrigger("AttackJump");
         StartCoroutine(UpdateFlagRoutine("FrogAttackJump"));
-        AudioManager.Instance.KillSFX(player.jumpClip);
-        AudioManager.Instance.PlaySFX(player.jumpClip);
+        foreach (AudioClip clip in AudioPackManager.GetRandomClipFromEachPack(player.jumpAudioPacks))
+        {
+            AudioManager.Instance.KillSFX(clip);
+            AudioManager.Instance.PlaySFX(clip);
+        }
     }
 
     public void HalfJump()
@@ -48,8 +61,11 @@ public class PlayerAnimationHandler : MonoBehaviour
         if (!animator) return;
         animator.SetTrigger("HalfJump");
         StartCoroutine(UpdateFlagRoutine("FrogHalfJump"));
-        AudioManager.Instance.KillSFX(player.jumpClip);
-        AudioManager.Instance.PlaySFX(player.jumpClip);
+        foreach (AudioClip clip in AudioPackManager.GetRandomClipFromEachPack(player.jumpAudioPacks))
+        {
+            AudioManager.Instance.KillSFX(clip);
+            AudioManager.Instance.PlaySFX(clip);
+        }
     }
    
 
@@ -58,7 +74,6 @@ public class PlayerAnimationHandler : MonoBehaviour
         if (!animator) return;
         animator.SetTrigger("Bump");
         StartCoroutine(UpdateFlagRoutine("FrogBump"));
-        //AudioManager.Instance.PlaySFX(player.bumpClip);
     }
 
 

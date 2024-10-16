@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e32e4110ad8f744a8de7ccde1dd6f02, type: 3}
+  m_Name: DropPack
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 1932e7e813e90ac44956a88a7d54cf11, type: 3}
+  - {fileID: 8300000, guid: 225a8813bd9fa324c8e81cb903786041, type: 3}
