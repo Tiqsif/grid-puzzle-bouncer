@@ -20,7 +20,7 @@ public static class AudioPackManager
                 ret[i] = packArray[i].clips[Random.Range(0, packArray[i].clips.Length)];
             }
         }
-        Debug.Log(ret.Length);
+        //Debug.Log(ret.Length);
         return ret;
     }
 }

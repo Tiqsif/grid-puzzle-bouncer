@@ -7,7 +7,9 @@ public class AudioManager : MonoBehaviour
     // Singleton instance
     public float volume = 0.5f;
     public float musicVolume = 0.05f;
+    public float ambienceVolume = 0.5f;
     public AudioClip musicClip;
+    public AudioClip[] ambienceClips;
     public AudioClip winClip;
     private static AudioManager _instance;
 
@@ -63,6 +65,10 @@ public class AudioManager : MonoBehaviour
     private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
     {
         // Play the music clip when a new scene is loaded
+        foreach (AudioClip ambienceClip in ambienceClips)
+        {
+            PlayAmbience(ambienceClip, true);
+        }
         PlayMusic(musicClip, true);
     }
     
@@ -70,6 +76,10 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
 #if UNITY_EDITOR
+        foreach (AudioClip ambienceClip in ambienceClips)
+        {
+            PlayAmbience(ambienceClip, true);
+        }
         PlayMusic(musicClip, true);
 #endif
     }
@@ -139,7 +149,7 @@ public class AudioManager : MonoBehaviour
         }
 
         // Create a temporary GameObject
-        GameObject tempAudioObject = new GameObject("MusicObj");
+        GameObject tempAudioObject = new GameObject(musicClip.name);
         tempAudioObject.transform.position = AudioManager.Instance.transform.position;
 
         // Add an AudioSource component to the GameObject
@@ -148,6 +158,30 @@ public class AudioManager : MonoBehaviour
         audioSource.loop = isLooping;
         // Set the clip to the AudioSource
         audioSource.clip = musicClip;
+
+        // Play the clip
+        audioSource.Play();
+
+    }
+
+    public void PlayAmbience(AudioClip ambienceClip, bool isLooping = false)
+    {
+        if (ambienceClip == null)
+        {
+            Debug.LogWarning("AudioClip is null. Cannot play music.");
+            return;
+        }
+
+        // Create a temporary GameObject
+        GameObject tempAudioObject = new GameObject(ambienceClip.name);
+        tempAudioObject.transform.position = AudioManager.Instance.transform.position;
+
+        // Add an AudioSource component to the GameObject
+        AudioSource audioSource = tempAudioObject.AddComponent<AudioSource>();
+        audioSource.volume = ambienceVolume;
+        audioSource.loop = isLooping;
+        // Set the clip to the AudioSource
+        audioSource.clip = ambienceClip;
 
         // Play the clip
         audioSource.Play();

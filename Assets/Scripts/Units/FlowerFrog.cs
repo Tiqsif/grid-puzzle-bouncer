@@ -42,25 +42,25 @@ public class FlowerFrog : FrogBase
     public override void JumpAnimation()
     {
         base.JumpAnimation();
-        animationHandler.Jump();
+        //animationHandler.Jump();
     }
 
     public override void JumpOnAnimation()
     {
         base.JumpOnAnimation();
-        animationHandler.HalfJump();
+        //animationHandler.HalfJump();
     }
 
     public override void JumpOffAnimation() // not used atm
     {
         base.JumpOffAnimation();
-        animationHandler.AttackJump();
+        //animationHandler.AttackJump();
     }
 
     public override void BumpAnimation()
     {
         base.BumpAnimation();
-        animationHandler.Bump();
+        //animationHandler.Bump();
     }
 
     /// <summary>
@@ -69,6 +69,6 @@ public class FlowerFrog : FrogBase
     public override void FallAnimation()
     {
         base.FallAnimation();
-        animationHandler.Fall();
+        //animationHandler.Fall();
     }
 }
