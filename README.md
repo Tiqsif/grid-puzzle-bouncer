@@ -21,9 +21,12 @@ Plan your moves carefully to avoid falling off the grid. Some bugs are placed in
 Use WASD keys to navigate Hopper across the grid.
 
 
-![GIF 22 09 2024 17-18-56](https://github.com/user-attachments/assets/88a2efe5-bce8-4f5f-a252-b23bee42c5f5)
-![GIF 22 09 2024 17-17-54](https://github.com/user-attachments/assets/5414ef6b-995f-48c6-ae25-3a23e74aede3)
-![image](https://github.com/user-attachments/assets/680c2662-bb41-47b4-b72e-09c9faca5938)
+![image](https://github.com/user-attachments/assets/c5fb4971-1dc8-4ef1-94cc-d0f0249b9082)
+
+![image](https://github.com/user-attachments/assets/fc4de1c4-8180-4911-8db9-4f870c3a82c5)
+
+![image](https://github.com/user-attachments/assets/9637c3c7-dfe7-497b-83a1-f13618842826)
+
 
 
 ##
