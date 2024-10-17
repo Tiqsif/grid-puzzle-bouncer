@@ -813,7 +813,6 @@ MonoBehaviour:
   deathMenu: {fileID: 1466355488654742654}
   pauseMenu: {fileID: 3300115763341073266}
   levelNum: {fileID: 3411969848624708753}
-  firsLevelIndex: 2
 --- !u!1 &4472486031867401513
 GameObject:
   m_ObjectHideFlags: 0
@@ -2019,8 +2018,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: LEVEL
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6496f838d2fb5f841b3dec79fc766450, type: 2}
-  m_sharedMaterial: {fileID: -1707415841916647629, guid: 6496f838d2fb5f841b3dec79fc766450,
+  m_fontAsset: {fileID: 11400000, guid: 16d154a90515b2b4990aac5032a6d919, type: 2}
+  m_sharedMaterial: {fileID: -5601413530399786172, guid: 16d154a90515b2b4990aac5032a6d919,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2256,7 +2255,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 180, y: 0}
+  m_AnchoredPosition: {x: 132, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5445591962053713408
@@ -2289,8 +2288,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6496f838d2fb5f841b3dec79fc766450, type: 2}
-  m_sharedMaterial: {fileID: -1707415841916647629, guid: 6496f838d2fb5f841b3dec79fc766450,
+  m_fontAsset: {fileID: 11400000, guid: 16d154a90515b2b4990aac5032a6d919, type: 2}
+  m_sharedMaterial: {fileID: -5601413530399786172, guid: 16d154a90515b2b4990aac5032a6d919,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
