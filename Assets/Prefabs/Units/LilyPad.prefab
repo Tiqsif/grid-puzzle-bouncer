@@ -94,6 +94,8 @@ MonoBehaviour:
   isDead: 0
   onJumpedAudioPacks:
   - {fileID: 11400000, guid: 396defd93dcc3e2468c6f3d2a0b451fb, type: 2}
+  JumpParticle: {fileID: 0}
+  onJumpedParticle: {fileID: 191114, guid: 6f5ea49a4ec19d14db2075c54a96c80a, type: 3}
   waterPrefab: {fileID: 8514086045341286328, guid: 969e5ffa8c987484fbcfa595efa17977,
     type: 3}
 --- !u!1001 &509039232374596173

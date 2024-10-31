@@ -5,6 +5,8 @@ using UnityEngine;
 // attach to camera
 public class CameraSpin : MonoBehaviour
 {
+    public float spinDuration = 4f;
+    [Range(1f, 10f)]public float resetSpeed = 2f;
     private bool spinning = false;
     Quaternion startRotation;
     Vector3 startPosition;
@@ -24,7 +26,7 @@ public class CameraSpin : MonoBehaviour
         startRotation = transform.rotation; // Initial rotation of the camera
         startPosition = transform.position; // Initial position of the camera
 
-        float duration = 4f; // Total duration for a full rotation 
+        float duration = spinDuration; // Total duration for a full rotation 
         float elapsed = 0f;
         Vector3 initialOffset = transform.position - pivotPoint; // Initial offset from the pivot
         Vector3 axis = Vector3.up; // Y-axis for horizontal rotation
@@ -47,13 +49,17 @@ public class CameraSpin : MonoBehaviour
             transform.position = pivotPoint + newOffset;
             transform.LookAt(pivotPoint);
 
+            if (elapsed > 0.25f && Input.anyKey)
+            {
+                break;
+            }
             yield return null;
         }
         // Ensure the camera finishes exactly at the 360-degree point
         while(Vector3.Distance(transform.position, pivotPoint + initialOffset) > 0.02f || Quaternion.Angle(transform.rotation, startRotation) > 0.01f)
         {
-            transform.position = Vector3.Lerp(transform.position, startPosition, Time.deltaTime);
-            transform.rotation = Quaternion.Lerp(transform.rotation, startRotation, Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, startPosition, Time.deltaTime * resetSpeed);
+            transform.rotation = Quaternion.Lerp(transform.rotation, startRotation, Time.deltaTime * resetSpeed);
             yield return null;
         }
         ResetTransform();

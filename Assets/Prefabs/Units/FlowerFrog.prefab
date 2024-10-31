@@ -52,8 +52,12 @@ MonoBehaviour:
   isJumpable: 1
   isMoving: 0
   isDead: 0
+  isElastic: 1
   onJumpedAudioPacks:
   - {fileID: 11400000, guid: 2929b561566ac844ba256593158670f1, type: 2}
+  - {fileID: 11400000, guid: 00d490a4b3ba7c449bf6c650df025e27, type: 2}
+  JumpParticle: {fileID: 175238, guid: 47821a81d668b3644998f7f8b46cad25, type: 3}
+  onJumpedParticle: {fileID: 191114, guid: 6f5ea49a4ec19d14db2075c54a96c80a, type: 3}
   jumpAudioPacks:
   - {fileID: 11400000, guid: 06697d1d27b0c644a8a2ea7dfbf2485d, type: 2}
   landAudioPacks:
@@ -61,6 +65,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 98770fbb4e9c97c4288ab023d4d78617, type: 2}
   deathAudioPacks:
   - {fileID: 11400000, guid: 94059464382252241a382b657aeadfbf, type: 2}
+  landingParticles: {fileID: 191114, guid: 6f5ea49a4ec19d14db2075c54a96c80a, type: 3}
 --- !u!1 &8442329044268368746
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,6 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3276198336485241520}
   isPlaying: 0
+  jumpParticle: {fileID: 0}
 --- !u!1001 &2329927224296910575
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -124,6 +124,8 @@ MonoBehaviour:
   isDead: 0
   onJumpedAudioPacks:
   - {fileID: 11400000, guid: 2929b561566ac844ba256593158670f1, type: 2}
+  JumpParticle: {fileID: 0}
+  onJumpedParticle: {fileID: 191114, guid: 6f5ea49a4ec19d14db2075c54a96c80a, type: 3}
   direction: {x: 0, y: 0}
   jumpClip: {fileID: 8300000, guid: 3c4082f965c925245b8678b44c0f2e38, type: 3}
   deathClip: {fileID: 8300000, guid: 72ce24766c5cc0a48b715138fe8bd264, type: 3}

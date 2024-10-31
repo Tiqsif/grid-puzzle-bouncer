@@ -5,7 +5,8 @@ using UnityEngine;
 public class Sunflower : Unit
 {
     Vector2Int direction;
-
+    public AudioPackSO[] rotateAudioPacks;
+    public GameObject rotateParticle;
     private void OnEnable()
     {
         Vector3 facingDir = transform.right;
@@ -37,7 +38,18 @@ public class Sunflower : Unit
         {
             yield break;
         }
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.4f);
+
+        if (rotateParticle != null)
+        {
+            Instantiate(rotateParticle, transform.position, Quaternion.identity);
+        }
+        foreach (AudioClip clip in AudioPackManager.GetRandomClipFromEachPack(rotateAudioPacks))
+        {
+            AudioManager.Instance.KillSFX(clip);
+            AudioManager.Instance.PlaySFX(clip);
+        }
+
         // slowly rotate, transform.right = new Vector3(dir.x, 0, dir.y)
         float t = 0;
         Quaternion start = transform.rotation;

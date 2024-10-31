@@ -7,7 +7,7 @@ public class FrogBase : Unit
     public AudioPackSO[] jumpAudioPacks;
     public AudioPackSO[] landAudioPacks;
     public AudioPackSO[] deathAudioPacks;
-
+    public GameObject landingParticles;
     protected FrogAnimationHandler animationHandler;
 
 
@@ -23,6 +23,11 @@ public class FrogBase : Unit
         {
             AudioManager.Instance.KillSFX(clip);
             AudioManager.Instance.PlaySFX(clip);
+        }
+
+        if (landingParticles != null)
+        {
+            Instantiate(landingParticles, transform.position, Quaternion.identity);
         }
     }
 

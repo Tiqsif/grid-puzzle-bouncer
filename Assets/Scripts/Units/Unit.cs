@@ -14,7 +14,14 @@ public class Unit : MonoBehaviour
     public bool isJumpable = true;
     public bool isMoving = false;
     public bool isDead = false;
+
+    [Tooltip("If true a temporary scale change will happen onJumped")]
+    public bool isElastic = false;
+
     public AudioPackSO[] onJumpedAudioPacks;
+    public GameObject JumpParticle;
+    public GameObject onJumpedParticle;
+    private Material onJumpedParticleMaterial;
     protected Platform platform;
 
     public delegate void OnUnitMove(Unit mover, Vector2Int direction, Unit unitMovedTo);
@@ -24,7 +31,27 @@ public class Unit : MonoBehaviour
     private void Start()
     {
         platform = FindObjectOfType<Platform>();
-        
+        if (onJumpedParticle && onJumpedParticle.TryGetComponent(out ParticleSystemRenderer psRenderer))
+        {
+            /*
+            Color totalColor = Color.black;
+            int colorCount = 0;
+
+             // to get average color of all the child meshes materials
+            foreach (MeshRenderer renderer in GetComponentsInChildren<MeshRenderer>())
+            {
+                totalColor += renderer.material.color;
+                colorCount++;
+            }
+
+            Color finalColor = colorCount > 0 ? totalColor / colorCount : Color.white;
+            Debug.Log("Final color: " + finalColor);
+            */
+            Color finalColor = this.color;
+            Material newMat = new Material(psRenderer.sharedMaterial);
+            newMat.color = finalColor;
+            onJumpedParticleMaterial = newMat;
+        }
     }
     
     public virtual void Move(Vector2Int targetPosition)
@@ -36,6 +63,10 @@ public class Unit : MonoBehaviour
         if (isDead || moveSpeed <= 0)
         {
             return;
+        }
+        if (JumpParticle != null)
+        {
+            Instantiate(JumpParticle, transform.position, Quaternion.identity);
         }
         StartCoroutine(MoveRoutine(targetPosition, delay));
     }
@@ -213,10 +244,22 @@ public class Unit : MonoBehaviour
     public virtual void JumpedOn(Unit player)
     {
         Debug.Log("Jumped on " + type);
+
+        if (onJumpedParticle != null)
+        {
+            GameObject particleObj = Instantiate(onJumpedParticle, transform.position, Quaternion.identity);
+            particleObj.GetComponent<ParticleSystemRenderer>().material = onJumpedParticleMaterial;
+            
+        }
         foreach (AudioClip clip in AudioPackManager.GetRandomClipFromEachPack(onJumpedAudioPacks))
         {
             AudioManager.Instance.KillSFX(clip);
             AudioManager.Instance.PlaySFX(clip);
+        }
+
+        if (isElastic)
+        {
+            StartCoroutine(ApplyJiggle(0.5f, 0.1f));
         }
     }
 
@@ -276,5 +319,27 @@ public class Unit : MonoBehaviour
         // called when landed on empty cell
         // can play sound effect for landing
     }
-    
+
+    protected IEnumerator ApplyJiggle(float duration, float intensity)
+    {
+        float timeElapsed = 0f;
+        Vector3 initialScale = transform.localScale;
+        while (timeElapsed < duration)
+        {
+
+            timeElapsed += Time.deltaTime;
+            float jiggleAmountX = Mathf.Sin(timeElapsed * Mathf.PI * 4) * intensity; // Subtle jiggle on x-axis
+            float jiggleAmountY = Mathf.Sin(timeElapsed * Mathf.PI * 4) * intensity * 1.5f; // Stronger jiggle on y-axis
+            float jiggleAmountZ = Mathf.Sin(timeElapsed * Mathf.PI * 4) * intensity; // Subtle jiggle on z-axis
+
+            transform.localScale = new Vector3(
+                initialScale.x + jiggleAmountX,
+                initialScale.y + jiggleAmountY,
+                initialScale.z + jiggleAmountZ
+            );
+
+            yield return null;
+        }
+        transform.localScale = initialScale; // Reset scale
+    }
 }

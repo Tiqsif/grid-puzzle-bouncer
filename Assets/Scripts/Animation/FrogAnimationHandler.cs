@@ -7,6 +7,7 @@ public class FrogAnimationHandler : MonoBehaviour
     public Animator animator;
     private FrogBase frog;
     public bool isPlaying;
+    public GameObject jumpParticle;
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -23,6 +24,11 @@ public class FrogAnimationHandler : MonoBehaviour
             AudioManager.Instance.KillSFX(clip);
             AudioManager.Instance.PlaySFX(clip);
         }
+        if (jumpParticle != null)
+        {
+            Instantiate(jumpParticle, transform.parent.position, Quaternion.identity);
+        }
+            
     }
 
     public void Fall()

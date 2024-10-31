@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellPosition: {x: 0, y: 0}
-  color: {r: 0, g: 0.3764706, b: 1, a: 1}
+  color: {r: 0, g: 0.75, b: 1, a: 1}
   type: 5
   moveSpeed: 0
   isJumpable: 1
@@ -94,6 +94,9 @@ MonoBehaviour:
   onJumpedAudioPacks:
   - {fileID: 11400000, guid: 24e665c6eefef904c93c98d1a369040e, type: 2}
   - {fileID: 11400000, guid: 90baeb445a3c88a4b970939e362ada59, type: 2}
+  - {fileID: 11400000, guid: 29e31f949962d8e49b85ef0d34b4983b, type: 2}
+  JumpParticle: {fileID: 0}
+  onJumpedParticle: {fileID: 194016, guid: 0ff177dc706eb3348b1b2cdffd9cd599, type: 3}
 --- !u!1001 &509039232374596173
 PrefabInstance:
   m_ObjectHideFlags: 0

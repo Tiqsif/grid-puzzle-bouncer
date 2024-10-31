@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: ClickyPack
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: a9b849c1a68071f49a520872a932bae0, type: 3}
-  - {fileID: 8300000, guid: eeefe7df60846f341be7de9cbfb7672c, type: 3}
   - {fileID: 8300000, guid: c0ac0d72d1622a84e9d9a82afb79255c, type: 3}
   - {fileID: 8300000, guid: 0f7b6aab69b603c449ff48a8ad1fb77b, type: 3}
   - {fileID: 8300000, guid: 7f1a8fcffd606b1408074ffc8a514a79, type: 3}

@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 907020671423543158}
   - component: {fileID: 1563801144205691882}
   - component: {fileID: 5476590939200947648}
+  - component: {fileID: 4466943782858506861}
+  - component: {fileID: 142778275494902078}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -138,6 +140,33 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &4466943782858506861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3001389556135153818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87a76b45bc1ba4f4e88627dfd2c1104e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minMaxDist: {x: 7.4, y: 9.4}
+--- !u!114 &142778275494902078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3001389556135153818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f6868a191a5b784992f250409859c2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spinDuration: 4
+  resetSpeed: 4
 --- !u!1 &6878406109181210110
 GameObject:
   m_ObjectHideFlags: 0
