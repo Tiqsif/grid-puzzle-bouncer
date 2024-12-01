@@ -122,12 +122,15 @@ MonoBehaviour:
   isJumpable: 0
   isMoving: 0
   isDead: 0
+  isElastic: 0
   onJumpedAudioPacks:
   - {fileID: 11400000, guid: 2929b561566ac844ba256593158670f1, type: 2}
-  JumpParticle: {fileID: 0}
+  - {fileID: 11400000, guid: 20bca391f80e6c44484f3865146b8c51, type: 2}
+  - {fileID: 11400000, guid: edde325371eb06640a677c89931e2e85, type: 2}
+  JumpParticle: {fileID: 175238, guid: 47821a81d668b3644998f7f8b46cad25, type: 3}
   onJumpedParticle: {fileID: 191114, guid: 6f5ea49a4ec19d14db2075c54a96c80a, type: 3}
   direction: {x: 0, y: 0}
-  jumpClip: {fileID: 8300000, guid: 3c4082f965c925245b8678b44c0f2e38, type: 3}
+  jumpClip: {fileID: 8300000, guid: 7b0b18300d43060448d15077d3bc2eed, type: 3}
   deathClip: {fileID: 8300000, guid: 72ce24766c5cc0a48b715138fe8bd264, type: 3}
 --- !u!1001 &2549790852800313814
 PrefabInstance:

@@ -59,6 +59,7 @@ public class Player : FrogBase
     {
         base.JumpedOn(jumper);
         Vector2Int direction = cellPosition - jumper.cellPosition;
+        direction = new Vector2Int(Mathf.Clamp(direction.x, -1, 1), Mathf.Clamp(direction.y, -1, 1));
         Vector2Int jumperTarget = cellPosition + direction;
         jumper.cellPosition = cellPosition;
         jumper.Move(jumperTarget);

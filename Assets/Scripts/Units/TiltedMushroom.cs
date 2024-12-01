@@ -15,6 +15,7 @@ public class TiltedMushroom : Unit
         base.JumpedOn(player);
         Vector3 facingDir = transform.right;
         Vector2Int direction = new Vector2Int(Mathf.RoundToInt(facingDir.x), Mathf.RoundToInt(facingDir.z));
+        direction = new Vector2Int(Mathf.Clamp(direction.x, -1, 1), Mathf.Clamp(direction.y, -1, 1));
         Vector2Int playerTarget = cellPosition + direction;
         player.cellPosition = cellPosition;
         player.Move(playerTarget);

@@ -46,71 +46,89 @@ public class LevelDataTranslator : MonoBehaviour
         ". E E ."
         ,
         // Level 4
+        "R . .\n" +
+        "P M E\n" +
+        ". . R" 
+        ,
+        // Level 5
         "R . . .\n" +
         "E M E M\n" +
         "M . R .\n" +
         "P . R ."
         ,
-        // Level 5
-        "R . . R\n" +
-        ". E . .\n" +
-        "E R E .\n" +
-        ". P M M"
-        ,
         // Level 6
+        ". . . . R\n" +
+        "R M . E E\n" +
+        "M . R E .\n" +
+        "P E M M R\n" +
+        "R E M . ."
+        ,
+        // Level 7
         ". . R M\n" +
         "M . E M\n" +
         "E M . .\n" +
         "P M R ."
         ,
-        // Level 7
+        // Level 8
         ". E . R\n" +
         ". . R E\n" +
         ". F F .\n" +
         "M P . M"
         ,
-        // Level 8
+        // Level 9
         ". . R .\n" +
         ". E M E\n" +
         ". F . .\n" +
         "R P F R"
         ,
-        // Level 9
+        // Level 10
         ". E R .\n" +
         ". M E E\n" +
         "F F . M\n" +
         "P F R ."
         ,
-        // Level 10
-        "R . M .\n" +
-        "E M W E\n" +
-        "M . W M\n" +
-        "P . . R"
-        ,
         // Level 11
-        "W . E .\n" +
-        "R E M .\n" +
-        "W F R W\n" +
-        ". P . ."
+        "P R . E R\n" +
+        ". E W F .\n" +
+        ". F F M E\n" +
+        ". . . F .\n" +
+        ". F R . ."
         ,
         // Level 12
-        ". E . R\n" +
-        ". F F .\n" +
-        "L F M E\n" +
-        ". P R R"
+        ". . . M\n" +
+        ". E E R\n" +
+        "W W E M\n" +
+        "P F R E\n" +
+        ". . . ."
         ,
         // Level 13
+        ". R E .\n" +
+        "E M F .\n" +
+        "L E E .\n" +
+        "P L . ."
+        ,
+        // Level 14
             
         ". E M R\n" +
         ". F W .\n" +
         ". L F .\n" +
         "R P . ."
         ,
-        // Level 14 - all units delete later
+        // Level 15
+        ". . . .\n" +
+        ". P T R\n" +
+        ". . M .\n" +
+        ". . . ."
+
+
+        /*
+        ,
+        // Level - all units delete later
         "R M W L\n" +
-        "F TM TF MR\n" +
+        "F TM TF .\n" +
         "MF FF SF T\n" +
-        ". P E ."
+        ". MR P E"
+        */
         };
 
         foreach (string room in rooms)
@@ -145,6 +163,7 @@ public class LevelDataTranslator : MonoBehaviour
                     else
                     {
                         Debug.LogError("Unknown cell type: " + cell);
+                        Debug.LogError("Room: " + rooms.IndexOf(room));
                     }
                     spawnDataList.Add(spawnData);
                 }

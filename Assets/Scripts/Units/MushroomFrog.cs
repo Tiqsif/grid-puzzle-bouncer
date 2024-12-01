@@ -5,7 +5,7 @@ using UnityEngine;
 public class MushroomFrog : FrogBase
 {
 
-    private void Start()
+    private new void Start()
     {
         animationHandler = GetComponentInChildren<FrogAnimationHandler>();
     }
@@ -21,6 +21,7 @@ public class MushroomFrog : FrogBase
     {
         base.JumpedOn(player);
         Vector2Int direction = cellPosition - player.cellPosition;
+        direction = new Vector2Int(Mathf.Clamp(direction.x, -1, 1), Mathf.Clamp(direction.y, -1, 1));
         Vector2Int playerTarget = cellPosition + direction;
         player.cellPosition = cellPosition;
         player.Move(playerTarget);

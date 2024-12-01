@@ -87,12 +87,12 @@ public class AudioManager : MonoBehaviour
     
 
     // Method to play a sound effect
-    public void PlaySFX(AudioClip clip)
+    public AudioSource PlaySFX(AudioClip clip)
     {
         if (clip == null)
         {
             Debug.LogWarning("AudioClip is null. Cannot play sound.");
-            return;
+            return null;
         }
         //Debug.Log("Playing SFX "+ clip.name);
         // Create a temporary GameObject
@@ -110,6 +110,7 @@ public class AudioManager : MonoBehaviour
 
         // Destroy the GameObject after the clip has finished playing
         Destroy(tempAudioObject, clip.length);
+        return audioSource;
     }
 
     public void PlaySFX(AudioClip clip, float delay)

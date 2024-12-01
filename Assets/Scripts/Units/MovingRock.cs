@@ -7,7 +7,6 @@ public class MovingRock : Unit
     public override IEnumerator JumpingOn(Unit player)
     {
         yield return base.JumpingOn(player);
-        player.BumpAnimation();
         Vector2Int direction = cellPosition - player.cellPosition;
         direction = new Vector2Int(Mathf.Clamp(direction.x, -1, 1), Mathf.Clamp(direction.y, -1, 1));
         player.BumpAnimation();

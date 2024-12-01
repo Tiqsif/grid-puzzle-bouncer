@@ -16,6 +16,7 @@ public class TiltedFlower : Unit
         base.JumpedOn(player);
         Vector3 facingDir = transform.right;
         Vector2Int direction = new Vector2Int(Mathf.RoundToInt(facingDir.x), Mathf.RoundToInt(facingDir.z));
+        direction = new Vector2Int(Mathf.Clamp(direction.x, -1, 1), Mathf.Clamp(direction.y, -1, 1));
         direction *= 2; // double the distance
         Vector2Int playerTarget = cellPosition + direction;
         player.cellPosition = cellPosition;

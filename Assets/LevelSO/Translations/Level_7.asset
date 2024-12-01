@@ -15,39 +15,43 @@ MonoBehaviour:
   cellSize: 1
   gridSize: {x: 4, y: 4}
   spawnDataList:
-  - type: 2
-    cellPosition: {x: 1, y: 3}
+  - type: 3
+    cellPosition: {x: 2, y: 3}
     randomRotation: 1
     rotation: 0
-  - type: 3
+  - type: 4
     cellPosition: {x: 3, y: 3}
     randomRotation: 1
     rotation: 0
-  - type: 3
-    cellPosition: {x: 2, y: 2}
+  - type: 4
+    cellPosition: {x: 0, y: 2}
     randomRotation: 1
     rotation: 0
   - type: 2
+    cellPosition: {x: 2, y: 2}
+    randomRotation: 1
+    rotation: 0
+  - type: 4
     cellPosition: {x: 3, y: 2}
     randomRotation: 1
     rotation: 0
-  - type: 7
+  - type: 2
+    cellPosition: {x: 0, y: 1}
+    randomRotation: 1
+    rotation: 0
+  - type: 4
     cellPosition: {x: 1, y: 1}
     randomRotation: 1
     rotation: 0
-  - type: 7
-    cellPosition: {x: 2, y: 1}
-    randomRotation: 1
-    rotation: 0
-  - type: 4
+  - type: 1
     cellPosition: {x: 0, y: 0}
     randomRotation: 1
     rotation: 0
-  - type: 1
+  - type: 4
     cellPosition: {x: 1, y: 0}
     randomRotation: 1
     rotation: 0
-  - type: 4
-    cellPosition: {x: 3, y: 0}
+  - type: 3
+    cellPosition: {x: 2, y: 0}
     randomRotation: 1
     rotation: 0

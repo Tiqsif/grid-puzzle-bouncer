@@ -28,6 +28,7 @@ public class Sunflower : Unit
         if (unitMovedTo == null && mover.type == Type.Player) // only if the mover jumped on an empty cell
         {
             this.direction = direction;
+            this.direction = new Vector2Int(Mathf.Clamp(this.direction.x, -1, 1), Mathf.Clamp(this.direction.y, -1, 1));
             StartCoroutine(RotateRoutine(direction));
         }
     }

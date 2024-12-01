@@ -38,21 +38,24 @@ public class Turtoise : Unit
     }
     */
 
-    private void Start()
+    protected new void Start()
     {
+        base.Start();
         animationHandler = GetComponentInChildren<TurtoiseAnimationHandler>();
     }
     public override IEnumerator JumpingOn(Unit player)
     {
         yield return base.JumpingOn(player);
-        player.BumpAnimation();
         Vector2Int direction = cellPosition - player.cellPosition;
         direction = new Vector2Int(Mathf.Clamp(direction.x, -1, 1), Mathf.Clamp(direction.y, -1, 1));
         player.BumpAnimation();
 
         // moveto the middle of cellposition and the cell next to it
+        Debug.Log(platform.grid.GetWorldPosition(cellPosition - direction));
+        Debug.Log(platform.grid.GetWorldPosition(cellPosition));
+        Debug.Log((platform.grid.GetWorldPosition(cellPosition - direction) + platform.grid.GetWorldPosition(cellPosition)) / 2);
         yield return StartCoroutine(player.MoveTo(
-           (platform.grid.GetWorldPosition(cellPosition - direction) + platform.grid.GetWorldPosition(cellPosition)) / 2
+           ( platform.grid.GetWorldPosition(cellPosition - direction) + platform.grid.GetWorldPosition(cellPosition) ) / 2
             ));
         // moveto the cell next to it
         StartCoroutine(player.MoveTo(

@@ -28,7 +28,7 @@ public class Unit : MonoBehaviour
     public static event OnUnitMove onUnitMove;
 
     
-    private void Start()
+    protected void Start()
     {
         platform = FindObjectOfType<Platform>();
         if (onJumpedParticle && onJumpedParticle.TryGetComponent(out ParticleSystemRenderer psRenderer))
