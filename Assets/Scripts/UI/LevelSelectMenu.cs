@@ -9,7 +9,7 @@ public class LevelSelectMenu : MonoBehaviour
     public RectTransform frame;
     public GameObject levelButtonPrefab;
     public LevelData levelData;
-    public int gameSceneIndex = 2;
+    public int gameSceneIndex = 1;
     private void Start()
     {
         foreach (Transform child in frame)

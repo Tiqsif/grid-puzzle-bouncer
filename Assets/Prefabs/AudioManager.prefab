@@ -51,3 +51,4 @@ MonoBehaviour:
   ambienceClips:
   - {fileID: 8300000, guid: 9d3de66d6d274a9469928c2407b2a3eb, type: 3}
   winClip: {fileID: 8300000, guid: 8e4d5f5c1e9852c4893655e6eb047cee, type: 3}
+  clickClip: {fileID: 8300000, guid: cc82bdc18e242a843874e5923b68566c, type: 3}

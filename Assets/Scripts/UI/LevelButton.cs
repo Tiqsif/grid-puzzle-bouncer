@@ -21,6 +21,7 @@ public class LevelButton : MonoBehaviour
     
     public void LoadLevel()
     {
+        AudioManager.Instance.PlayClick();
         levelData.currentLevel = levelData.allLevels[levelIndex];
         SceneManager.LoadScene(gameSceneIndex);
     }

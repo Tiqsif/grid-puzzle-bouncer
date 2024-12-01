@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public int gameSceneIndex = 2;
+    public int gameSceneIndex = 1;
     public LevelData levelData;
     public LevelSpawner levelSpawner;
     [HideInInspector] public int currentLevelIndex = 0;
@@ -114,7 +114,7 @@ public class LevelManager : MonoBehaviour
     // build scene change methods ------------------------------------------------
     public void LoadLevelSelect()
     {
-        SceneManager.LoadScene(1);
+        //SceneManager.LoadScene(1);
     }
     public void LoadMainMenu()
     {

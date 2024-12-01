@@ -11,6 +11,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip musicClip;
     public AudioClip[] ambienceClips;
     public AudioClip winClip;
+    public AudioClip clickClip;
     private static AudioManager _instance;
 
     // Public instance to access the AudioManager
@@ -187,5 +188,10 @@ public class AudioManager : MonoBehaviour
         // Play the clip
         audioSource.Play();
 
+    }
+
+    public AudioSource PlayClick()
+    {
+        return PlaySFX(clickClip);
     }
 }

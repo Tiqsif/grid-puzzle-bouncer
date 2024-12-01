@@ -58,6 +58,7 @@ public class GameMenu : MonoBehaviour
 
     public void RestartGame()
     {
+        AudioManager.Instance.PlayClick();
         SetDeathMenu(false);
         LevelManager.Instance.ReloadLevel();
     }
@@ -83,11 +84,14 @@ public class GameMenu : MonoBehaviour
 
     public void ResumeGame()
     {
+        AudioManager.Instance.PlayClick();
         SetPauseMenu(false);
     }
 
     public void MainMenu()
     {
+        AudioManager.Instance.PlayClick();
+        SetPauseMenu(false);
         LevelManager.Instance.LoadMainMenu();
     }
 }
