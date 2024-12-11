@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using static LevelManager;
 
 //[ExecuteAlways]
 public class Platform : MonoBehaviour
@@ -36,24 +35,25 @@ public class Platform : MonoBehaviour
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    private void Awake()
-    {
-        LevelManager.onLevelChange += OnLevelChange;
-    }
-
-    private void OnDisable()
-    {
-        LevelManager.onLevelChange -= OnLevelChange;
-    }
-    void Start()
+    protected void Awake()
     {
         grid = new Grid(width, height, cellSize);
         units = new List<Unit>();
     }
+    private void OnEnable()
+    {
+        LevelManager.onLevelChange += OnLevelChange;
+        
+    }
+    private void OnDisable()
+    {
+        LevelManager.onLevelChange -= OnLevelChange;
+    }
+    
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    void Update()
+    protected void Update()
     {
         /*/ if the game is NOT running (meaning its in the editor) -----------------------------------------------
         if (!Application.IsPlaying(this)) // EDITOR
@@ -93,8 +93,8 @@ public class Platform : MonoBehaviour
         grid.DrawGrid();
     }
 
-   
-    private void OnLevelChange()
+
+    protected void OnLevelChange()
     {
         player.isDead = false;
         isEnding = false;
@@ -133,7 +133,7 @@ public class Platform : MonoBehaviour
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    public void SetGridElements()
+    public virtual void SetGridElements()
     {
         Debug.Log("Setting grid elements");
         //Debug.Log("Before: " + units.Count);
@@ -151,6 +151,7 @@ public class Platform : MonoBehaviour
         grid.Clear();
         foreach (Unit unit in units)
         {
+            unit.enabled = true; // enable all units, was disabled when spawned in LevelSpawner
             if (unit == null || !unit.gameObject.activeInHierarchy)
             {
                 continue;
@@ -162,6 +163,7 @@ public class Platform : MonoBehaviour
 
             grid.SetValue(unit.cellPosition, (int)unit.type);
         }
+        Debug.Log("Grid Updated");
         //Debug.Log("After: " + units.Count);
     }
     public void ClearUnits()

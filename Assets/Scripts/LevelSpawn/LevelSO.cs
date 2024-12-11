@@ -12,7 +12,13 @@ public class SpawnData // hold data for every unit
     [Tooltip("0: right, 90: down, 180: left, 270: up")]
     public float rotation;
 
-
+    public SpawnData(Type type, Vector2Int cellPosition, bool randomRotation, float rotation)
+    {
+        this.type = type;
+        this.cellPosition = cellPosition;
+        this.randomRotation = randomRotation;
+        this.rotation = rotation;
+    }
 }
 
 [CreateAssetMenu(fileName = "LevelSO", menuName = "Level/LevelSO", order = 1)]

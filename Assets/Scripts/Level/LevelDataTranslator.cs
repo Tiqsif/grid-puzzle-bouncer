@@ -152,19 +152,20 @@ public class LevelDataTranslator : MonoBehaviour
                         continue;
                     }
                     
-                    SpawnData spawnData = new SpawnData();
                     // cell position 0,0 is bottom left
-                    spawnData.cellPosition = new Vector2Int(x, height - y - 1);
-                    spawnData.randomRotation = true;
+                    Vector2Int cellPosition = new Vector2Int(x, height - y - 1);
+                    bool randomRotation = true;
+                    Type type = Type.Empty;
                     if (cellTypeMapping.TryGetValue(cell, out Type unitType))
                     {
-                        spawnData.type = unitType;
+                        type = unitType;
                     }
                     else
                     {
                         Debug.LogError("Unknown cell type: " + cell);
                         Debug.LogError("Room: " + rooms.IndexOf(room));
                     }
+                    SpawnData spawnData = new SpawnData(type, cellPosition, randomRotation, 0f);
                     spawnDataList.Add(spawnData);
                 }
             }

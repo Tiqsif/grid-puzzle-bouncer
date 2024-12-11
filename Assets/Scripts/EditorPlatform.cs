@@ -2,105 +2,95 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// scrapped for now, can be used in the future
 
-//[ExecuteAlways]
 public class EditorPlatform : Platform
 {
-    
-    /*
-    bool isPlaying = false;
-    private void OnDrawGizmos()
-    {
-        if (grid != null)
-        {
-            grid.DrawGrid();
-        }
-
-        foreach (Unit unit in units)
-        {
-            Color color = unit.color;
-            Debug.DrawLine(GetWorldPosition(unit.cellPosition.x, unit.cellPosition.y), GetWorldPosition(unit.cellPosition.x, unit.cellPosition.y) + Vector3.up, color);
-        }
-    }
-
-    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-    void StartPlaying()
+    public GameObject placeHolderPrefab; // place holders to click on and select a unit for custom levels
+    public GameObject placeHoldersParent;
+    public bool isPlaying = false;
+    public Grid newGrid; // grid thats made in the editor
+    private LevelSpawner levelSpawner;
+    private new void Awake()
     {
         grid = new Grid(width, height, cellSize);
         units = new List<Unit>();
-        if (Application.IsPlaying(this) || isPlaying) // if the game is running
+        levelSpawner = GetComponent<LevelSpawner>();
+    }
+
+    private void OnEnable()
+    {
+        LevelManager.onLevelChange += OnLevelChange;
+        UnitSelect.onUnitSelected += OnUnitButtonSelected;
+        
+    }
+
+    private void OnDisable()
+    {
+        LevelManager.onLevelChange -= OnLevelChange;
+        UnitSelect.onUnitSelected -= OnUnitButtonSelected;
+        
+    }
+    protected new void OnLevelChange()
+    {
+        Debug.Log("Level Changed");
+
+        if(player) player.isDead = false;
+        isEnding = false;
+
+        if (levelSpawner)
         {
-            foreach (Transform child in unitsHolder) // get all children of the object
+            width = levelSpawner.levelData.currentLevel.gridSize.x;
+            height = levelSpawner.levelData.currentLevel.gridSize.y;
+            cellSize = levelSpawner.levelData.currentLevel.cellSize;
+        }
+        grid = new Grid(width, height, cellSize);
+
+        // place holder creation
+        if (placeHolderPrefab && placeHoldersParent.transform.childCount == 0)
+        {
+            Debug.Log("Placeholders created");
+            for (int i = 0; i < width * height; i++)
             {
-                units.Add(child.GetComponent<Unit>());
-                if (child.TryGetComponent(out Player player))
+
+                Vector2Int cellPos = new Vector2Int(i % width, i / width);
+                GameObject g = Instantiate(placeHolderPrefab, GetWorldPosition(cellPos.x,cellPos.y), Quaternion.identity);
+                g.transform.localScale = new Vector3(cellSize, placeHolderPrefab.transform.localScale.y,cellSize);
+                g.transform.SetParent(placeHoldersParent.transform);
+                if (g.TryGetComponent(out UnitPlacer unitPlacer))
                 {
-                    this.player = player;
+                    unitPlacer.cellPosition = cellPos; 
                 }
             }
-            foreach (Unit unit in units)
-            {
-                CheckAndSnap(unit);
-            }
         }
-        SetGridElements();
+
+
+        if (enemyCount > 0)
+        {
+            isEnemyPresentAtStart = true;
+        }
+        else
+        {
+            isEnemyPresentAtStart = false;
+        }
     }
 
-    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-    void Update()
+    [ContextMenu("Set Grid Elements from Editor")]
+    public override void SetGridElements()
     {
-        // if the game is NOT running (meaning its in the editor) -----------------------------------------------
-        if (!Application.IsPlaying(this) || !isPlaying) // EDITOR
+        Debug.Log("Setting grid elements from Editor");
+        if (isPlaying)
         {
-            if (grid == null)
-            {
-                grid = new Grid(width, height, cellSize);
-            }
-            units = new List<Unit>();
+            Debug.Log("SetGrid isPlaying true");
+            base.SetGridElements();
 
-            foreach (Transform child in unitsHolder) // get all children of the object
-            {
-                units.Add(child.GetComponent<Unit>());
-                if (child.TryGetComponent(out Player player))
-                {
-                    this.player = player;
-                }
-            }
-
-            // if an object is close to a cell in the grid of the platform, snap it to that cell
-            foreach (Unit unit in units)
-            {
-                CheckAndSnap(unit);
-            }
-            SetGridElements();
-        } // /EDITOR
-        // -------------------------------------------------------------------------------------------------------------
-
-
-        if (enemyCount == 0 && !player.isMoving && isPlaying) // if all enemies are cleared and player is not moving game is won
-        {
-            //Win();
         }
-
-
-        grid.DrawGrid();
     }
 
-   
-
-    void Win()
+    private void OnUnitButtonSelected(Vector2Int cellPos, int index)
     {
-        if (isEnding || player.isDead || !isPlaying)
+        if (levelSpawner)
         {
-            return;
+            levelSpawner.SpawnUnit(new SpawnData((Type)index, cellPos, true, 0f));
         }
-        AudioManager.Instance.PlaySFX(AudioManager.Instance.winClip);
-        LevelManager.Instance.LoadNextLevel(2f);
-        isEnding = true;
     }
-
-    */
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 // attach to camera
 public class CameraSpin : MonoBehaviour
 {
+    public bool On = true;
     public float spinDuration = 4f;
     [Range(1f, 10f)]public float resetSpeed = 2f;
     private bool spinning = false;
@@ -12,6 +13,10 @@ public class CameraSpin : MonoBehaviour
     Vector3 startPosition;
     public void Spin(Vector3 pivot)
     {
+        if (On == false)
+        {
+            return;
+        }
         if (spinning)
         {
             StopAllCoroutines();

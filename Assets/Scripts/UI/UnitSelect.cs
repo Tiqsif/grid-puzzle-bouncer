@@ -6,20 +6,38 @@ using UnityEngine.UI;
 
 public class UnitSelect : MonoBehaviour
 {
-    public RectTransform unitBar;
-    public GameObject[] unitPrefabs;
+    public RectTransform unitPanel; // panel
+    public AllUnitsSO allUnitsSO; // all units in scriptable object
     public GameObject unitButtonPrefab;
     public Transform unitParent;
     
+    private GameObject[] unitPrefabs; // all units
     private List<Button> buttons = new List<Button>();
 
     private int selectedUnitIndex = -1;
+
+    private Vector2Int currentCellPos;
+    public delegate void OnUnitSelected(Vector2Int cellPos, int index);
+    public static event OnUnitSelected onUnitSelected;
+
+    private void OnEnable()
+    {
+        UnitPlacer.onUnitPlacerSelected += OnPlaceSelected;
+    }
+
+    private void OnDisable()
+    {
+        UnitPlacer.onUnitPlacerSelected -= OnPlaceSelected;
+    }
     private void Awake()
     {
+        unitPanel.gameObject.SetActive(false);
+        unitPrefabs = allUnitsSO.allUnits.ToArray();
+
         for (int i = 0; i < unitPrefabs.Length; i++)
         {
             int index = i;
-            GameObject button = Instantiate(unitButtonPrefab, unitBar);
+            GameObject button = Instantiate(unitButtonPrefab, unitPanel);
             button.GetComponent<Button>().onClick.AddListener(() => SelectUnit(index));
             buttons.Add(button.GetComponent<Button>());
 
@@ -30,6 +48,7 @@ public class UnitSelect : MonoBehaviour
 
     private void Update()
     {
+        /*
         if (selectedUnitIndex != -1)
         {
             if (Input.GetMouseButtonDown(0))
@@ -46,13 +65,23 @@ public class UnitSelect : MonoBehaviour
                 }
             }
         }
+        */
     }
     private void SelectUnit(int index)
     {
         // set the selected unit to the unit prefab
         selectedUnitIndex = index;
         Debug.Log(index);
-        Debug.Log("Selected unit: " + unitPrefabs[selectedUnitIndex].name);
+        unitPanel.gameObject.SetActive(false);
+        onUnitSelected?.Invoke(currentCellPos, selectedUnitIndex);
+
+        //Debug.Log("Selected unit: " + unitPrefabs[selectedUnitIndex].name);
+    }
+
+    private void OnPlaceSelected(Vector2Int cellPosition)
+    {
+        currentCellPos = cellPosition;
+        unitPanel.gameObject.SetActive(true);
     }
 
     public Sprite TextureToSprite(Texture2D texture)
