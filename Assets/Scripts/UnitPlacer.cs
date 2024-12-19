@@ -5,11 +5,12 @@ using UnityEngine;
 public class UnitPlacer : MonoBehaviour
 {
     public Material hoverOverMaterial;
+    public Material clickedMaterial;
     private Material originalMaterial;
 
     public Vector2Int cellPosition;
     private MeshRenderer meshRenderer;
-
+    private bool isClicked = false;
     public delegate void OnUnitPlacerSelected(Vector2Int cellPos);
     public static event OnUnitPlacerSelected onUnitPlacerSelected;
     private void Awake()
@@ -21,12 +22,17 @@ public class UnitPlacer : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("Mouse Down at" + cellPosition);
+        //Debug.Log("Mouse Down at" + cellPosition);
+        isClicked = true;
+        if (meshRenderer != null)
+        {
+            meshRenderer.material = clickedMaterial;
+        }
         onUnitPlacerSelected?.Invoke(cellPosition);
     }
     private void OnMouseOver()
     {
-        if (meshRenderer != null)
+        if (!isClicked && meshRenderer != null)
         {
             meshRenderer.material = hoverOverMaterial;
 
@@ -35,9 +41,20 @@ public class UnitPlacer : MonoBehaviour
     }
     private void OnMouseExit()
     {
-        if (meshRenderer != null)
+        if (!isClicked && meshRenderer != null)
         {
             meshRenderer.material = originalMaterial;
+        }
+    }
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
+        {
+            isClicked = false;
+            if (meshRenderer != null)
+            {
+                meshRenderer.material = originalMaterial;
+            }
         }
     }
 }

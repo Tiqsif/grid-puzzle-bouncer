@@ -19,8 +19,9 @@ public class Platform : MonoBehaviour
 
     protected bool isEnemyPresentAtStart;
     
-
-    private void OnDrawGizmos()
+    public delegate void OnPlayerDeath();
+    public static event OnPlayerDeath onPlayerDeath;
+    protected void OnDrawGizmos()
     {
         if (grid != null)
         {
@@ -43,11 +44,13 @@ public class Platform : MonoBehaviour
     private void OnEnable()
     {
         LevelManager.onLevelChange += OnLevelChange;
+        Player.onPlayerDeath += _OnPlayerDeath;
         
     }
     private void OnDisable()
     {
         LevelManager.onLevelChange -= OnLevelChange;
+        Player.onPlayerDeath -= _OnPlayerDeath;
     }
     
 
@@ -90,7 +93,6 @@ public class Platform : MonoBehaviour
                 Win();
             }
         }
-        grid.DrawGrid();
     }
 
 
@@ -105,7 +107,7 @@ public class Platform : MonoBehaviour
             height = levelSpawner.levelData.currentLevel.gridSize.y;
             cellSize = levelSpawner.levelData.currentLevel.cellSize;
         }
-        grid = new Grid(width, height, cellSize);
+        //grid = new Grid(width, height, cellSize);
         
         
         
@@ -133,10 +135,17 @@ public class Platform : MonoBehaviour
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+    /// <summary>
+    /// clear units array, add the units from objects in holder to units array.
+    /// reset grid, count bugs in units, enable all Unit scripts.
+    /// set the grid value for every units cell position.
+    /// </summary>
     public virtual void SetGridElements()
     {
-        Debug.Log("Setting grid elements");
+        Debug.Log("Platform: SetGridElements");
         //Debug.Log("Before: " + units.Count);
+
+        // --- reset unit ---
         units = new List<Unit>();
         units.Clear();
         foreach (Transform child in unitsHolder) // get all children of the object
@@ -147,6 +156,7 @@ public class Platform : MonoBehaviour
                 this.player = player;
             }
         }
+        // --- reset grid, count bugs in units, enable all Unit scripts ---
         enemyCount = 0;
         grid.Clear();
         foreach (Unit unit in units)
@@ -161,28 +171,41 @@ public class Platform : MonoBehaviour
                 enemyCount++;
             }
 
-            grid.SetValue(unit.cellPosition, (int)unit.type);
+            grid.SetValue(unit.cellPosition, (int)unit.type); // set the value of the cell in the grid
         }
-        Debug.Log("Grid Updated");
         //Debug.Log("After: " + units.Count);
     }
     public void ClearUnits()
     {
-        List<Transform> children = new List<Transform>();
 
-        for (int i = 0; i < unitsHolder.childCount; i++)
+        for (int i = unitsHolder.childCount - 1; i >= 0; i--)
         {
-            children.Add(unitsHolder.GetChild(i));
+            DestroyImmediate(unitsHolder.GetChild(i).gameObject);
         }
-
-        foreach (var child in children)
-        {
-            DestroyImmediate(child.gameObject);
-        }
-
         units.Clear();
         //Debug.Log("unitsHolder.childCount: " + unitsHolder.childCount);
         //Debug.Log("units.Count: " + units.Count);
+    }
+
+    public void ClearUnitAt(Vector2Int cellPos)
+    {
+        Debug.Log("ClearUnitAt: " + cellPos);
+        for (int i = unitsHolder.childCount - 1; i >= 0; i--)
+        {
+            Unit unit = unitsHolder.GetChild(i).GetComponent<Unit>();
+            bool state = unit.enabled;
+            unit.enabled = true;
+            if (unit.cellPosition == cellPos)
+            {
+                units.Remove(unit);
+                DestroyImmediate(unit.gameObject);
+            }
+            else
+            {
+                unit.enabled = state;
+            }
+        }
+
     }
     public Vector3 GetWorldPosition(int x, int y) // NOT SECURED (no check if x and y are in the grid)
     {
@@ -206,5 +229,10 @@ public class Platform : MonoBehaviour
         AudioManager.Instance.PlaySFX(AudioManager.Instance.winClip);
         LevelManager.Instance.LoadNextLevel(2f);
         isEnding = true;
+    }
+
+    public virtual void _OnPlayerDeath()
+    {
+        onPlayerDeath?.Invoke(); // death menu subscribes to this event
     }
 }

@@ -288,7 +288,7 @@ public class Unit : MonoBehaviour
         }
         cellPosition = new Vector2Int(-10, -10); // graveyard position for dead units
         platform.SetGridElements();
-        Destroy(gameObject);
+        //DestroyImmediate(gameObject);
     }
 
     public virtual void JumpOnAnimation()

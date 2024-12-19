@@ -70,7 +70,7 @@ public class LevelManager : MonoBehaviour
     // same (game) scene level change methods ------------------------------------------------
     public void LoadLevel(int level)
     {
-        Debug.Log("Loading level: " + level);
+        Debug.Log("LevelManager: LoadLevel: " + level);
         if (level < 0)
         {
             level = 0;

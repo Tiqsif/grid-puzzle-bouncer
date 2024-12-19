@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee0826e45126bc64ab7ba6e300028e96, type: 3}
-  m_Name: CustomLevelData
+  m_Script: {fileID: 11500000, guid: dea6d436613801f4f82c9bea0190e69f, type: 3}
+  m_Name: CustomLevel
   m_EditorClassIdentifier: 
-  currentLevel: {fileID: 11400000, guid: 76063836b855ddd4ea484e8e618294f9, type: 2}
-  allLevels:
-  - {fileID: 11400000, guid: 76063836b855ddd4ea484e8e618294f9, type: 2}
+  cellSize: 1
+  gridSize: {x: 4, y: 4}
+  spawnDataList: []

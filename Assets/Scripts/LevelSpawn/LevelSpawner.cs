@@ -11,6 +11,7 @@ public class LevelSpawner : MonoBehaviour
 
     private PropSpawner propSpawner;
     private Platform platform;
+    [HideInInspector] public Grid currentGrid;
     private void Awake()
     {
         propSpawner = GetComponent<PropSpawner>();
@@ -35,11 +36,19 @@ public class LevelSpawner : MonoBehaviour
 
     public void SpawnLevel()
     {
-        if (propSpawner)
+        if (currentGrid == null)
         {
-            propSpawner.CreatePlatform(levelData.currentLevel);
+
+            if (propSpawner)
+            {
+                propSpawner.CreatePlatform(levelData.currentLevel);
+            }
+            SetupLevel();
         }
-        SetupLevel();
+        else
+        {
+            SpawnFromGrid(currentGrid);
+        }
     }
     private void SetupLevel()
     {
@@ -59,6 +68,31 @@ public class LevelSpawner : MonoBehaviour
         platform.SetGridElements();
     }
 
+    public void SpawnFromGrid(Grid grid)
+    {
+        Debug.Log("SpawnFromGrid");
+        SetCurrentGrid(grid);
+        platform = platform != null ? platform : FindAnyObjectByType<Platform>();
+        platform.ClearUnits();
+        for (int x = 0; x < grid.width; x++)
+        {
+            for (int y = 0; y < grid.height; y++)
+            {
+                if (grid.GetValue(x,y) != (int)Type.Empty)
+                {
+                    //Debug.Log("Spawning " + (Type)grid.GetValue(x, y) + " at " + x + ", " + y);
+                    SpawnData spawnData = new SpawnData((Type)grid.GetValue(x,y), new Vector2Int(x, y), true, 0);
+                    SpawnUnit(spawnData);
+                }
+            }
+        }
+        platform.SetGridElements();
+    }
+
+    public void SetCurrentGrid(Grid grid)
+    {
+        this.currentGrid = grid;
+    }
     public void SpawnUnit(SpawnData spawnData)
     {
         if (spawnData.type == Type.Empty || !unitDictionary.ContainsKey(spawnData.type))
@@ -71,7 +105,7 @@ public class LevelSpawner : MonoBehaviour
         GameObject unit = Instantiate(unitDictionary[spawnData.type], pos, Quaternion.Euler(0, rot, 0), unitsHolder);
         unit.TryGetComponent(out Unit unitComponent);
         unitComponent.cellPosition = spawnData.cellPosition;
-        unitComponent.enabled = false; // enable in platform.setgridelements
+        unitComponent.enabled = false; // will be enabled in platform.setgridelements
 
     }
 }

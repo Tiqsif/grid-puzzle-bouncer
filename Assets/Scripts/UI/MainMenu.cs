@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     //public int levelEditorMenuIndex = 1;
-    //public int levelEditorSceneIndex = 2;
-    public int levelMenuSceneIndex = 1;
+    public int levelEditorSceneIndex = 2;
+    //public int levelMenuSceneIndex = 1;
     public RectTransform mainMenu;
     public RectTransform levelSelect;
     private bool isMainMenuOpen = true;
@@ -30,7 +30,7 @@ public class MainMenu : MonoBehaviour
     public void LevelEditor() // scrapped for now
     {
         AudioManager.Instance.PlayClick();
-        //SceneManager.LoadScene(levelEditorMenuIndex);
+        SceneManager.LoadScene(levelEditorSceneIndex);
     }
     public void Quit()
     {

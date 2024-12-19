@@ -119,3 +119,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverOverMaterial: {fileID: 2100000, guid: 4c076dd4825689343873c8486813b1e6, type: 2}
+  clickedMaterial: {fileID: 2100000, guid: 51e25b496405e1d42a9fa3f50d11951d, type: 2}
+  cellPosition: {x: 0, y: 0}

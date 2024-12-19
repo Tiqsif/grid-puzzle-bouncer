@@ -5,11 +5,11 @@ using UnityEngine;
 public class Grid
 {
     // x-axis, z-axis, and cell size
-    int width;
-    int height;
-    float cellSize;
+    public int width;
+    public int height;
+    public float cellSize;
 
-    int[,] gridArray;
+    public int[,] gridArray;
 
     public Grid(int width, int height, float cellSize)
     {
@@ -20,6 +20,18 @@ public class Grid
         gridArray = new int[width, height];
     }
 
+    public Grid DeepCopy()
+    {
+        Grid newGrid = new Grid(width, height, cellSize);
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                newGrid.SetValue(x, y, GetValue(x, y));
+            }
+        }
+        return newGrid;
+    }
 
     // --- Get World Position ---
     public Vector3 GetWorldPosition(int x, int y) // NOT SECURED (no check if x and y are in the grid)
@@ -91,20 +103,20 @@ public class Grid
     // --------------------------------
 
 
-    public void DrawGrid()
+    public void DrawGrid(Vector3 origin = new Vector3())
     {
         for (int x = 0; x < width+1; x++) // draw vertical lines
         {
             Vector3 start = GetWorldPosition(x, 0) + new Vector3(-cellSize/2, 0, -cellSize/2);
             Vector3 end = GetWorldPosition(x, height) + new Vector3(-cellSize / 2, 0, -cellSize/2);
-            Debug.DrawLine(start, end, Color.black);
+            Debug.DrawLine(start + origin, end + origin, Color.black);
         }
 
         for (int z = 0; z < height+1; z++) // draw horizontal lines
         {
             Vector3 start = GetWorldPosition(0, z) + new Vector3(-cellSize/2, 0, -cellSize / 2);
             Vector3 end = GetWorldPosition(width, z) + new Vector3(-cellSize/2, 0, -cellSize / 2);
-            Debug.DrawLine(start, end, Color.black);
+            Debug.DrawLine(start + origin, end + origin, Color.black);
         }
 
     }

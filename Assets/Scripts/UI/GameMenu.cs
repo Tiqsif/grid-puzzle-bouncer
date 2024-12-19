@@ -15,14 +15,14 @@ public class GameMenu : MonoBehaviour
     private bool isDead = false;
     private void Awake()
     {
-        Player.onPlayerDeath += OnPlayerDeath;
+        Platform.onPlayerDeath += OnPlayerDeath;
         LevelManager.onLevelChange += OnLevelChange;
        
     }
 
     private void OnDestroy()
     {
-        Player.onPlayerDeath -= OnPlayerDeath;
+        Platform.onPlayerDeath -= OnPlayerDeath;
         LevelManager.onLevelChange -= OnLevelChange;
     }
 

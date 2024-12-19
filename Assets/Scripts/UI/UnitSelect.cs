@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,8 +10,9 @@ public class UnitSelect : MonoBehaviour
     public RectTransform unitPanel; // panel
     public AllUnitsSO allUnitsSO; // all units in scriptable object
     public GameObject unitButtonPrefab;
-    public Transform unitParent;
-    
+    public GameObject emptyUnitButtonPrefab;
+    //public Transform unitParent;
+    public Button playStopButton;
     private GameObject[] unitPrefabs; // all units
     private List<Button> buttons = new List<Button>();
 
@@ -20,14 +22,22 @@ public class UnitSelect : MonoBehaviour
     public delegate void OnUnitSelected(Vector2Int cellPos, int index);
     public static event OnUnitSelected onUnitSelected;
 
+    public delegate void OnEditorPlayStopClicked();
+    public static event OnEditorPlayStopClicked onEditorPlayStopClicked;
+
+    public delegate void OnEditorSaveClicked();
+    public static event OnEditorSaveClicked onEditorSaveClicked;
+
     private void OnEnable()
     {
         UnitPlacer.onUnitPlacerSelected += OnPlaceSelected;
+        Player.onPlayerDeath += OnDeath;
     }
 
     private void OnDisable()
     {
         UnitPlacer.onUnitPlacerSelected -= OnPlaceSelected;
+        Player.onPlayerDeath -= OnDeath;
     }
     private void Awake()
     {
@@ -42,6 +52,8 @@ public class UnitSelect : MonoBehaviour
             buttons.Add(button.GetComponent<Button>());
 
         }
+        GameObject emptyButton = Instantiate(emptyUnitButtonPrefab, unitPanel);
+        emptyButton.GetComponent<Button>().onClick.AddListener(() => SelectUnit(-1));
 
         StartCoroutine(AssignSprites());
     }
@@ -66,13 +78,20 @@ public class UnitSelect : MonoBehaviour
             }
         }
         */
+        if (unitPanel.gameObject.activeInHierarchy)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1))
+            {
+                unitPanel.gameObject.SetActive(false);
+            }
+        }
     }
     private void SelectUnit(int index)
     {
         // set the selected unit to the unit prefab
         selectedUnitIndex = index;
-        Debug.Log(index);
-        unitPanel.gameObject.SetActive(false);
+        //Debug.Log(index);
+        //unitPanel.gameObject.SetActive(false);
         onUnitSelected?.Invoke(currentCellPos, selectedUnitIndex);
 
         //Debug.Log("Selected unit: " + unitPrefabs[selectedUnitIndex].name);
@@ -104,5 +123,30 @@ public class UnitSelect : MonoBehaviour
             }
             buttons[i].image.sprite = TextureToSprite(texture);
         }
+    }
+
+    // ----- play/stop and save buttons -----
+    public void EditorPlayStop()
+    {
+        Debug.Log("UnitSelect: Play/Stop");
+        AudioManager.Instance.PlayClick();
+        TextMeshProUGUI text = playStopButton.GetComponentInChildren<TextMeshProUGUI>();
+        text.text = text.text == "Play" ? "Stop" : "Play";
+        onEditorPlayStopClicked?.Invoke();
+    }
+
+    void OnDeath()
+    {
+        TextMeshProUGUI text = playStopButton.GetComponentInChildren<TextMeshProUGUI>();
+        text.text = "Play";
+        Debug.Log("UnitSelect: OnDeath");
+    }
+
+
+    public void EditorSave()
+    {
+        Debug.Log("UnitSelect: Save");
+        AudioManager.Instance.PlayClick();
+        onEditorSaveClicked?.Invoke();
     }
 }
