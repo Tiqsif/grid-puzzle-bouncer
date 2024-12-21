@@ -13,6 +13,16 @@ public class UnitPlacer : MonoBehaviour
     private bool isClicked = false;
     public delegate void OnUnitPlacerSelected(Vector2Int cellPos);
     public static event OnUnitPlacerSelected onUnitPlacerSelected;
+
+    private void OnEnable()
+    {
+        UnitPlacer.onUnitPlacerSelected += OnPlacerSelected;
+    }
+
+    private void OnDisable()
+    {
+        UnitPlacer.onUnitPlacerSelected -= OnPlacerSelected;
+    }
     private void Awake()
     {
         meshRenderer = GetComponent<MeshRenderer>();
@@ -20,14 +30,26 @@ public class UnitPlacer : MonoBehaviour
         Physics.queriesHitTriggers = true;
     }
 
+    private void OnPlacerSelected(Vector2Int cellPos)
+    {
+        if (cellPos == cellPosition)
+        {
+            isClicked = true;
+            meshRenderer.material = clickedMaterial;
+        }
+        else
+        {
+            isClicked = false;
+            meshRenderer.material = originalMaterial;
+        
+        }
+
+    }
+
     private void OnMouseDown()
     {
         //Debug.Log("Mouse Down at" + cellPosition);
-        isClicked = true;
-        if (meshRenderer != null)
-        {
-            meshRenderer.material = clickedMaterial;
-        }
+        AudioManager.Instance.PlayClick();
         onUnitPlacerSelected?.Invoke(cellPosition);
     }
     private void OnMouseOver()
@@ -50,6 +72,7 @@ public class UnitPlacer : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
         {
+            if(isClicked) AudioManager.Instance.PlayClick();
             isClicked = false;
             if (meshRenderer != null)
             {

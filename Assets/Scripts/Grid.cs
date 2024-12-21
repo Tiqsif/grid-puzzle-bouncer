@@ -142,4 +142,19 @@ public class Grid
     {
         gridArray = new int[width, height];
     }
+
+    public bool HasValue(int value)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (GetValue(x, y) == value)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

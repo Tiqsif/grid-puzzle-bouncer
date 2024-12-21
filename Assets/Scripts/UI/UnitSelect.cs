@@ -31,13 +31,15 @@ public class UnitSelect : MonoBehaviour
     private void OnEnable()
     {
         UnitPlacer.onUnitPlacerSelected += OnPlaceSelected;
-        Player.onPlayerDeath += OnDeath;
+        //Player.onPlayerDeath += OnDeath;
+        EditorPlatform.onEditorIsPlayingUpdated += OnEditorIsPlayingUpdated;
     }
 
     private void OnDisable()
     {
         UnitPlacer.onUnitPlacerSelected -= OnPlaceSelected;
-        Player.onPlayerDeath -= OnDeath;
+        //Player.onPlayerDeath -= OnDeath;
+        EditorPlatform.onEditorIsPlayingUpdated -= OnEditorIsPlayingUpdated;
     }
     private void Awake()
     {
@@ -93,6 +95,7 @@ public class UnitSelect : MonoBehaviour
         //Debug.Log(index);
         //unitPanel.gameObject.SetActive(false);
         onUnitSelected?.Invoke(currentCellPos, selectedUnitIndex);
+        AudioManager.Instance.PlayClick();
 
         //Debug.Log("Selected unit: " + unitPrefabs[selectedUnitIndex].name);
     }
@@ -130,17 +133,12 @@ public class UnitSelect : MonoBehaviour
     {
         Debug.Log("UnitSelect: Play/Stop");
         AudioManager.Instance.PlayClick();
-        TextMeshProUGUI text = playStopButton.GetComponentInChildren<TextMeshProUGUI>();
-        text.text = text.text == "Play" ? "Stop" : "Play";
+        //TextMeshProUGUI text = playStopButton.GetComponentInChildren<TextMeshProUGUI>();
+        //text.text = text.text == "Play" ? "Stop" : "Play";
         onEditorPlayStopClicked?.Invoke();
     }
 
-    void OnDeath()
-    {
-        TextMeshProUGUI text = playStopButton.GetComponentInChildren<TextMeshProUGUI>();
-        text.text = "Play";
-        Debug.Log("UnitSelect: OnDeath");
-    }
+    
 
 
     public void EditorSave()
@@ -148,5 +146,11 @@ public class UnitSelect : MonoBehaviour
         Debug.Log("UnitSelect: Save");
         AudioManager.Instance.PlayClick();
         onEditorSaveClicked?.Invoke();
+    }
+
+    void OnEditorIsPlayingUpdated(bool isPlaying)
+    {
+        TextMeshProUGUI text = playStopButton.GetComponentInChildren<TextMeshProUGUI>();
+        text.text = isPlaying ? "Stop" : "Play";
     }
 }

@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 887421672644075319}
   - component: {fileID: 3276198336485241520}
   - component: {fileID: 4717260855002394889}
+  - component: {fileID: 940728551108910605}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -135,6 +136,21 @@ MonoBehaviour:
   animator: {fileID: 0}
   isPlaying: 0
   jumpParticle: {fileID: 0}
+--- !u!114 &940728551108910605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8442329044268368746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02365b5bba7f431479e7dae274569664, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  landAudioPacks:
+  - {fileID: 11400000, guid: f125cf7d3a2c0674b8ed521627c73abf, type: 2}
+  - {fileID: 11400000, guid: 98770fbb4e9c97c4288ab023d4d78617, type: 2}
 --- !u!1001 &3001026366151311096
 PrefabInstance:
   m_ObjectHideFlags: 0

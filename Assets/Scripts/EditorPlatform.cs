@@ -10,6 +10,10 @@ public class EditorPlatform : Platform
     public bool isPlaying = false;
     public Grid newGrid; // grid thats made in the editor
     private LevelSpawner levelSpawner;
+
+
+    public delegate void OnEditorIsPlayingUpdated(bool isPlaying);
+    public static event OnEditorIsPlayingUpdated onEditorIsPlayingUpdated;
     private new void Awake()
     {
         grid = new Grid(width, height, cellSize);
@@ -121,6 +125,7 @@ public class EditorPlatform : Platform
     private void OnUnitButtonSelected(Vector2Int cellPos, int index) // creates a unit at the cell position
     {
         int finalIndex = index + 1; // +1 because Type.Empty is 0 and its not a unit
+        newGrid.SetValue(cellPos, finalIndex); // the editor grid
         if (finalIndex == 0) // empty selected, clear the unit at the cell
         {
             ClearUnitAt(cellPos);
@@ -132,12 +137,23 @@ public class EditorPlatform : Platform
             ClearUnitAt(cellPos);
             levelSpawner.SpawnUnit(new SpawnData((Type)(finalIndex), cellPos, true, 0f)); // spawns the unit, doesnt set grid value
         }
-        newGrid.SetValue(cellPos, finalIndex); // the editor grid
+
     }
 
     private void OnEditorPlayStopClicked()
     {
-        isPlaying = !isPlaying;
+        // check if player and enemy are added
+        if (!newGrid.HasValue((int)Type.Player))
+        {
+            Debug.Log("EditorPlatform: OnEditorPlayStopClicked: Player not added");
+            return;
+        }
+        if (!newGrid.HasValue((int)Type.Enemy))
+        {
+            Debug.Log("EditorPlatform: OnEditorPlayStopClicked: Enemy not added");
+            return;
+        }
+        SetIsPlaying(!isPlaying);
         if (isPlaying)
         {
             SetGridElements(); // reset unit list from objects in holder, reset grid from every units cellpos, enable all unit scripts
@@ -176,7 +192,7 @@ public class EditorPlatform : Platform
         }
     }
 
-    private void OnDrawGizmos()
+    private new void OnDrawGizmos()
     {
         base.OnDrawGizmos();
         DrawInitialGrid();
@@ -186,9 +202,23 @@ public class EditorPlatform : Platform
     {
         if (isPlaying)
         {
-            isPlaying = false;
+            SetIsPlaying(false);
             ResetGridElements();
             SetGridElements();
         }
+    }
+
+    void SetIsPlaying(bool b)
+    {
+        isPlaying = b;
+        if (isPlaying)
+        {
+            placeHoldersParent.SetActive(false);
+        }
+        else
+        {
+            placeHoldersParent.SetActive(true);
+        }
+        onEditorIsPlayingUpdated?.Invoke(isPlaying);
     }
 }

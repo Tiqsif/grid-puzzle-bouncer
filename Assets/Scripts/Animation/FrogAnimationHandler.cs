@@ -19,11 +19,7 @@ public class FrogAnimationHandler : MonoBehaviour
         animator.SetTrigger("Jump");
         StartCoroutine(UpdateFlagRoutine("FrogJump"));
 
-        foreach (AudioClip clip in AudioPackManager.GetRandomClipFromEachPack(frog.jumpAudioPacks))
-        {
-            AudioManager.Instance.KillSFX(clip);
-            AudioManager.Instance.PlaySFX(clip);
-        }
+        PlayJumpAudio();
         if (jumpParticle != null)
         {
             Instantiate(jumpParticle, transform.parent.position, Quaternion.identity);
@@ -36,11 +32,7 @@ public class FrogAnimationHandler : MonoBehaviour
         if (!animator) return;
         animator.SetTrigger("AttackJump");
         StartCoroutine(UpdateFlagRoutine("FrogAttackJump"));
-        foreach (AudioClip clip in AudioPackManager.GetRandomClipFromEachPack(frog.jumpAudioPacks))
-        {
-            AudioManager.Instance.KillSFX(clip);
-            AudioManager.Instance.PlaySFX(clip);
-        }
+        PlayJumpAudio();
 
         foreach (AudioClip clip in AudioPackManager.GetRandomClipFromEachPack(frog.deathAudioPacks))
         {
@@ -53,11 +45,7 @@ public class FrogAnimationHandler : MonoBehaviour
         animator.SetTrigger("AttackJump");
         StartCoroutine(UpdateFlagRoutine("FrogAttackJump"));
 
-        foreach (AudioClip clip in AudioPackManager.GetRandomClipFromEachPack(frog.jumpAudioPacks))
-        {
-            AudioManager.Instance.KillSFX(clip);
-            AudioManager.Instance.PlaySFX(clip);
-        }
+        PlayJumpAudio();
     }
 
     public void HalfJump()
@@ -65,11 +53,9 @@ public class FrogAnimationHandler : MonoBehaviour
         if (!animator) return;
         animator.SetTrigger("HalfJump");
         StartCoroutine(UpdateFlagRoutine("FrogHalfJump"));
-        foreach (AudioClip clip in AudioPackManager.GetRandomClipFromEachPack(frog.jumpAudioPacks))
-        {
-            AudioManager.Instance.KillSFX(clip);
-            AudioManager.Instance.PlaySFX(clip);
-        }
+        PlayJumpAudio();
+       
+
     }
    
 
@@ -81,6 +67,14 @@ public class FrogAnimationHandler : MonoBehaviour
         //AudioManager.Instance.PlaySFX(player.bumpClip);
     }
 
+    public void PlayJumpAudio()
+    {
+        foreach (AudioClip clip in AudioPackManager.GetRandomClipFromEachPack(frog.jumpAudioPacks))
+        {
+            AudioManager.Instance.KillSFX(clip);
+            AudioManager.Instance.PlaySFX(clip);
+        }
+    }
 
     private IEnumerator UpdateFlagRoutine(string animationName)
     {
