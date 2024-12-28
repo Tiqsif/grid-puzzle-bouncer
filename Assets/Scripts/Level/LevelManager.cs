@@ -50,19 +50,7 @@ public class LevelManager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ReloadLevel();
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            LoadPreviousLevel();
-        }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            LoadNextLevel();
-        }
+        
         
 
     }

@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class LevelSpawner : MonoBehaviour
 {
     public LevelData levelData;
+    public GameObject platformMesh;
     [SerializeField] private Transform unitsHolder;
     [SerializeField] private AllUnitsSO allUnitsSO;
     private List<GameObject> allUnits;
@@ -44,6 +46,7 @@ public class LevelSpawner : MonoBehaviour
                 propSpawner.CreatePlatform(levelData.currentLevel);
             }
             SetupLevel();
+            platformMesh.transform.localScale = new Vector3(levelData.currentLevel.gridSize.x / 10f * levelData.currentLevel.cellSize, platformMesh.transform.localScale.y, levelData.currentLevel.gridSize.y / 10f * levelData.currentLevel.cellSize);
         }
         else
         {
@@ -107,5 +110,16 @@ public class LevelSpawner : MonoBehaviour
         unitComponent.cellPosition = spawnData.cellPosition;
         unitComponent.enabled = false; // will be enabled in platform.setgridelements
 
+    }
+
+    public void SpawnFromCustomSpawnDataList(List<SpawnData> spawnDataList)
+    {
+        platform.ClearUnits();
+        foreach (SpawnData spawnData in spawnDataList)
+        {
+            SpawnUnit(spawnData);
+        }
+        platform.SetGridElements();
+        Debug.Log("LevelSpawner: SpawnFromCustomSpawnDataList");
     }
 }

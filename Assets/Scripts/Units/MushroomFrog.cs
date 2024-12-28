@@ -5,7 +5,7 @@ using UnityEngine;
 public class MushroomFrog : FrogBase
 {
 
-    private new void Start()
+    private void Awake()
     {
         animationHandler = GetComponentInChildren<FrogAnimationHandler>();
     }

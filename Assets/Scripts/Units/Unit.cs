@@ -162,6 +162,8 @@ public class Unit : MonoBehaviour
             yield return null;
         }
         isMoving = true;
+        
+
         while (moveQueue.Count > 0)
         {
             Vector3 targetPosition = moveQueue.Dequeue();
@@ -173,6 +175,7 @@ public class Unit : MonoBehaviour
             }
         }
         isMoving = false;
+        
     }
 
     protected Unit GetUnitAtPosition(Vector2Int position)

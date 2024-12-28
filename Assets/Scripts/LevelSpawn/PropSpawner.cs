@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PropSpawner : MonoBehaviour
 {
-    public GameObject platformMesh; // not the prefab but the in scene object
+    //public GameObject platformMesh; // not the prefab but the in scene object
     public Transform propParent;
     public bool debug = true;
     public float sidePropMaxOffset = 0.25f;
@@ -66,7 +66,7 @@ public class PropSpawner : MonoBehaviour
         Vector2Int gridSize = levelSO.gridSize;
         float cellSize = levelSO.cellSize;
         // reshape the platform mesh
-        platformMesh.transform.localScale = new Vector3(gridSize.x / 10f * cellSize, platformMesh.transform.localScale.y, gridSize.y / 10f * cellSize) ;
+        //platformMesh.transform.localScale = new Vector3(gridSize.x / 10f * cellSize, platformMesh.transform.localScale.y, gridSize.y / 10f * cellSize) ;
 
         // calculate the prop positions
         // top props

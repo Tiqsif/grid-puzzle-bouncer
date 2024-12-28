@@ -86,6 +86,8 @@ public class Platform : MonoBehaviour
         // -------------------------------------------------------------------------------------------------------------*/
 
         //Debug.Log(units.Count);
+        HandleLevelManagerButtons(); // editorplatform overrides this function
+        //Debug.Log("isEnemyPresentAtStart" + isEnemyPresentAtStart);
         if (player != null && enemyCount == 0 && !player.isMoving && isEnemyPresentAtStart) // if all enemies are cleared and player is not moving game is won
         {
             if (Application.isPlaying)
@@ -93,8 +95,28 @@ public class Platform : MonoBehaviour
                 Win();
             }
         }
+        else
+        {
+            //Debug.Log("enemyCount: " + enemyCount + " player.isMoving: " + player.isMoving + " isEnemyPresentAtStart: " + isEnemyPresentAtStart);
+        }
     }
 
+    protected virtual void HandleLevelManagerButtons()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            LevelManager.Instance.ReloadLevel();
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            LevelManager.Instance.LoadPreviousLevel();
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            LevelManager.Instance.LoadNextLevel();
+        }
+    }
 
     protected void OnLevelChange()
     {
@@ -187,9 +209,10 @@ public class Platform : MonoBehaviour
         //Debug.Log("units.Count: " + units.Count);
     }
 
-    public void ClearUnitAt(Vector2Int cellPos)
+    public virtual void ClearUnitAt(Vector2Int cellPos)
     {
         Debug.Log("ClearUnitAt: " + cellPos);
+        // remove the unit from the list and destroy its gameobject
         for (int i = unitsHolder.childCount - 1; i >= 0; i--)
         {
             Unit unit = unitsHolder.GetChild(i).GetComponent<Unit>();
@@ -220,7 +243,7 @@ public class Platform : MonoBehaviour
     {
         return IsInsideGrid(vec.x, vec.y);
     }
-    void Win()
+    protected virtual void Win()
     {
         if (isEnding || player.isDead)
         {

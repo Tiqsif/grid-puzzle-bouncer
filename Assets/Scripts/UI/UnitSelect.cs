@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class UnitSelect : MonoBehaviour
 {
     public RectTransform unitPanel; // panel
+    public RectTransform sizePanel; // select grid size panel
     public AllUnitsSO allUnitsSO; // all units in scriptable object
     public GameObject unitButtonPrefab;
     public GameObject emptyUnitButtonPrefab;
@@ -19,7 +20,8 @@ public class UnitSelect : MonoBehaviour
     private int selectedUnitIndex = -1;
 
     private Vector2Int currentCellPos;
-    public delegate void OnUnitSelected(Vector2Int cellPos, int index);
+    private UnitPlacer currentUnitPlacer;
+    public delegate void OnUnitSelected(UnitPlacer selectedPlacer, int index);
     public static event OnUnitSelected onUnitSelected;
 
     public delegate void OnEditorPlayStopClicked();
@@ -86,6 +88,19 @@ public class UnitSelect : MonoBehaviour
             {
                 unitPanel.gameObject.SetActive(false);
             }
+            if (Input.GetKeyDown(KeyCode.E) && selectedUnitIndex != -1)
+            {
+                if (currentUnitPlacer.isClicked)
+                {
+                    currentUnitPlacer.rotationAngle = (currentUnitPlacer.rotationAngle + 90) % 360;
+                    currentUnitPlacer.rotationIndicator.localEulerAngles = new Vector3(0, currentUnitPlacer.rotationAngle - 90, 0);
+                    SelectUnit(selectedUnitIndex);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.X) && currentUnitPlacer.isClicked)
+            {
+                SelectUnit(-1);
+            }
         }
     }
     private void SelectUnit(int index)
@@ -94,16 +109,18 @@ public class UnitSelect : MonoBehaviour
         selectedUnitIndex = index;
         //Debug.Log(index);
         //unitPanel.gameObject.SetActive(false);
-        onUnitSelected?.Invoke(currentCellPos, selectedUnitIndex);
+        onUnitSelected?.Invoke(currentUnitPlacer, selectedUnitIndex);
         AudioManager.Instance.PlayClick();
 
         //Debug.Log("Selected unit: " + unitPrefabs[selectedUnitIndex].name);
     }
 
-    private void OnPlaceSelected(Vector2Int cellPosition)
+    private void OnPlaceSelected(UnitPlacer selectedPlacer)
     {
-        currentCellPos = cellPosition;
+        currentCellPos = selectedPlacer.cellPosition;
+        currentUnitPlacer = selectedPlacer;
         unitPanel.gameObject.SetActive(true);
+        FloatingTextManager.Instance.CreateFloatingText("E to rotate, X to delete", 0.5f, 1.5f, 1f);
     }
 
     public Sprite TextureToSprite(Texture2D texture)
@@ -117,11 +134,11 @@ public class UnitSelect : MonoBehaviour
     {
         for (int i = 0; i < buttons.Count; i++)
         {
-            Texture2D texture = AssetPreview.GetAssetPreview(unitPrefabs[i]);
+            Texture2D texture = AssetPreview.GetAssetPreview(unitPrefabs[i]) ?? null;
             while (texture == null)
             {
                 yield return new WaitForSeconds(0.05f);
-                texture = AssetPreview.GetAssetPreview(unitPrefabs[i]);
+                texture = AssetPreview.GetAssetPreview(unitPrefabs[i]) ?? null;
                 yield return null;
             }
             buttons[i].image.sprite = TextureToSprite(texture);
@@ -152,5 +169,6 @@ public class UnitSelect : MonoBehaviour
     {
         TextMeshProUGUI text = playStopButton.GetComponentInChildren<TextMeshProUGUI>();
         text.text = isPlaying ? "Stop" : "Play";
+        sizePanel.gameObject.SetActive(!isPlaying);
     }
 }

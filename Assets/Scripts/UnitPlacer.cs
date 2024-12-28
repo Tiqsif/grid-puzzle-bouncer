@@ -9,9 +9,11 @@ public class UnitPlacer : MonoBehaviour
     private Material originalMaterial;
 
     public Vector2Int cellPosition;
+    public Transform rotationIndicator;
+    public float rotationAngle = 0;
     private MeshRenderer meshRenderer;
-    private bool isClicked = false;
-    public delegate void OnUnitPlacerSelected(Vector2Int cellPos);
+    public bool isClicked = false;
+    public delegate void OnUnitPlacerSelected(UnitPlacer selectedPlacer);
     public static event OnUnitPlacerSelected onUnitPlacerSelected;
 
     private void OnEnable()
@@ -30,17 +32,22 @@ public class UnitPlacer : MonoBehaviour
         Physics.queriesHitTriggers = true;
     }
 
-    private void OnPlacerSelected(Vector2Int cellPos)
+    private void OnPlacerSelected(UnitPlacer selectedPlacer)
     {
-        if (cellPos == cellPosition)
+        if (selectedPlacer == this)
         {
             isClicked = true;
             meshRenderer.material = clickedMaterial;
+            rotationIndicator.gameObject.SetActive(true);
+            rotationAngle = 0;
+            rotationIndicator.localEulerAngles = new Vector3(0, rotationAngle - 90, 0);
+
         }
         else
         {
             isClicked = false;
             meshRenderer.material = originalMaterial;
+            rotationIndicator.gameObject.SetActive(false);
         
         }
 
@@ -50,7 +57,7 @@ public class UnitPlacer : MonoBehaviour
     {
         //Debug.Log("Mouse Down at" + cellPosition);
         AudioManager.Instance.PlayClick();
-        onUnitPlacerSelected?.Invoke(cellPosition);
+        onUnitPlacerSelected?.Invoke(this);
     }
     private void OnMouseOver()
     {
@@ -74,10 +81,18 @@ public class UnitPlacer : MonoBehaviour
         {
             if(isClicked) AudioManager.Instance.PlayClick();
             isClicked = false;
+            rotationIndicator.gameObject.SetActive(false);
             if (meshRenderer != null)
             {
                 meshRenderer.material = originalMaterial;
             }
         }
+        /*
+        if (isClicked && Input.GetKeyDown(KeyCode.E))
+        {
+            rotationAngle = (rotationAngle + 90) % 360;
+            rotationIndicator.localEulerAngles = new Vector3(0, rotationAngle -90, 0);
+        }
+        */
     }
 }

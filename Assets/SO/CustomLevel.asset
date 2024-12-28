@@ -14,4 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellSize: 1
   gridSize: {x: 4, y: 4}
-  spawnDataList: []
+  spawnDataList:
+  - type: 1
+    cellPosition: {x: 0, y: 0}
+    randomRotation: 0
+    rotation: 0
+  - type: 2
+    cellPosition: {x: 2, y: 2}
+    randomRotation: 0
+    rotation: 0
