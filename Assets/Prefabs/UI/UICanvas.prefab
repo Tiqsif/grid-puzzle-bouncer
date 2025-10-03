@@ -171,8 +171,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -3.56083}
-  m_SizeDelta: {x: 350, y: 414.4073}
+  m_AnchoredPosition: {x: 0.0000076293945, y: -5.000001}
+  m_SizeDelta: {x: 360, y: 410}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7426107696918511199
 CanvasRenderer:
@@ -202,7 +202,7 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 1
-  m_CellSize: {x: 400, y: 150}
+  m_CellSize: {x: 500, y: 187.5}
   m_Spacing: {x: 0, y: 25}
   m_Constraint: 1
   m_ConstraintCount: 1
@@ -242,8 +242,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 225, y: -169.70364}
-  m_SizeDelta: {x: 400, y: 150}
+  m_AnchoredPosition: {x: 230, y: -148.75}
+  m_SizeDelta: {x: 500, y: 187.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9030281906928378104
 CanvasRenderer:
@@ -293,7 +293,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 6529673208033604606}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -858,8 +858,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 225, y: -82.20364}
-  m_SizeDelta: {x: 400, y: 150}
+  m_AnchoredPosition: {x: 225, y: -41.5}
+  m_SizeDelta: {x: 500, y: 187.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1665343754664776069
 CanvasRenderer:
@@ -909,7 +909,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 8231505875360681074}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -1126,8 +1126,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 225, y: -257.20364}
-  m_SizeDelta: {x: 400, y: 150}
+  m_AnchoredPosition: {x: 225, y: -254}
+  m_SizeDelta: {x: 500, y: 187.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6226376574400366470
 CanvasRenderer:
@@ -1177,7 +1177,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 5393922125307795860}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -1260,8 +1260,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -3.560791}
-  m_SizeDelta: {x: 350, y: 414.4073}
+  m_AnchoredPosition: {x: 0, y: -6}
+  m_SizeDelta: {x: 350, y: 408}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6357665332865173038
 CanvasRenderer:
@@ -1291,7 +1291,7 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 1
-  m_CellSize: {x: 400, y: 150}
+  m_CellSize: {x: 500, y: 187.5}
   m_Spacing: {x: 0, y: 25}
   m_Constraint: 1
   m_ConstraintCount: 1
@@ -1331,8 +1331,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 225, y: -344.70364}
-  m_SizeDelta: {x: 400, y: 150}
+  m_AnchoredPosition: {x: 230, y: -361.25}
+  m_SizeDelta: {x: 500, y: 187.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &810029408412721914
 CanvasRenderer:
@@ -1382,7 +1382,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 6507081769229846302}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -2416,8 +2416,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 225, y: -432.20364}
-  m_SizeDelta: {x: 400, y: 150}
+  m_AnchoredPosition: {x: 225, y: -466.5}
+  m_SizeDelta: {x: 500, y: 187.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7258257378348366090
 CanvasRenderer:
@@ -2467,7 +2467,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 7113792165428063204}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:

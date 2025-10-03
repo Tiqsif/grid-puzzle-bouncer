@@ -31,6 +31,12 @@ public class MovingRock : Unit
         if (GetUnitAtPosition(player.cellPosition, player) == null) // coming from empty
         {
             //Debug.Log("to rock from Empty");
+            if (player.type == Type.Turtoise)
+            {
+                player.cellPosition = cellPosition;
+                player.Move(target);
+
+            }
         }
         else // coming from another unit
         {

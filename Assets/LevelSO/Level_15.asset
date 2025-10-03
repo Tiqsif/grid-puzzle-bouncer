@@ -28,6 +28,6 @@ MonoBehaviour:
     randomRotation: 1
     rotation: 0
   - type: 10
-    cellPosition: {x: 2, y: 1}
+    cellPosition: {x: 3, y: 1}
     randomRotation: 1
     rotation: 0

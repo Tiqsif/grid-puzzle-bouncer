@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour
     public LevelSpawner levelSpawner;
     [HideInInspector] public int currentLevelIndex = 0;
     static LevelManager _instance;
-
+    public bool cancelNextLevelLoad = false;
     public delegate void OnLevelChange();
     public static event OnLevelChange onLevelChange;
     public static LevelManager Instance
@@ -96,6 +96,11 @@ public class LevelManager : MonoBehaviour
     IEnumerator LoadNextLevelDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+        if (cancelNextLevelLoad)
+        {
+            cancelNextLevelLoad = false;
+            yield break;
+        }
         LoadNextLevel();
     }
 

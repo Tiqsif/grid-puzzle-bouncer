@@ -19,14 +19,6 @@ public class LevelSpawner : MonoBehaviour
         propSpawner = GetComponent<PropSpawner>();
         platform = FindAnyObjectByType<Platform>();
         allUnits = allUnitsSO.allUnits;
-        foreach (var unit in allUnits)
-        {
-            if(unit.TryGetComponent(out Unit unitComponent))
-            {
-                unitDictionary.Add(unitComponent.type, unit);
-            }
-           
-        }
         if (levelData.allLevels.Count == 0)
         {
             Debug.LogError("No levels found");
@@ -35,7 +27,18 @@ public class LevelSpawner : MonoBehaviour
         }
     }
 
-
+    private void Start()
+    {
+        foreach (var unit in allUnits)
+        {
+            if(unit.TryGetComponent(out Unit unitComponent))
+            {
+                unitDictionary.Add(unitComponent.type, unit);
+            }
+           
+        }
+        
+    }
     public void SpawnLevel()
     {
         if (currentGrid == null)
@@ -46,7 +49,15 @@ public class LevelSpawner : MonoBehaviour
                 propSpawner.CreatePlatform(levelData.currentLevel);
             }
             SetupLevel();
-            platformMesh.transform.localScale = new Vector3(levelData.currentLevel.gridSize.x / 10f * levelData.currentLevel.cellSize, platformMesh.transform.localScale.y, levelData.currentLevel.gridSize.y / 10f * levelData.currentLevel.cellSize);
+            
+            //platformMesh.transform.localScale = new Vector3(gridSize.x / 10f * cellSize, platformMesh.transform.localScale.y, gridSize.y / 10f * cellSize) ;
+
+
+            platformMesh.transform.localScale = new Vector3(levelData.currentLevel.gridSize.x / 10f * levelData.currentLevel.cellSize,
+                                                                platformMesh.transform.localScale.y,
+                                                                    levelData.currentLevel.gridSize.y / 10f * levelData.currentLevel.cellSize);
+            //Debug.Log("LevelSpawner: SpawnLevel: " + " with grid size " + levelData.currentLevel.gridSize);
+            
         }
         else
         {

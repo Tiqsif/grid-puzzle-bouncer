@@ -54,17 +54,18 @@ public class AudioManager : MonoBehaviour
     private void OnEnable()
     {
         // Subscribe to the OnSceneLoaded event
-        UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
+        //UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
         // Unsubscribe from the OnSceneLoaded event
-        UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
+        //UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
     {
+        //Debug.Log("AudioManager: OnSceneLoaded: " + scene.name);
         // Play the music clip when a new scene is loaded
         foreach (AudioClip ambienceClip in ambienceClips)
         {
@@ -75,14 +76,13 @@ public class AudioManager : MonoBehaviour
     
 
     private void Start()
-    {
-#if UNITY_EDITOR
+    { 
+        //Debug.Log("AudioManager: Start: playing music and ambience in editor");
         foreach (AudioClip ambienceClip in ambienceClips)
         {
             PlayAmbience(ambienceClip, true);
         }
         PlayMusic(musicClip, true);
-#endif
     }
 
     

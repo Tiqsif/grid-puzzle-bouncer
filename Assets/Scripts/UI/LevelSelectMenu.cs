@@ -20,7 +20,7 @@ public class LevelSelectMenu : MonoBehaviour
         Debug.Log("sceneCount: " + sceneCount);
         for (int i = 0; i < sceneCount; i++)
         {
-            Debug.Log("i: " + i);
+            //Debug.Log("i: " + i);
             GameObject button = Instantiate(levelButtonPrefab, frame);
             button.TryGetComponent(out LevelButton buttonComponent);
             buttonComponent.SetButton(i, levelData, gameSceneIndex);

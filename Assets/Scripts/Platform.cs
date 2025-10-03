@@ -105,6 +105,7 @@ public class Platform : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
+            LevelManager.Instance.cancelNextLevelLoad = true;
             LevelManager.Instance.ReloadLevel();
         }
 
@@ -164,7 +165,7 @@ public class Platform : MonoBehaviour
     /// </summary>
     public virtual void SetGridElements()
     {
-        Debug.Log("Platform: SetGridElements");
+        //Debug.Log("Platform: SetGridElements");
         //Debug.Log("Before: " + units.Count);
 
         // --- reset unit ---

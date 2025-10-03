@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : FrogBase
 {
-
+    public bool inputEnabled = true;
     public delegate void OnPlayerDeath();
     public static event OnPlayerDeath onPlayerDeath;
 
@@ -16,7 +16,7 @@ public class Player : FrogBase
     
     private void Update()
     {
-        if (!isDead && !isMoving && Time.timeScale > 0)
+        if (!isDead && !isMoving && inputEnabled && Time.timeScale > 0)
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
@@ -90,6 +90,7 @@ public class Player : FrogBase
 
     public override void BumpAnimation()
     {
+        if(inputEnabled) StartCoroutine(DisableInputFor(1f));
         base.BumpAnimation();
         //animationHandler.Bump();
     }
@@ -99,7 +100,16 @@ public class Player : FrogBase
     /// </summary>
     public override void FallAnimation()
     {
+        if(inputEnabled) StartCoroutine(DisableInputFor(1f));
         base.FallAnimation();
         //animationHandler.Fall();
+    }
+
+
+    private IEnumerator DisableInputFor(float delay)
+    {
+        inputEnabled = false;
+        yield return new WaitForSeconds(delay);
+        inputEnabled = true;
     }
 }

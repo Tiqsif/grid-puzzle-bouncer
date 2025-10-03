@@ -14,7 +14,7 @@ public class Unit : MonoBehaviour
     public bool isJumpable = true;
     public bool isMoving = false;
     public bool isDead = false;
-
+    public bool isGettingJumpedOn = false;
     [Tooltip("If true a temporary scale change will happen onJumped")]
     public bool isElastic = false;
 
@@ -60,7 +60,7 @@ public class Unit : MonoBehaviour
     }
     public virtual void Move(Vector2Int targetPosition, float delay)
     {
-        if (isDead || moveSpeed <= 0)
+        if (isDead || moveSpeed <= 0 || isGettingJumpedOn)
         {
             return;
         }
@@ -82,7 +82,7 @@ public class Unit : MonoBehaviour
         Vector2 directionF = targetPosition - cellPosition;
         float mag = directionF.magnitude;
         currentSpeed = moveSpeed * mag;
-        if (type == Type.Player)
+        if (this.type == Type.Player)
         {
             transform.right = new Vector3(direction.x, 0, direction.y);
         }
@@ -98,7 +98,8 @@ public class Unit : MonoBehaviour
         }
         if (targetUnit != null) // if a unit is in the target position
         {
-            yield return targetUnit.JumpingOn(this);
+            // targetUnit handles this units jumping logic
+            yield return targetUnit.JumpingOn(this); // wait for the targets handling
             /*
             if (targetUnit.isJumpable)
             {
@@ -111,22 +112,22 @@ public class Unit : MonoBehaviour
             }
             */
             platform.SetGridElements();
-            targetUnit.JumpedOn(this);
+            targetUnit.JumpedOn(this); // after the jumping is done, call jumpedOn on the target, usually this is where jumper.cellPosition is set to target.cellPos
         }
         else // if no unit is in the target position
         {
-            cellPosition = targetPosition;
+            cellPosition = targetPosition; // instantyly snap to the target cell position without waiting the movement
             if (platform.IsInsideGrid(cellPosition)) // if in the grid
             {
                 JumpAnimation();
-                yield return StartCoroutine(MoveTo(platform.grid.GetWorldPosition(cellPosition)));
+                yield return StartCoroutine(MoveTo(platform.grid.GetWorldPosition(cellPosition))); // actual tweenlike movement
                 Land();
 
             }
             else // if out of the grid
             {
                 FallAnimation();
-                yield return StartCoroutine(FallTo(platform.grid.GetWorldPosition(cellPosition)));
+                yield return StartCoroutine(FallTo(platform.grid.GetWorldPosition(cellPosition))); // actual tweenlike movement, Y is lowered compared to MoveTo
             }
         }
 
@@ -143,8 +144,8 @@ public class Unit : MonoBehaviour
         {
             yield return null;
         }
-        targetPosition.y = transform.position.y; // keep the same height
-        moveQueue.Enqueue(targetPosition);
+        Vector3 target = new Vector3(targetPosition.x, transform.position.y, targetPosition.z);
+        moveQueue.Enqueue(target);
         if (!isMoving)
         {
             yield return StartCoroutine(ProcessMoveQueue());
@@ -167,7 +168,7 @@ public class Unit : MonoBehaviour
         while (moveQueue.Count > 0)
         {
             Vector3 targetPosition = moveQueue.Dequeue();
-            Debug.Log(type + transform.position.ToString() + " to " + targetPosition.ToString());
+            Debug.Log(type + transform.position.ToString() + " started moving to " + targetPosition.ToString());
             while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, currentSpeed * Time.deltaTime);
@@ -241,12 +242,14 @@ public class Unit : MonoBehaviour
 
     public virtual IEnumerator JumpingOn(Unit player)
     {
-        Debug.Log("Jumping on " + type);
+        isGettingJumpedOn = true;
+        Debug.Log(player.type + " Jumping on " + type);
         yield return null;
     }
     public virtual void JumpedOn(Unit player)
     {
-        Debug.Log("Jumped on " + type);
+        isGettingJumpedOn = false;
+        Debug.Log(player.type + " Jumped on " + type);
 
         if (onJumpedParticle != null)
         {
@@ -268,7 +271,7 @@ public class Unit : MonoBehaviour
 
     public virtual void JumpedOff(Unit player)
     {
-        Debug.Log("Jumped off " + type);
+        Debug.Log(player.type + " Jumped off of " + type);
     }
 
     public IEnumerator FallTo(Vector3 targetPosition)
@@ -287,7 +290,11 @@ public class Unit : MonoBehaviour
         yield return StartCoroutine(ProcessMoveQueue());
         if (TryGetComponent(out Player playerScript))
         {
-            playerScript.Die();
+            playerScript.Die(); // sets isdead to true in itself
+        }
+        else
+        {
+            isDead = true;
         }
         cellPosition = new Vector2Int(-10, -10); // graveyard position for dead units
         platform.SetGridElements();

@@ -51,9 +51,9 @@ public class Turtoise : Unit
         player.BumpAnimation();
 
         // moveto the middle of cellposition and the cell next to it
-        Debug.Log(platform.grid.GetWorldPosition(cellPosition - direction));
-        Debug.Log(platform.grid.GetWorldPosition(cellPosition));
-        Debug.Log((platform.grid.GetWorldPosition(cellPosition - direction) + platform.grid.GetWorldPosition(cellPosition)) / 2);
+        //Debug.Log(platform.grid.GetWorldPosition(cellPosition - direction));
+        //Debug.Log(platform.grid.GetWorldPosition(cellPosition));
+        //Debug.Log((platform.grid.GetWorldPosition(cellPosition - direction) + platform.grid.GetWorldPosition(cellPosition)) / 2);
         yield return StartCoroutine(player.MoveTo(
            ( platform.grid.GetWorldPosition(cellPosition - direction) + platform.grid.GetWorldPosition(cellPosition) ) / 2
             ));
@@ -102,6 +102,8 @@ public class Turtoise : Unit
         {
             direction = -previousDir;
         }
+        Debug.Log("Turtoise direction: " + direction);
+
         base.Move(targetPosition, delay);
 
     }
@@ -109,10 +111,12 @@ public class Turtoise : Unit
     public override IEnumerator MoveRoutine(Vector2Int targetPosition, float delay)
     {
         yield return base.MoveRoutine(targetPosition, delay);
-        if(GetNonSelfUnitAtPosition(targetPosition) == null) // empty
+        if(GetNonSelfUnitAtPosition(targetPosition) == null && !isDead) // empty
         {
             Move(targetPosition + direction);
         }
+
+        Debug.Log("Turtoise finished moving to " + targetPosition);
     }
     public override void JumpedOff(Unit player)
     {
