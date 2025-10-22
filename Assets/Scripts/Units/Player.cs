@@ -22,15 +22,15 @@ public class Player : FrogBase
             {
                 Move(cellPosition + Vector2Int.up);
             }
-            if (Input.GetKeyDown(KeyCode.A))
+            else if (Input.GetKeyDown(KeyCode.A))
             {
                 Move(cellPosition + Vector2Int.left);
             }
-            if (Input.GetKeyDown(KeyCode.S))
+            else if (Input.GetKeyDown(KeyCode.S))
             {
                 Move(cellPosition + Vector2Int.down);
             }
-            if (Input.GetKeyDown(KeyCode.D))
+            else if (Input.GetKeyDown(KeyCode.D))
             {
                 Move(cellPosition + Vector2Int.right);
             }

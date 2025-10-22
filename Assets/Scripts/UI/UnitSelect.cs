@@ -92,7 +92,7 @@ public class UnitSelect : MonoBehaviour
             {
                 if (currentUnitPlacer.isClicked)
                 {
-                    currentUnitPlacer.rotationAngle = (currentUnitPlacer.rotationAngle + 90) % 360;
+                    currentUnitPlacer.rotationAngle = (currentUnitPlacer.rotationAngle + 45) % 360;
                     currentUnitPlacer.rotationIndicator.localEulerAngles = new Vector3(0, currentUnitPlacer.rotationAngle - 90, 0);
                     SelectUnit(selectedUnitIndex);
                 }

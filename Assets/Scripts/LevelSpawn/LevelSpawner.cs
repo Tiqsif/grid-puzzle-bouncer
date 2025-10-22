@@ -14,6 +14,7 @@ public class LevelSpawner : MonoBehaviour
     private PropSpawner propSpawner;
     private Platform platform;
     [HideInInspector] public Grid currentGrid;
+
     private void Awake()
     {
         propSpawner = GetComponent<PropSpawner>();
