@@ -35,6 +35,7 @@ Transform:
   - {fileID: 3880161075175430001}
   - {fileID: 1239395874542179774}
   - {fileID: 3495714302111417772}
+  - {fileID: 5957695996068220369}
   m_Father: {fileID: 7120494322230071002}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8514086045341286328
@@ -46,11 +47,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7120494322230071002}
-  - component: {fileID: 2049926994070957205}
+  - component: {fileID: 1343754455179123376}
   m_Layer: 0
-  m_Name: Water
+  m_Name: FlowerPad
   m_TagString: Untagged
-  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -70,7 +71,7 @@ Transform:
   - {fileID: 1881667612523381086}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2049926994070957205
+--- !u!114 &1343754455179123376
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -79,12 +80,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8514086045341286328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 140a2373a55d0024c83b641a73733410, type: 3}
+  m_Script: {fileID: 11500000, guid: 51c0c4ea9ec15c6479241ab060554133, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cellPosition: {x: 0, y: 0}
-  color: {r: 0, g: 0.75, b: 1, a: 1}
-  type: 5
+  color: {r: 0.9528302, g: 0.18427375, b: 0.32385466, a: 1}
+  type: 16
   moveSpeed: 0
   isJumpable: 1
   isMoving: 0
@@ -92,12 +93,11 @@ MonoBehaviour:
   isGettingJumpedOn: 0
   isElastic: 0
   onJumpedAudioPacks:
-  - {fileID: 11400000, guid: 24e665c6eefef904c93c98d1a369040e, type: 2}
-  - {fileID: 11400000, guid: 90baeb445a3c88a4b970939e362ada59, type: 2}
-  - {fileID: 11400000, guid: 29e31f949962d8e49b85ef0d34b4983b, type: 2}
+  - {fileID: 11400000, guid: 396defd93dcc3e2468c6f3d2a0b451fb, type: 2}
+  - {fileID: 11400000, guid: 00d490a4b3ba7c449bf6c650df025e27, type: 2}
   JumpParticle: {fileID: 0}
-  onJumpedParticle: {fileID: 194016, guid: 0ff177dc706eb3348b1b2cdffd9cd599, type: 3}
-  filledWaterPrefab: {fileID: 8514086045341286328, guid: 658a2316d71baff4d86fd9c120db2eda,
+  onJumpedParticle: {fileID: 191114, guid: 6f5ea49a4ec19d14db2075c54a96c80a, type: 3}
+  waterPrefab: {fileID: 8514086045341286328, guid: 969e5ffa8c987484fbcfa595efa17977,
     type: 3}
 --- !u!1001 &1239395874542309182
 PrefabInstance:
@@ -398,6 +398,85 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: dc9d1b206c395cc45becf959bc328ada,
     type: 3}
   m_PrefabInstance: {fileID: 3880161075175820785}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5957695996068616017
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1881667612523381086}
+    m_Modifications:
+    - target: {fileID: 100000, guid: 305493b43f2148a468de04274e158b0b, type: 3}
+      propertyPath: m_Name
+      value: flower_red3
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 305493b43f2148a468de04274e158b0b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 305493b43f2148a468de04274e158b0b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 305493b43f2148a468de04274e158b0b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 305493b43f2148a468de04274e158b0b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 305493b43f2148a468de04274e158b0b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 305493b43f2148a468de04274e158b0b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 305493b43f2148a468de04274e158b0b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 305493b43f2148a468de04274e158b0b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 305493b43f2148a468de04274e158b0b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 305493b43f2148a468de04274e158b0b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 305493b43f2148a468de04274e158b0b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 305493b43f2148a468de04274e158b0b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 305493b43f2148a468de04274e158b0b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 305493b43f2148a468de04274e158b0b, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 305493b43f2148a468de04274e158b0b, type: 3}
+--- !u!4 &5957695996068220369 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 305493b43f2148a468de04274e158b0b,
+    type: 3}
+  m_PrefabInstance: {fileID: 5957695996068616017}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6732389143129990254
 PrefabInstance:

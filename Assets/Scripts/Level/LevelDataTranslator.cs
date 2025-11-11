@@ -23,7 +23,9 @@ public class LevelDataTranslator : MonoBehaviour
             { "MF", Type.MushroomFrog },
             { "FF", Type.FlowerFrog },
             { "SF", Type.Sunflower },
-            { "T", Type.Turtoise }
+            { "T", Type.Turtoise },
+            { "MP", Type.MushroomPad },
+            { "FP", Type.FlowerPad }
         };
 
         List<string> rooms = new List<string> {

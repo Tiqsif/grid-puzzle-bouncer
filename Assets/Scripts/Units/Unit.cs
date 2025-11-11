@@ -239,16 +239,16 @@ public class Unit : MonoBehaviour
         return null;
     }
 
-    public virtual IEnumerator JumpingOn(Unit player)
+    public virtual IEnumerator JumpingOn(Unit jumper)
     {
         isGettingJumpedOn = true;
-        Debug.Log(player.type + " Jumping on " + type);
+        Debug.Log(jumper.type + " Jumping on " + type);
         yield return null;
     }
-    public virtual void JumpedOn(Unit player)
+    public virtual void JumpedOn(Unit jumper)
     {
         isGettingJumpedOn = false;
-        Debug.Log(player.type + " Jumped on " + type);
+        Debug.Log(jumper.type + " Jumped on " + type);
 
         if (onJumpedParticle != null)
         {
@@ -268,9 +268,9 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public virtual void JumpedOff(Unit player)
+    public virtual void JumpedOff(Unit jumper)
     {
-        Debug.Log(player.type + " Jumped off of " + type);
+        Debug.Log(jumper.type + " Jumped off of " + type);
     }
 
     public IEnumerator FallTo(Vector3 targetPosition)

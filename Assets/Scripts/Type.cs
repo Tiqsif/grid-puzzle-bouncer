@@ -14,5 +14,8 @@ public enum Type
     MushroomFrog,
     FlowerFrog,
     Sunflower,
-    Turtoise
+    Turtoise,
+    MushroomPad,
+    FlowerPad,
+    FilledWater
 }
